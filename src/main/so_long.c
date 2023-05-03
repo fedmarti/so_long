@@ -1,26 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstsize.c                                       :+:      :+:    :+:   */
+/*   so_long.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/11 22:31:31 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/05/02 22:57:49 by fedmarti         ###   ########.fr       */
+/*   Created: 2023/05/03 15:48:45 by federico          #+#    #+#             */
+/*   Updated: 2023/05/03 19:05:03 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft_plus.h"
+#include "../../so_long.h"
+#include "../map_load/map_load.h"
+#include <stdio.h>
 
-int	ft_lstsize(t_list *lst)
+int	main(int argc, char **argv)
 {
-	int	i;
+	t_map	*map;
 
-	i = 0;
-	while (lst)
+	if (argc != 2)
 	{
-		i++;
-		lst = lst->next;
+		printf("provide valid path as argument\n");
+		return (1);
 	}
-	return (i);
+	map = map_load(argv[1]);
+	if (!map)
+	{
+		printf("%s map failed to load\n", argv[1]);
+		return (1);
+	}
+	for (int i = 0; map->map[i]; i++)
+ 		printf ("%s\n", map->map[i]);
+	map_free(map);
 }

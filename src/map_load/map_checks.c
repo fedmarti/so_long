@@ -6,12 +6,14 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 22:25:49 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/05/02 23:54:57 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/05/03 19:41:31 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "map_load.h"
 #include <stdbool.h>
+
+int	map_list_append(t_map *map, char tile, t_point position);
 
 int	check_tile(t_map *map, char tile, t_point point)
 {
@@ -32,16 +34,28 @@ int	check_tile(t_map *map, char tile, t_point point)
 	return (0);
 }
 
-bool	flood_fill(char **map, t_point	position)
+static bool	flood_fill(char **map, t_point	position)
 {
 	char	tile;
 	int		i;
+	t_point	neighbor;
 
+	map[position.y][position.x] = Wall;
+	i = 0;
 	while (i < 4)
 	{
-		//get_next_direction();
-		//vector math...
+		neighbor = vector_add(position, ft_get_next_direction());
+		tile = map[neighbor.y][neighbor.x];
+		if (tile != Void && tile != Wall)
+		{
+			if (!flood_fill(map, neighbor))
+				return (false);
+		}
+		if (tile == Void)
+			return (false);
+		i++;
 	}
+	return (true);
 }
 
 static char	**map_dup(char **map, unsigned int height)
@@ -50,29 +64,57 @@ static char	**map_dup(char **map, unsigned int height)
 	int		i;
 
 	i = 0;
+	if (!map)
+		return (NULL);
 	temp_map = malloc(sizeof(char *) * (height + 1));
 	if (!temp_map)
 		return (NULL);
-	while (i < height)
+	while (i < (int)height)
 	{
 		temp_map[i] = ft_strdup(map[i]);
 		if (!temp_map)
-			return (ft_free_matrix(&temp_map, i));
+			return (ft_free_matrix((void ***)&temp_map, i));
 		i++;
 	}
 	temp_map[i] = NULL;
 	return (temp_map);
 }
 
+static bool	check_out_of_reach(char **map)
+{
+	unsigned int	i;
+	unsigned int	j;
+
+	j = 0;
+	while (map[j])
+	{
+		i = 0;
+		while (map[j][i])
+		{
+			if (map[j][i] != Wall || map[j][i] != Empty)
+				return (false);
+			i++;
+		}
+		j++;
+	}
+	return (true);
+}
+
 bool	valid_map_check(t_map *map)
 {
 	char	**temp_map;
-	int		i;
+	bool	check;
 
 	temp_map = map_dup(map->map, map->height);
 	if (!temp_map)
 		return (false);
-	
-	
-	
+	check = flood_fill(temp_map, map->player_position);
+	if (!check)
+	{
+		ft_free_matrix((void ***)&temp_map, map->height);
+		return (false);
+	}
+	check = check_out_of_reach(temp_map);
+	ft_free_matrix((void ***)&temp_map, map->height);
+	return (check);
 }

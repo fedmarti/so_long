@@ -1,28 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_get_next_direction.c                            :+:      :+:    :+:   */
+/*   ft_lstlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/02 23:28:21 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/05/03 19:45:34 by fedmarti         ###   ########.fr       */
+/*   Created: 2022/10/11 22:31:31 by fedmarti          #+#    #+#             */
+/*   Updated: 2023/05/03 19:05:21 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../src/t_point/point.h"
+#include "libft_plus.h"
 
-t_point	ft_get_next_direction(void)
+int	ft_lstlen(t_list *lst)
 {
-	static t_point	dir;
+	int	i;
 
-	if (!vector_cmpr(dir, vector2(0, -1)))
-		dir = vector2(1, 0);
-	else if (!vector_cmpr(dir, vector2(1, 0)))
-		dir = vector2(0, 1);
-	else if (!vector_cmpr(dir, vector2(0, 1)))
-		dir = (vector2(-1, 0));
-	else
-		dir = vector2(0, -1);
-	return (dir);
+	i = 0;
+	while (lst)
+	{
+		i++;
+		lst = lst->next;
+	}
+	return (i);
 }

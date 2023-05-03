@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 17:14:56 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/05/02 23:27:04 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/05/03 20:06:49 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define SO_LONG_H
 
 # include "libft_plus/libft_plus.h"
+# include "libft/libft.h"
 # include "get_next_line/get_next_line_bonus.h"
 # include <stdlib.h>
 # include "src/t_point/point.h"
@@ -24,7 +25,25 @@ enum e_tile_type {
 	Exit = 'E',
 	Empty = ' ',
 	Enemy = 'X',
-	Collectable = 'C'
+	Collectable = 'C',
+	Void = '\0'
 };
+
+enum e_enemy_type {
+	Zombie = 1,
+	Default = 0
+};
+
+typedef struct s_actor {
+	void			*additional_stuct;
+	t_point			position;
+	t_point			velocity;
+	unsigned int	height;
+	unsigned int	width;
+}	t_actor;
+
+typedef struct s_enemy {
+	enum e_enemy_type	type;	
+}	t_enemy;
 
 #endif
