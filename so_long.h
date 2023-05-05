@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 17:14:56 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/05/03 20:06:49 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/05/04 22:21:28 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include "get_next_line/get_next_line_bonus.h"
 # include <stdlib.h>
 # include "src/t_point/point.h"
+# include "src/map_load/map_load.h"
+# include "src/macro_headers/key_codes.h"
 
 enum e_tile_type {
 	Player = 'P',
