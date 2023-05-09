@@ -65,51 +65,46 @@ int	free_all(t_data *data)
 	return (0);
 }
 
-// int	print_key(int keypress, t_data *data)
-// {
-// 	int unit = 5;
-// 	(void *)data;
-// 	switch (keypress)
-// 	{
-// 	case ESC_KEY:
-// 	{
-// 		printf("bye");
-// 		free_all(data);
-// 	}
-// 	case ARROW_LEFT_KEY:
-// 		if ((*data->pos).x >= unit)
-// 			(*data->pos).x += -unit; 
-// 		printf("<\n");
-// 		break;
-// 	case ARROW_UP_KEY:
-// 		if ((*data->pos).y >= unit)
-// 			(*data->pos).y += -unit; 
-// 		printf("^\n");
-// 		break;
-// 	case ARROW_RIGHT_KEY:
-// 		if ((*data->pos).x <= 600 - unit - data->img->size.x)
-// 			(*data->pos).x += unit; 
-// 		printf(">\n");
-// 		break;
-// 	case ARROW_DOWN_KEY:
-// 		if ((*data->pos).y <= 600 - unit - data->img->size.y)
-// 			(*data->pos).y += unit;
-// 		printf("V\n");
-// 		break;
-// 	default:
-// 		printf("pressed key: %i\n", keypress);
-// 		break;
-// 	}
-// 	mlx_put_image_to_window(data->mlx, data->mlx_window, data->img->img, (*data->pos).x, (*data->pos).y);
-// 	return (keypress);
-// }
-
-int	print_key(int keypress, void *p)
+int	print_key(int keypress, t_data *data)
 {
-	(void)p;
-	printf("pressed key: %i\n", keypress);
-	return (1);
+	int unit = 5;
+	(void *)data;
+	switch (keypress)
+	{
+	case ESC_KEY:
+	{
+		printf("bye");
+		free_all(data);
+	}
+	case ARROW_LEFT_KEY:
+		if ((*data->pos).x >= unit)
+			(*data->pos).x += -unit; 
+		printf("<\n");
+		break;
+	case ARROW_UP_KEY:
+		if ((*data->pos).y >= unit)
+			(*data->pos).y += -unit; 
+		printf("^\n");
+		break;
+	case ARROW_RIGHT_KEY:
+		if ((*data->pos).x <= 600 - unit - data->img->size.x)
+			(*data->pos).x += unit; 
+		printf(">\n");
+		break;
+	case ARROW_DOWN_KEY:
+		if ((*data->pos).y <= 600 - unit - data->img->size.y)
+			(*data->pos).y += unit;
+		printf("V\n");
+		break;
+	default:
+		printf("pressed key: %i\n", keypress);
+		break;
+	}
+	mlx_put_image_to_window(data->mlx, data->mlx_window, data->img->img, (*data->pos).x, (*data->pos).y);
+	return (keypress);
 }
+
+
 
 
 t_data	*data_init(void)

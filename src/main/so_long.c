@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 15:48:45 by federico          #+#    #+#             */
-/*   Updated: 2023/05/03 19:05:03 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/05/09 23:35:51 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,28 @@
 
 int	main(int argc, char **argv)
 {
-	t_map	*map;
+	t_data	*data;
 
+	data = ft_calloc(1, sizeof(*data));
+	if (!data)
+		return (NULL);
 	if (argc != 2)
 	{
 		printf("provide valid path as argument\n");
 		return (1);
 	}
-	map = map_load(argv[1]);
-	if (!map)
+	data->map = map_load(argv[1]);
+	if (!data->map)
 	{
-		printf("%s map failed to load\n", argv[1]);
+		printf("%s map is invalid or failed to load\n", argv[1]);
+		free(data);
 		return (1);
 	}
-	for (int i = 0; map->map[i]; i++)
- 		printf ("%s\n", map->map[i]);
-	map_free(map);
+	for (int i = 0; data->map->map[i]; i++)
+ 		printf ("%s\n", data->map->map[i]);
+	data->mlx = mlx_init();
+	data->mlx_window = mlx_new_window(data->mlx, BASE_SCREEN_HEIGHT, BASE_SCREEN_WIDTH, NAME);
+	img.img = mlx_xpm_file_to_image(mlx, "characters/slime.xpm", &(img.size.x),  &(img.size.y));
+	map_free(&data->map);
+	free(data);
 }

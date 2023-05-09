@@ -6,14 +6,16 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 22:25:49 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/05/03 19:41:31 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/05/09 21:18:19 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "map_load.h"
 #include <stdbool.h>
 
-int	map_list_append(t_map *map, char tile, t_point position);
+int		map_list_append(t_map *map, char tile, t_point position);
+bool	has_player_and_exit(t_map *map);
+bool	is_rectangle(char **map, unsigned int width);
 
 int	check_tile(t_map *map, char tile, t_point point)
 {
@@ -38,13 +40,17 @@ static bool	flood_fill(char **map, t_point	position)
 {
 	char	tile;
 	int		i;
+	t_point	directions[4];
 	t_point	neighbor;
 
+	ft_get_directions(directions);
 	map[position.y][position.x] = Wall;
-	i = 0;
-	while (i < 4)
+	i = -1;
+	while (++i < 4)
 	{
-		neighbor = vector_add(position, ft_get_next_direction());
+		neighbor = vector_add(position, directions[i]);
+		if (neighbor.x < 0 || neighbor.y < 0)
+			continue ;
 		tile = map[neighbor.y][neighbor.x];
 		if (tile != Void && tile != Wall)
 		{
@@ -53,7 +59,6 @@ static bool	flood_fill(char **map, t_point	position)
 		}
 		if (tile == Void)
 			return (false);
-		i++;
 	}
 	return (true);
 }
@@ -80,6 +85,7 @@ static char	**map_dup(char **map, unsigned int height)
 	return (temp_map);
 }
 
+//checks if there's remaining non wall tiles after flood fill
 static bool	check_out_of_reach(char **map)
 {
 	unsigned int	i;
@@ -89,9 +95,9 @@ static bool	check_out_of_reach(char **map)
 	while (map[j])
 	{
 		i = 0;
-		while (map[j][i])
+		while (map[j][i] != 0)
 		{
-			if (map[j][i] != Wall || map[j][i] != Empty)
+			if (map[j][i] != Wall && map[j][i] != Empty)
 				return (false);
 			i++;
 		}
@@ -105,6 +111,8 @@ bool	valid_map_check(t_map *map)
 	char	**temp_map;
 	bool	check;
 
+	if (!has_player_and_exit(map) || !is_rectangle(map->map, map->width))
+		return (false);
 	temp_map = map_dup(map->map, map->height);
 	if (!temp_map)
 		return (false);

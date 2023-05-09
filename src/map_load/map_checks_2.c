@@ -1,33 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_matrix.c                                   :+:      :+:    :+:   */
+/*   map_checks_2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/02 23:05:48 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/05/09 19:14:22 by fedmarti         ###   ########.fr       */
+/*   Created: 2023/05/09 21:07:13 by fedmarti          #+#    #+#             */
+/*   Updated: 2023/05/09 21:14:54 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft_plus.h"
+#include <stdbool.h>
+#include "map_load.h"
 
-//frees matrix and its content
-//it is good practice not to count the last pointer if null terminated
-void	*ft_free_matrix(void ***pointer, size_t n_members)
+bool	is_rectangle(char **map, unsigned int width)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
-	if (!*pointer)
-		return (NULL);
-	while (i < n_members)
+	while (map[i])
 	{
-		if ((*pointer)[i])
-			free((*pointer)[i]);
+		if (ft_strlen(map[i]) != width)
+			return (false);
 		i++;
 	}
-	free(*pointer);
-	*pointer = NULL;
-	return (NULL);
+	return (true);
+}
+
+bool	has_player_and_exit(t_map *map)
+{
+	t_point	zero;
+
+	zero.x = 0;
+	zero.y = 0;
+	return (vector_cmpr(map->player_position, zero) \
+	&& vector_cmpr(map->exit_position, zero));
 }

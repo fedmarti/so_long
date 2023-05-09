@@ -4,11 +4,16 @@ LIBFT = libft/libft.a
 
 LIBFT_PLUS = libft_plus/libft_plus.a
 
-GET_NEXT_LINE = get_next_line/gnl.a
+MLX = minilibx-linux/libmlx.a
+
+GET_NEXT_LINE = get_next_line/libgnl.a
+
+LINKER_FLAGS = -Lminilibx-linux -lmlx -lXext -lX11 -lm
 
 SRC = src/t_point/t_point.c \
 	src/map_load/map_load.c \
 	src/map_load/map_checks.c \
+	src/map_load/map_checks_2.c \
 	src/map_load/map_actor_lists.c \
 	src/main/so_long.c
 
@@ -17,25 +22,25 @@ OBJS = $(SRC:.c=.o)
 FLAGS = -Wall -Wextra -Werror -g
 
 .c.o:
-	gcc ${FLAGS} -c $< -o ${<:.c=.o}
-	@ echo "compiled $<"
+	@ gcc ${FLAGS} -c $< -o ${<:.c=.o}
 
-${NAME}: ${LIBFT} ${LIBFT_PLUS} ${GET_NEXT_LINE} ${OBJS}
-		@ gcc ${FLAGS} -o ${NAME} ${OBJS} ${LIBFT} ${LIBFT_PLUS} ${GET_NEXT_LINE} -lm
+${NAME}: ${LIBFT} ${LIBFT_PLUS} ${GET_NEXT_LINE} ${OBJS} ${MLX}
+		@ gcc ${FLAGS} -o ${NAME} ${OBJS} ${LIBFT} ${LIBFT_PLUS} ${GET_NEXT_LINE} ${LINKER_FLAGS}
 		@ echo "${NAME} created 🗿"
 
 all: ${NAME}
 
+${MLX}: 
+		@ make -s -C ./minilibx-linux
+
 ${LIBFT}:
-		@ make -C ./libft fclean bonus clean
-		@ echo "compiled libft" 
+		@ make -s -C ./libft bonus clean
 
 ${LIBFT_PLUS}:
-		@ make -C ./libft_plus fclean all clean
-		@ echo "compiled libft+"	
+		@ make -s -C ./libft_plus all clean	
 
 ${GET_NEXT_LINE}:
-		@ make -C ./get_next_line fclean all clean
+		@ make -s -C ./get_next_line all clean
 
 clean:
 			@ rm -f *.o */*.o */*/*.o
@@ -50,8 +55,15 @@ aclean:		fclean
 			@ rm -f ${LIBFT}
 			@ rm -f ${LIBFT_PLUS}
 
+sclean:		fclean
+			@ make -s -C ./libft_plus fclean
+			@ make -s -C ./get_next_line fclean
+			@ make -s -C ./libft fclean
+
 re:			fclean all
 
 rre:		aclean all
 
-.PHONY:		all clean fclean aclean re
+rrre:		sclean all
+
+.PHONY:		all clean fclean aclean sclean re rre rrre

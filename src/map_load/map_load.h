@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 18:44:48 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/05/03 20:08:34 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/05/09 18:19:07 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef struct s_map{
 // t_map	*map_fill(t_map *map, t_list *row_list);
 // t_list	*map_read(char *filepath);
 t_map	*map_load(char *filepath);
-t_map	*map_free(t_map *map);
+t_map	*map_free(t_map **map);
 void	enemy_free(void *enemy);
 
 #endif
