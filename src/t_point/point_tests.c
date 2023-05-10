@@ -14,13 +14,13 @@ int	main()
 	{
 		scanf("%u", &a);
 		scanf("%u", &b);
-		vectora = vector2(a, b);
-		printf("vector_a = {%u, %u}\n len = %f\n", vectora.x, vectora.y, vector_len(vectora));
+		vectora = point2(a, b);
+		printf("vector_a = {%u, %u}\n len = %f\n", vectora.x, vectora.y, point_len(vectora));
 		scanf("%u", &a);
 		scanf("%u", &b);
-		vectorb = vector2(a, b);
-		printf("vector_b = {%u, %u}\n len = %f\n", vectorb.x, vectorb.y, vector_len(vectorb));
-		res = vector_cmpr(vectora, vectorb);
+		vectorb = point2(a, b);
+		printf("vector_b = {%u, %u}\n len = %f\n", vectorb.x, vectorb.y, point_len(vectorb));
+		res = point_cmpr(vectora, vectorb);
 		if (!res)
 			printf ("The two vectors are of the same length\n");
 		else if (res > 0)

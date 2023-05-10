@@ -6,14 +6,14 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 21:01:04 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/05/03 19:40:56 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/05/10 02:17:22 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "point.h"
 #include <stdlib.h>
 
-t_point	vector_add(t_point	v1, t_point v2)
+t_point	point_add(t_point	v1, t_point v2)
 {
 	t_point	result;
 
@@ -22,7 +22,7 @@ t_point	vector_add(t_point	v1, t_point v2)
 	return (result);
 }
 
-t_point	vector2(int x, int y)
+t_point	point2(int x, int y)
 {
 	t_point	vector;
 
@@ -31,17 +31,17 @@ t_point	vector2(int x, int y)
 	return (vector);
 }
 
-t_point	*vector2_pointer(t_point vector2)
+t_point	*point2_pointer(t_point point2)
 {
 	t_point	*pointer;
 
 	pointer = malloc(sizeof(*pointer));
 	if (pointer)
-		*pointer = vector2;
+		*pointer = point2;
 	return (pointer);
 }
 
-double	vector_len(t_point	vector)
+double	point_len(t_point	vector)
 {
 	double	len;
 
@@ -50,13 +50,13 @@ double	vector_len(t_point	vector)
 	return (len);
 }
 
-int	vector_cmpr(t_point a, t_point b)
+int	point_cmpr(t_point a, t_point b)
 {
 	double	len;
 	double	len2;
 
-	len = vector_len(a);
-	len2 = vector_len(b);
+	len = point_len(a);
+	len2 = point_len(b);
 	if (len > len2)
 		return (1);
 	else if (len < len2)

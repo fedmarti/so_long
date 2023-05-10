@@ -1,21 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   graphics.h                                         :+:      :+:    :+:   */
+/*   render_frame.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/09 21:52:19 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/05/10 01:36:13 by fedmarti         ###   ########.fr       */
+/*   Created: 2023/05/10 01:34:53 by fedmarti          #+#    #+#             */
+/*   Updated: 2023/05/10 02:03:53 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GRAPHICS_H
-# define GRAPHICS_H
+#include "../../so_long.h"
 
-
-# include "../../minilibx-linux/mlx.h"
-
-void	render_frame(t_data *data);
-
-#endif
+void	render_frame(t_data *data)
+{
+	mlx_put_image_to_window(data->mlx, data->mlx_window, data->img->img, (*data->pos).x, (*data->pos).y);
+}

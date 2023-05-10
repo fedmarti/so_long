@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 19:46:00 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/05/09 19:56:10 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/05/10 02:15:42 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ void	ft_get_directions(t_point *directions)
 {
 	if (!directions)
 		return ;
-	directions[0] = vector2(1, 0);
-	directions[1] = vector2(0, 1);
-	directions[2] = vector2(-1, 0);
-	directions[3] = vector2(0, -1);
+	directions[0] = point2(1, 0);
+	directions[1] = point2(0, 1);
+	directions[2] = point2(-1, 0);
+	directions[3] = point2(0, -1);
 }

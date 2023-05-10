@@ -11,11 +11,18 @@ GET_NEXT_LINE = get_next_line/libgnl.a
 LINKER_FLAGS = -Lminilibx-linux -lmlx -lXext -lX11 -lm
 
 SRC = src/t_point/t_point.c \
+	src/t_point/t_vector.c \
+	src/t_point/t_vector_2.c \
 	src/map_load/map_load.c \
 	src/map_load/map_checks.c \
 	src/map_load/map_checks_2.c \
 	src/map_load/map_actor_lists.c \
-	src/main/so_long.c
+	src/main/so_long.c \
+	src/main/ft_quit.c \
+	src/main/setup_hooks.c \
+	src/main/ft_process.c \
+	src/handle_input/key_event.c \
+	src/graphics_logic/render_frame.c
 
 OBJS = $(SRC:.c=.o)
 

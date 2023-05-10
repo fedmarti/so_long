@@ -6,11 +6,12 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:49:02 by federico          #+#    #+#             */
-/*   Updated: 2023/05/03 19:40:34 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/05/10 02:15:42 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "map_load.h"
+#include "map_load_internal.h"
+#include "../../so_long.h" //need to remove after creating actor header
 
 void	*enemy_init(t_point	position, char *filepath)
 {
@@ -31,7 +32,7 @@ void	*enemy_init(t_point	position, char *filepath)
 	enemy->height = 16; //i will need to implement a system to look the specifics up
 	enemy->width = 16; //i'm thinking about using a second file to store additional info matching each element using their location
 	(void)filepath; //temporarily unused, i will use it to find the "style sheet, it's going to be same name, diffrent extension"
-	enemy->velocity = vector2(0, 0);
+	enemy->velocity = point2(0, 0);
 	enemy->position = position;
 	return ((void *)enemy);
 }
@@ -64,7 +65,7 @@ int	map_list_append(t_map *map, char tile, t_point position)
 	}
 	else if (tile == Collectable)
 	{
-		content = (void *)vector2_pointer(position);
+		content = (void *)point2_pointer(position);
 		list_head = &map->collectable_list;
 	}
 	if (!content)

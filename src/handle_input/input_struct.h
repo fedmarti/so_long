@@ -1,21 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   graphics.h                                         :+:      :+:    :+:   */
+/*   input_struct.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/09 21:52:19 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/05/10 01:36:13 by fedmarti         ###   ########.fr       */
+/*   Created: 2023/05/10 01:03:05 by fedmarti          #+#    #+#             */
+/*   Updated: 2023/05/10 01:06:50 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GRAPHICS_H
-# define GRAPHICS_H
+#ifndef INPUT_STRUCT_H
+# define INPUT_STRUCT_H
 
+# include <stdbool.h>
 
-# include "../../minilibx-linux/mlx.h"
-
-void	render_frame(t_data *data);
-
+typedef struct s_input
+{
+	bool	up;
+	bool	down;
+	bool	left;
+	bool	right;
+	bool	space;
+	bool	esc;
+	bool	shift_left;
+	bool	ctrl_left;
+}	t_input;
+	
 #endif

@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 17:14:56 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/05/09 23:12:17 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/05/10 01:39:24 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include "src/graphics_logic/graphics.h"
 # include "src/t_point/point.h"
 # include "src/map_load/map_load.h"
+# include "src/handle_input/input.h"
 # include "src/macro_headers/key_codes.h"
 # include "src/macro_headers/general_settings.h"
 # include <X11/X.h>
@@ -56,6 +57,12 @@ typedef struct s_enemy {
 	enum e_enemy_type	type;	
 }	t_enemy;
 
+typedef	struct s_img
+{
+	t_point	size;
+	void	*img;
+}	t_img;
+
 typedef struct s_data
 {
 	t_map	*map;
@@ -63,7 +70,11 @@ typedef struct s_data
 	void	*mlx_window;
 	t_img	*img;
 	t_point	*pos;
+	t_input input;
 	//possibly more data
 } t_data;
+
+int	ft_quit(void *data);
+int	ft_process(void *data);
 
 #endif

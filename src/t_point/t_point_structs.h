@@ -1,21 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   graphics.h                                         :+:      :+:    :+:   */
+/*   t_point_structs.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/09 21:52:19 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/05/10 01:36:13 by fedmarti         ###   ########.fr       */
+/*   Created: 2023/05/10 02:21:21 by fedmarti          #+#    #+#             */
+/*   Updated: 2023/05/10 02:22:01 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GRAPHICS_H
-# define GRAPHICS_H
+#ifndef T_POINT_STRUCTS_H
+# define T_POINT_STRUCTS_H
 
+//point in 2d space
+//has an x and a y which are ints	
+typedef struct s_point{
+	int	x;
+	int	y;
+}	t_point;
 
-# include "../../minilibx-linux/mlx.h"
-
-void	render_frame(t_data *data);
+//point or vector in 2d space
+//has an x and a y which are doubles
+typedef	struct s_vector
+{
+	double	x;
+	double	y;
+}	t_vector;
 
 #endif

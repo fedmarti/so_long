@@ -6,20 +6,15 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 18:42:34 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/05/09 19:29:25 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/05/10 02:15:42 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "map_load.h"
-#include <stdbool.h>
+#include "map_load_internal.h"
 #include "../../get_next_line/get_next_line_bonus.h"
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
-#include "../../libft/libft.h"
-
-bool	valid_map_check(t_map *map);
-int		check_tile(t_map *map, char tile, t_point point);
 
 t_map	*map_free(t_map **map)
 {
@@ -35,7 +30,7 @@ t_map	*map_free(t_map **map)
 	return (NULL);
 }
 
-//uses gnl to create a list containing in each node line of the map file
+//uses gnl to create a list containing a line of the map file in each node
 t_list	*map_read(char *filepath)
 {
 	int		fd;
@@ -76,7 +71,7 @@ t_map	*map_fill(t_map *map, t_list *row_list)
 		x = 0;
 		while (map->map[y][x])
 		{
-			if (check_tile(map, map->map[y][x], vector2(x, y)))
+			if (check_tile(map, map->map[y][x], point2(x, y)))
 				return (NULL);
 			x++;
 		}
@@ -97,8 +92,8 @@ t_map	*map_init(t_list *row_list, char *filepath)
 		return (NULL);
 	map->width = (unsigned int) ft_strlen((char *)row_list->content) - 1;
 	map->height = (unsigned int) ft_lstlen(row_list);
-	map->player_position = vector2(0, 0);
-	map->exit_position = vector2(0, 0);
+	map->player_position = point2(0, 0);
+	map->exit_position = point2(0, 0);
 	map->entity_list = NULL;
 	map->enemy_list = NULL;
 	map->collectable_list = NULL;

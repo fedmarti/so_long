@@ -6,16 +6,12 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 22:25:49 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/05/09 21:18:19 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/05/10 02:17:22 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "map_load.h"
-#include <stdbool.h>
-
-int		map_list_append(t_map *map, char tile, t_point position);
-bool	has_player_and_exit(t_map *map);
-bool	is_rectangle(char **map, unsigned int width);
+#include "map_load_internal.h"
+#include "../../so_long.h" //also gotta remove
 
 int	check_tile(t_map *map, char tile, t_point point)
 {
@@ -48,7 +44,7 @@ static bool	flood_fill(char **map, t_point	position)
 	i = -1;
 	while (++i < 4)
 	{
-		neighbor = vector_add(position, directions[i]);
+		neighbor = point_add(position, directions[i]);
 		if (neighbor.x < 0 || neighbor.y < 0)
 			continue ;
 		tile = map[neighbor.y][neighbor.x];
@@ -85,7 +81,7 @@ static char	**map_dup(char **map, unsigned int height)
 	return (temp_map);
 }
 
-//checks if there's remaining non wall tiles after flood fill
+//checks if there are any remaining non wall tiles after flood fill
 static bool	check_out_of_reach(char **map)
 {
 	unsigned int	i;
@@ -106,6 +102,9 @@ static bool	check_out_of_reach(char **map)
 	return (true);
 }
 
+//runs all the check to confirm the validity of the map file
+//the map needs to be a rectangle, have only one player and exit,
+//and the collectables and exit need to be reachable
 bool	valid_map_check(t_map *map)
 {
 	char	**temp_map;

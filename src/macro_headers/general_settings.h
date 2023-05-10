@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 23:00:42 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/05/09 23:04:50 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/05/10 03:08:36 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,14 @@
 
 # ifndef BASE_SCREEN_HEIGHT
 #  define BASE_SCREEN_HEIGHT 224
+# endif
+
+# ifndef PLAYER_SPEED
+#  define PLAYER_SPEED 10
+# endif
+
+# ifndef DASH_BOOST
+#  define DASH_BOOST 10
 # endif
 
 # endif

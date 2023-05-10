@@ -140,6 +140,7 @@ int main()
 	mlx_put_image_to_window(mlx, mlx_win, img.img, position.x, position.y);
 	mlx_hook(mlx_win, DestroyNotify, 0L, free_all, (void *)data);
 	mlx_hook(mlx_win, KeyPress, KeyPressMask, print_key, (void *)data);
+	
 	mlx_loop(mlx);
 	mlx_destroy_window(mlx, mlx_win);
 	mlx_destroy_display(mlx);
