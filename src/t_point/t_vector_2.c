@@ -6,13 +6,14 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 02:36:28 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/05/10 02:44:57 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/05/10 20:16:44 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "t_point_structs.h"
+#include <math.h>
 
-double		vector_len(t_vector vector)
+double	vector_len(t_vector vector)
 {
 	double	len;
 
@@ -20,6 +21,7 @@ double		vector_len(t_vector vector)
 	len = sqrt(len);
 	return (len);
 }
+
 t_vector	vector_divide(t_vector vector, double divisor)
 {	
 	vector.x /= divisor;

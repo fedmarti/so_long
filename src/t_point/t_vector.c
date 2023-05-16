@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 02:20:24 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/05/10 03:04:56 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/05/10 20:33:18 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_vector	vector2(double x, double y)
 {
-	t_vector v;
+	t_vector	v;
 
 	v.x = x;
 	v.y = y;

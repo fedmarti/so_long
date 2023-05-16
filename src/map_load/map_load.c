@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 18:42:34 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/05/10 02:15:42 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/05/16 18:29:57 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ t_map	*map_free(t_map **map)
 	if (!map || !*map)
 		return (NULL);
 	ft_free_matrix((void ***)&(*map)->map, (*map)->height);
+	free_tiles(*map);
 	ft_lstclear(&(*map)->enemy_list, free);
 	ft_lstclear(&(*map)->object_list, free);
 	ft_lstclear(&(*map)->collectable_list, free);
@@ -87,20 +88,17 @@ t_map	*map_init(t_list *row_list, char *filepath)
 {
 	t_map	*map;
 
-	map = malloc(sizeof(*map));
+	map = ft_calloc(1, sizeof(*map));
 	if (!map)
 		return (NULL);
 	map->width = (unsigned int) ft_strlen((char *)row_list->content) - 1;
 	map->height = (unsigned int) ft_lstlen(row_list);
-	map->player_position = point2(0, 0);
-	map->exit_position = point2(0, 0);
-	map->entity_list = NULL;
-	map->enemy_list = NULL;
-	map->collectable_list = NULL;
-	map->object_list = NULL;
 	map->map_path = filepath;
 	map->map = ft_calloc(map->height + 1, sizeof(char *));
 	if (!map->map)
+		return (map_free(&map));
+	map->tiles = ft_calloc(map->height + 1, sizeof(t_tile *));
+	if (!map->tiles)
 		return (map_free(&map));
 	map = map_fill(map, row_list);
 	return (map);

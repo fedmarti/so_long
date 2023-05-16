@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 01:40:17 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/05/10 01:53:43 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/05/12 20:21:25 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "../macro_headers/key_codes.h"
 #include "../../so_long.h"
 
-static void key_event(int key_code, t_input *input, bool press)
+static void	key_event(int key_code, t_input *input, bool press)
 {
 	if (key_code == ARROW_DOWN_KEY)
 		input->down = press;
@@ -32,16 +32,21 @@ static void key_event(int key_code, t_input *input, bool press)
 		input->space = press;
 	else if (key_code == ESC_KEY)
 		input->esc = press;
+	printf("key %i", key_code);
+	if (press)
+		printf("pressed\n");
+	else
+		printf("released\n");
 }
 
 int	on_key_press(int key_code, void *data)
 {
 	key_event(key_code, &(((t_data *)data)->input), true);
-	return (1);	
+	return (1);
 }
 
-int	on_key_release(int	key_code, void *data)
+int	on_key_release(int key_code, void *data)
 {
 	key_event(key_code, &(((t_data *)data)->input), false);
-	return (1);	
+	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 17:14:56 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/05/10 01:39:24 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/05/13 00:03:41 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include "libft_plus/libft_plus.h"
 # include "libft/libft.h"
 # include "get_next_line/get_next_line_bonus.h"
-# include "src/graphics_logic/graphics.h"
+// # include "src/graphics_logic/graphics.h"
 # include "src/t_point/point.h"
 # include "src/map_load/map_load.h"
 # include "src/handle_input/input.h"
@@ -46,18 +46,18 @@ enum e_enemy_type {
 };
 
 typedef struct s_actor {
-	void			*additional_stuct;
-	t_point			position;
-	t_point			velocity;
-	unsigned int	height;
-	unsigned int	width;
+	void				*additional_stuct;
+	t_point				position;
+	t_point				velocity;
+	t_point				size;
+	enum e_tile_type	type;
 }	t_actor;
 
 typedef struct s_enemy {
 	enum e_enemy_type	type;	
 }	t_enemy;
 
-typedef	struct s_img
+typedef struct s_img
 {
 	t_point	size;
 	void	*img;
@@ -69,10 +69,10 @@ typedef struct s_data
 	void	*mlx;
 	void	*mlx_window;
 	t_img	*img;
-	t_point	*pos;
-	t_input input;
+	t_point	pos;
+	t_input	input;
 	//possibly more data
-} t_data;
+}	t_data;
 
 int	ft_quit(void *data);
 int	ft_process(void *data);

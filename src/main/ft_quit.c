@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 00:51:36 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/05/10 00:58:09 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/05/12 19:02:57 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@
 void	free_all(t_data *data)
 {
 	if (!data)
-		return (0);
+		return ;
 	if (data->map)
-		map_free(data->map);
+		map_free(&data->map);
 	if (data->img->img)
 		mlx_destroy_image(data->mlx, data->img->img);
 	if (data->mlx_window)

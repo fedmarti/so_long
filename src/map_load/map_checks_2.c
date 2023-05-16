@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 21:07:13 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/05/10 02:16:41 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/05/15 18:28:50 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,7 @@ bool	is_rectangle(char **map, unsigned int width)
 
 bool	has_player_and_exit(t_map *map)
 {
-	t_point	zero;
-
-	zero.x = 0;
-	zero.y = 0;
-	return (point_cmpr(map->player_position, zero) \
-	&& point_cmpr(map->exit_position, zero));
+	if (map->player && map->exit)
+		return (true);
+	return (false);
 }

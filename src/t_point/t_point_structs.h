@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 02:21:21 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/05/10 02:22:01 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/05/10 19:38:06 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ typedef struct s_point{
 
 //point or vector in 2d space
 //has an x and a y which are doubles
-typedef	struct s_vector
+typedef struct s_vector
 {
 	double	x;
 	double	y;

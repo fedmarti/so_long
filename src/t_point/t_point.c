@@ -6,12 +6,13 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 21:01:04 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/05/10 02:17:22 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/05/10 19:37:00 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "point.h"
 #include <stdlib.h>
+#include "t_point_structs.h"
+#include <math.h>
 
 t_point	point_add(t_point	v1, t_point v2)
 {

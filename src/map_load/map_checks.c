@@ -6,28 +6,42 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 22:25:49 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/05/10 02:17:22 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/05/15 18:26:52 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "map_load_internal.h"
 #include "../../so_long.h" //also gotta remove
 
+//for the type of objects that need to be unique (player, exit...)
+//returns 1 if they have already been found
+//returns 0 and adds their address to the map struct if not
+int	check_uniqueness(t_map *map, char tile, t_point point)
+{
+	t_actor	**actor;
+
+	if (tile == Player)
+		actor = &map->player;
+	else
+		actor = &map->exit;
+	if (*actor)
+		return (1);
+	*actor = map->tiles[point.x][point.y].entity_list->content;
+	return (0);
+}
+
 int	check_tile(t_map *map, char tile, t_point point)
 {
-	if (tile == Player)
+	map->tiles[point.x][point.y].coordinates = point;
+	if (tile != Empty && tile != Void)
 	{
-		if (map->player_position.x || map->player_position.x)
+		if (map_list_append(map, tile, point))
 			return (1);
-		map->player_position = point;
 	}
-	else if (tile == Enemy || tile == Collectable)
-		return (map_list_append(map, tile, point));
-	else if (tile == Exit)
+	if (tile == Player || tile == Exit)
 	{
-		if (map->exit_position.x || map->exit_position.y)
+		if (check_uniqueness(map, tile, point))
 			return (1);
-		map->exit_position = point;
 	}
 	return (0);
 }
@@ -115,7 +129,7 @@ bool	valid_map_check(t_map *map)
 	temp_map = map_dup(map->map, map->height);
 	if (!temp_map)
 		return (false);
-	check = flood_fill(temp_map, map->player_position);
+	check = flood_fill(temp_map, map->player->position);
 	if (!check)
 	{
 		ft_free_matrix((void ***)&temp_map, map->height);

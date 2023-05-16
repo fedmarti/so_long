@@ -6,13 +6,12 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 21:01:38 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/05/10 03:03:19 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/05/16 18:54:45 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef POINT_H
 # define POINT_H
-# include <math.h>
 # include "t_point_structs.h"
 
 
@@ -26,8 +25,15 @@ t_point		point2(int x, int y);
 t_point		*point2_pointer(t_point point2);
 //vector addition but the x and y are only integers
 t_point		point_add(t_point v1, t_point v2);
+// it does what it says it does
+// point.x *= factor
+// point.y *= factor
+t_point		point_multiply(t_point point, int factor);
+// point.x /= divisor
+// point.y /= divisor
+t_point		point_divide(t_point point, int	divisor);
 //returns t_vector with x and y components
-t_vector	vector2(double x, double y)
+t_vector	vector2(double x, double y);
 //pyhagora's theorem
 double		vector_len(t_vector vector);
 //self explanatory
