@@ -3,6 +3,7 @@ NAME = libft_plus.a
 SRC = ft_abs.c \
 	ft_do_nothing.c \
 	ft_free_matrix.c \
+	ft_matrix_init.c \
 	ft_get_next_direction.c \
 	ft_get_directions.c \
 	ft_lstlen.c \

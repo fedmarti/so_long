@@ -6,12 +6,13 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 18:42:34 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/05/16 18:29:57 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/05/19 04:35:03 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "map_load_internal.h"
 #include "../../get_next_line/get_next_line_bonus.h"
+#include "../../so_long.h"
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
@@ -20,6 +21,10 @@ t_map	*map_free(t_map **map)
 {
 	if (!map || !*map)
 		return (NULL);
+	if ((*map)->exit)
+		actor_free(&(*map)->exit);
+	if ((*map)->player)
+		actor_free(&(*map)->player);
 	ft_free_matrix((void ***)&(*map)->map, (*map)->height);
 	free_tiles(*map);
 	ft_lstclear(&(*map)->enemy_list, free);
@@ -70,14 +75,14 @@ t_map	*map_fill(t_map *map, t_list *row_list)
 	{
 		map->map[y] = (char *)row_list->content;
 		x = 0;
-		while (map->map[y][x])
+		while (x < map->width)
 		{
 			if (check_tile(map, map->map[y][x], point2(x, y)))
 				return (NULL);
 			x++;
 		}
-		if (x > 0 && map->map[y][x - 1] == '\n')
-			map->map[y][x - 1] = 0;
+		if (x > 0 && map->map[y][x] == '\n')
+			map->map[y][x] = 0;
 		y++;
 		row_list = row_list->next;
 	}
@@ -97,7 +102,7 @@ t_map	*map_init(t_list *row_list, char *filepath)
 	map->map = ft_calloc(map->height + 1, sizeof(char *));
 	if (!map->map)
 		return (map_free(&map));
-	map->tiles = ft_calloc(map->height + 1, sizeof(t_tile *));
+	map->tiles = (t_tile **)ft_matrix_init(map->width, map->height, sizeof(t_tile));
 	if (!map->tiles)
 		return (map_free(&map));
 	map = map_fill(map, row_list);

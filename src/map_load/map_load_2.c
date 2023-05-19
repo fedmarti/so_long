@@ -6,13 +6,11 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 22:04:47 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/05/12 22:36:01 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/05/19 05:05:37 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "map_struct.h"
-
-
 
 void	free_tiles(t_map *map)
 {
@@ -25,7 +23,7 @@ void	free_tiles(t_map *map)
 	while ((matrix)[i])
 	{
 		j = 0;
-		while (j < map->width)
+		while (j < (int) map->width)
 		{
 			ft_lstclear(&((matrix)[i][j]).entity_list, free);
 			j++;
@@ -33,5 +31,6 @@ void	free_tiles(t_map *map)
 		free((matrix)[i]);
 		i++;
 	}
+	free(matrix);
 	map->tiles = NULL;
 }

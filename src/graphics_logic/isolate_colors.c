@@ -1,37 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   general_settings.h                                 :+:      :+:    :+:   */
+/*   isolate_colors.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/09 23:00:42 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/05/17 19:54:23 by fedmarti         ###   ########.fr       */
+/*   Created: 2023/05/18 19:14:43 by fedmarti          #+#    #+#             */
+/*   Updated: 2023/05/19 01:56:47 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef	GENERAL_SETTINGS_H
-# define GENERAL_SETTINGS_H
+#include "colors.h"
 
-# ifndef BASE_SCREEN_WIDTH
-#  define BASE_SCREEN_WIDTH 256
-# endif
+unsigned int	isolate_transparency(unsigned int color)
+{
+	return (color & TRANSPARENCY_MAX);
+}
 
-# ifndef BASE_SCREEN_HEIGHT
-#  define BASE_SCREEN_HEIGHT 224
-# endif
+unsigned int	isolate_red(unsigned int color)
+{
+	return (color & RED_MAX);
+}
 
-# ifndef TILE_SIZE
-#  define TILE_SIZE 16
-#endif
+unsigned int	isolate_green(unsigned int color)
+{
+	return (color & GREEN_MAX);
+}
 
-# ifndef PLAYER_SPEED
-#  define PLAYER_SPEED 1
-# endif
-
-# ifndef DASH_BOOST
-#  define DASH_BOOST 1
-# endif
-
-# endif
-
+unsigned int	isolate_blue(unsigned int color)
+{
+	return (color & BLUE_MAX);
+}

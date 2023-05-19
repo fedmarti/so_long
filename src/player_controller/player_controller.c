@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 02:03:55 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/05/16 21:50:42 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/05/18 17:00:46 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ t_list	*ft_lstcopy(t_list *head)
 		new = ft_lstnew(temp->content);
 		if (!new)
 		{
-			ft_lstclear(new_list_head, ft_do_nothing);
+			ft_lstclear(&new_list_head, ft_do_nothing);
 			return (NULL);
 		}
 		ft_lstadd_back(&new_list_head, new);
@@ -85,45 +85,62 @@ t_point	get_tile(t_point global_position, t_map *map)
 	t_point	tile;
 
 	tile = point_divide(global_position, TILE_SIZE);
-	if (tile.x >= map->width || tile.y >= map->width)
+	if (tile.x >= (int) map->width || tile.y >= (int) map->width)
 		return	(point2(-1,-1));
 	return (tile);
 }
 
 //only works with squares so far
-bool is_colliding(t_actor *actor1, t_vector vel, t_actor *actor2)
+// AABB collision
+bool	is_colliding(t_actor *actor1, t_vector vel, t_actor *actor2)
 {
-	t_point pos_after_movement;
+	t_point	pos_after_movement;
 
 
 	// rect1.x < rect2.x + rect2.w &&
     // rect1.x + rect1.w > rect2.x &&
     // rect1.y < rect2.y + rect2.h &&
     // rect1.h + rect1.y > rect2.y
-
+	if (actor1 == actor2)
+		return (false);
 	pos_after_movement = point_add(actor1->position, vector_to_point(vel));
-	return (pos_after_movement.x < actor2->position.x + actor2->size.x &&
-		pos_after_movement.x + actor1->size.x > actor2->position.x &&
-		pos_after_movement.y < actor2->position.y + actor2->size.y &&
-		pos_after_movement.y + actor1->size.y > actor2->position.y) ;
+	return (pos_after_movement.x < actor2->position.x + actor2->size.x
+		&& pos_after_movement.x + actor1->size.x > actor2->position.x
+		&& pos_after_movement.y < actor2->position.y + actor2->size.y
+		&& pos_after_movement.y + actor1->size.y > actor2->position.y);
 }
 
-void	solve_collision(t_actor *actor1, t_vector vel, t_actor *actor2)
+t_vector	solve_collision(t_actor *actor1, t_vector vel, t_actor *actor2)
 {
-	;
+	t_vector	displacement;
+	t_point		pos_after_movement;
+
+	pos_after_movement = point_add(actor1->position, vector_to_point(vel));
+	displacement = point_to_vector \
+	(point_subtract(pos_after_movement, actor2->position));	
+	return (vector_add(vel, displacement));
 }
 void	move_and_collide(t_actor *actor, t_vector velocity, t_map *map)
 {
 	t_point	actor_size;
 	t_list	*entity_list;
+	t_list	*temp;
 
 	actor_size = point_divide(actor->size, TILE_SIZE);
-	entity_list = get_collision_list(get_tile(actor->position, map), actor_size, map);
+	entity_list = get_collision_list \
+	(get_tile(actor->position, map), actor_size, map);
 	while (entity_list)
 	{
 		if (is_colliding(actor, velocity, (t_actor *)entity_list->content))
-			solve_collision()
+		{
+			velocity = solve_collision \
+			(actor, velocity, (t_actor *)entity_list->content);
+		}
+		temp = entity_list->next;
+		ft_lstdelone(entity_list, ft_do_nothing);
+		entity_list = temp;
 	}
+	actor->position = point_add(actor->position, vector_to_point(velocity));
 }
 
 void	player_controller(t_data *data)

@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:49:02 by federico          #+#    #+#             */
-/*   Updated: 2023/05/15 18:32:41 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/05/19 05:03:18 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 // 		return (NULL);
 // 	}
 // 	enemy_characteristics->type = Default; //these are placeholders
-// 	enemy->additional_stuct = (void *)enemy_characteristics;
+// 	enemy->additional_struct = (void *)enemy_characteristics;
 // 	enemy->height = TILE_SIZE; //i will need to implement a system to look the specifics up
 // 	enemy->width = TILE_SIZE; //i'm thinking about using a second file to store additional info matching each element using their location
 // 	(void)filepath; //temporarily unused, i will use it to find the "style sheet, it's going to be same name, diffrent extension"
@@ -45,8 +45,8 @@ void	enemy_free(void *enemy)
 	en = (t_actor *)enemy;
 	if (!enemy)
 		return ;
-	if (en->additional_stuct)
-		free(en->additional_stuct);
+	if (en->additional_struct)
+		free(en->additional_struct);
 	free(en);
 }
 
@@ -57,7 +57,7 @@ void	enemy_free(void *enemy)
 // 	collectable = ft_calloc(1, sizeof(*collectable));
 // 	if (!collectable)
 // 		return (NULL);
-// 	collectable->additional_stuct = NULL;
+// 	collectable->additional_struct = NULL;
 // 	collectable->height = TILE_SIZE; 
 // 	collectable->width = TILE_SIZE;
 // 	(void)filepath; 
@@ -135,10 +135,10 @@ t_actor	*actor_init(t_point	position, char *filepath, char type)
 	actor = ft_calloc(1, sizeof(*actor));
 	if (!actor)
 		return (NULL);
-	actor->position = position;
+	actor->position = point_multiply(position, TILE_SIZE);
 	actor->size = point2(TILE_SIZE, TILE_SIZE);
 	actor->type = type;
-	actor->additional_stuct = additional(position, filepath, actor); //actor is passed to potentially edit some type specific characteristics
+	actor->additional_struct = additional(position, filepath, actor); //actor is passed to potentially edit some type specific characteristics
 	return (actor);
 }
 
@@ -158,13 +158,14 @@ int	map_list_append(t_map *map, char tile, t_point position)
 		list_head = &map->collectable_list;
 	if (!content)
 		return (1);
-
 	new_node = ft_lstnew(content);
 	if (!new_node)
 	{
 		free(content);
 		return (1);
 	}
-	ft_lstadd_back(list_head, new_node);
+	if (list_head)
+		ft_lstadd_back(list_head, new_node);
+	ft_lstadd_back(&map->tiles[position.y][position.x].entity_list, new_node);
 	return (0);
 }

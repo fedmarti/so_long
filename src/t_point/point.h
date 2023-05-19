@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 21:01:38 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/05/16 18:54:45 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/05/17 17:43:44 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ t_point		point2(int x, int y);
 t_point		*point2_pointer(t_point point2);
 //vector addition but the x and y are only integers
 t_point		point_add(t_point v1, t_point v2);
+//vector subtraction but the x and y are only integers
+t_point	point_subtract(t_point p1, t_point p2);
 // it does what it says it does
 // point.x *= factor
 // point.y *= factor

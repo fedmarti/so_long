@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 01:40:17 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/05/12 20:21:25 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/05/17 19:44:15 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@ static void	key_event(int key_code, t_input *input, bool press)
 		input->space = press;
 	else if (key_code == ESC_KEY)
 		input->esc = press;
-	printf("key %i", key_code);
-	if (press)
-		printf("pressed\n");
-	else
-		printf("released\n");
+	// printf("key %i", key_code);
+	// if (press)
+	// 	printf("pressed\n");
+	// else
+	// 	printf("released\n");
 }
 
 int	on_key_press(int key_code, void *data)

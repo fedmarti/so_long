@@ -6,20 +6,35 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 15:48:45 by federico          #+#    #+#             */
-/*   Updated: 2023/05/10 00:31:10 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/05/18 22:20:36 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../so_long.h"
 #include "../map_load/map_load.h"
 #include <stdio.h>
+#include "../graphics_logic/graphics.h"
 
 void setup_hooks(t_data *data);
+
+void	*free_data(t_data *data)
+{
+	if (data->map)
+		map_free(&data->map);
+	if (data->mlx)
+	{
+		if (data->mlx_window)
+			mlx_destroy_window(data->mlx, data->mlx_window);
+		mlx_destroy_display(data->mlx);
+		free(data->mlx);
+	}
+	free(data);
+	return (NULL);
+}
 
 int	main(int argc, char **argv)
 {
 	t_data	*data;
-	t_img	img;
 
 	data = ft_calloc(1, sizeof(*data));
 	if (!data)
@@ -38,12 +53,8 @@ int	main(int argc, char **argv)
 	}
 	for (int i = 0; data->map->map[i]; i++)
  		printf ("%s\n", data->map->map[i]);
-	data->mlx = mlx_init();
-	data->mlx_window = mlx_new_window(data->mlx, BASE_SCREEN_HEIGHT, BASE_SCREEN_WIDTH, NAME);
-	img.img = mlx_xpm_file_to_image(data->mlx, "media/player/idle_front.xpm", &(img.size.x),  &(img.size.y));
-	data->img = &img;
+	data = graphics_init(data);
 	setup_hooks(data);
 	mlx_loop(data->mlx);
-	map_free(&data->map);
-	free(data);
+	free_data(data);
 }

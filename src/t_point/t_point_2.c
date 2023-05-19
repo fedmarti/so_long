@@ -6,11 +6,20 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 20:50:58 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/05/12 20:54:03 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/05/17 17:43:04 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "t_point_structs.h"
+
+t_point	point_subtract(t_point p1, t_point p2)
+{
+	t_point	result;
+
+	result.x = p1.x - p2.x;
+	result.y = p1.y - p2.y;
+	return (result);
+}
 
 t_point	point_multiply(t_point point, int factor)
 {

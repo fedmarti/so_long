@@ -15,6 +15,7 @@ SRC = src/t_point/t_point.c \
 	src/t_point/t_vector.c \
 	src/t_point/t_vector_2.c \
 	src/map_load/map_load.c \
+	src/map_load/map_load_2.c \
 	src/map_load/map_checks.c \
 	src/map_load/map_checks_2.c \
 	src/map_load/map_actor_lists.c \
@@ -23,8 +24,17 @@ SRC = src/t_point/t_point.c \
 	src/main/ft_quit.c \
 	src/main/setup_hooks.c \
 	src/main/ft_process.c \
+	src/main/actor_logic.c  \
 	src/handle_input/key_event.c \
-	src/graphics_logic/render_frame.c
+	src/graphics_logic/graphics_init.c \
+	src/graphics_logic/render_frame.c \
+	src/graphics_logic/add_pixel.c \
+	src/graphics_logic/color_utils.c \
+	src/graphics_logic/isolate_colors.c \
+	src/graphics_logic/get_color_channel.c \
+	src/graphics_logic/blending_options.c \
+	src/graphics_logic/blend_images.c \
+	src/graphics_logic/upscale.c
 
 OBJS = $(SRC:.c=.o)
 

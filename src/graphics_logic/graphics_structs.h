@@ -1,37 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   general_settings.h                                 :+:      :+:    :+:   */
+/*   graphics_structs.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/09 23:00:42 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/05/17 19:54:23 by fedmarti         ###   ########.fr       */
+/*   Created: 2023/05/17 21:54:06 by fedmarti          #+#    #+#             */
+/*   Updated: 2023/05/19 05:05:11 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef	GENERAL_SETTINGS_H
-# define GENERAL_SETTINGS_H
+#ifndef GRAPHICS_STRUCTS_H
+# define GRAPHICS_STRUCTS_H
+# include "../t_point/point.h"
 
-# ifndef BASE_SCREEN_WIDTH
-#  define BASE_SCREEN_WIDTH 256
-# endif
+typedef struct s_image {
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+	t_point	size;
+}	t_image;
 
-# ifndef BASE_SCREEN_HEIGHT
-#  define BASE_SCREEN_HEIGHT 224
-# endif
+typedef struct s_window {
+	void	*win;
+	t_point	size;
+}	t_window;
 
-# ifndef TILE_SIZE
-#  define TILE_SIZE 16
 #endif
-
-# ifndef PLAYER_SPEED
-#  define PLAYER_SPEED 1
-# endif
-
-# ifndef DASH_BOOST
-#  define DASH_BOOST 1
-# endif
-
-# endif
-

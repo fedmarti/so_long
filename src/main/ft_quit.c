@@ -6,12 +6,12 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 00:51:36 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/05/12 19:02:57 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/05/19 03:02:30 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../so_long.h"
-
+#include "../graphics_logic/graphics.h"
 
 
 
@@ -21,8 +21,10 @@ void	free_all(t_data *data)
 		return ;
 	if (data->map)
 		map_free(&data->map);
-	if (data->img->img)
-		mlx_destroy_image(data->mlx, data->img->img);
+	if (data->pre_buffer)
+		free_img(data->pre_buffer, data->mlx);
+	if (data->buffer)
+		free_img(data->buffer, data->mlx);
 	if (data->mlx_window)
 		mlx_destroy_window(data->mlx, data->mlx_window);
 	if (data->mlx)
