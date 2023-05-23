@@ -1,37 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   general_settings.h                                 :+:      :+:    :+:   */
+/*   sprite_array_free.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/09 23:00:42 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/05/23 19:36:47 by fedmarti         ###   ########.fr       */
+/*   Created: 2023/05/22 23:03:52 by fedmarti          #+#    #+#             */
+/*   Updated: 2023/05/22 23:09:19 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef	GENERAL_SETTINGS_H
-# define GENERAL_SETTINGS_H
+#include "graphics.h"
 
-# ifndef BASE_SCREEN_WIDTH
-#  define BASE_SCREEN_WIDTH 256
-# endif
+void	sprite_array_free(t_image **array, void *mlx)
+{
+	int	len;
 
-# ifndef BASE_SCREEN_HEIGHT
-#  define BASE_SCREEN_HEIGHT 224
-# endif
-
-# ifndef TILE_SIZE
-#  define TILE_SIZE 16
-#endif
-
-# ifndef PLAYER_SPEED
-#  define PLAYER_SPEED 10
-# endif
-
-# ifndef DASH_BOOST
-#  define DASH_BOOST 10
-# endif
-
-# endif
-
+	len = 0;
+	while ((*array)[len].img)
+		len++;
+	while (len--)
+	{
+		mlx_destroy_image(mlx, (*array)[len].img);
+	}
+	free(*array);
+	*array = NULL;
+}

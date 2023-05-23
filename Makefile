@@ -24,7 +24,6 @@ SRC = src/t_point/t_point.c \
 	src/main/ft_quit.c \
 	src/main/setup_hooks.c \
 	src/main/ft_process.c \
-	src/main/actor_logic.c  \
 	src/handle_input/key_event.c \
 	src/graphics_logic/graphics_init.c \
 	src/graphics_logic/render_frame.c \
@@ -34,7 +33,16 @@ SRC = src/t_point/t_point.c \
 	src/graphics_logic/get_color_channel.c \
 	src/graphics_logic/blending_options.c \
 	src/graphics_logic/blend_images.c \
-	src/graphics_logic/upscale.c
+	src/graphics_logic/upscale.c \
+	src/graphics_logic/image_init.c \
+	src/graphics_logic/render_actors.c \
+	src/actor_logic/actor_init.c \
+	src/actor_logic/actor_logic.c  \
+	src/actor_logic/enemy_init.c \
+	src/actor_logic/exit_init.c \
+	src/actor_logic/player_init.c \
+
+	
 
 OBJS = $(SRC:.c=.o)
 
@@ -44,7 +52,7 @@ FLAGS = -Wall -Wextra -Werror -g
 	@ gcc ${FLAGS} -c $< -o ${<:.c=.o}
 
 ${NAME}: ${LIBFT} ${LIBFT_PLUS} ${GET_NEXT_LINE} ${OBJS} ${MLX}
-		@ gcc ${FLAGS} -o ${NAME} ${OBJS} ${LIBFT} ${LIBFT_PLUS} ${GET_NEXT_LINE} ${LINKER_FLAGS}
+		@ gcc ${FLAGS} -o ${NAME} ${OBJS}  ${LIBFT_PLUS} ${LIBFT} ${GET_NEXT_LINE} ${LINKER_FLAGS}
 		@ echo "${NAME} created 🗿"
 
 all: ${NAME}

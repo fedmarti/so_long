@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 17:14:56 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/05/19 04:28:29 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/05/22 19:29:31 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # include <X11/X.h>
 # include <stdlib.h>
 # include "src/graphics_logic/graphics_structs.h"
-# include "src/main/actor.h"
+# include "src/actor_logic/actor.h"
 # ifndef NAME
 #  define NAME "so_long"
 # endif

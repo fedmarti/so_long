@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 18:42:34 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/05/19 04:35:03 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/05/23 01:27:09 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_map	*map_free(t_map **map)
 	ft_lstclear(&(*map)->enemy_list, free);
 	ft_lstclear(&(*map)->object_list, free);
 	ft_lstclear(&(*map)->collectable_list, free);
-	ft_lstclear(&(*map)->entity_list, enemy_free);
+	ft_lstclear_2(&(*map)->entity_list, enemy_free, (*map)->data);
 	free(*map);
 	*map = NULL;
 	return (NULL);
@@ -89,13 +89,14 @@ t_map	*map_fill(t_map *map, t_list *row_list)
 	return (map);
 }
 
-t_map	*map_init(t_list *row_list, char *filepath)
+t_map	*map_init(t_list *row_list, char *filepath, t_data *data)
 {
 	t_map	*map;
 
 	map = ft_calloc(1, sizeof(*map));
 	if (!map)
 		return (NULL);
+	map->data = data;
 	map->width = (unsigned int) ft_strlen((char *)row_list->content) - 1;
 	map->height = (unsigned int) ft_lstlen(row_list);
 	map->map_path = filepath;
@@ -109,7 +110,7 @@ t_map	*map_init(t_list *row_list, char *filepath)
 	return (map);
 }
 
-t_map	*map_load(char *filepath)
+t_map	*map_load(char *filepath, t_data *data)
 {
 	t_list	*row_list;
 	t_map	*map;
@@ -117,7 +118,7 @@ t_map	*map_load(char *filepath)
 	row_list = map_read(filepath);
 	if (!row_list)
 		return (NULL);
-	map = map_init(row_list, filepath);
+	map = map_init(row_list, filepath, data);
 	ft_lstclear(&row_list, ft_do_nothing);
 	if (!map || !valid_map_check(map))
 		return (map_free(&map));

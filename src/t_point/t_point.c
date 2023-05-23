@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 21:01:04 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/05/10 19:37:00 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/05/23 20:32:32 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_point	point_add(t_point	v1, t_point v2)
 	t_point	result;
 
 	result.x = v1.x + v2.x;
-	result.y = v1.x + v2.y;
+	result.y = v1.y + v2.y;
 	return (result);
 }
 

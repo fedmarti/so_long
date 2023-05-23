@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 23:31:55 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/05/19 01:54:21 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/05/23 10:15:19 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ void	blend_images(t_image *src, t_image *dst, t_point position, \
 			src_pixl += src->bits_per_pixel >> 3;
 			i.x++;
 		}
-		next_line(&dst_pixl, dst, i.x - 1);
-		next_line(&src_pixl, src, i.x - 1);
+		next_line(&dst_pixl, dst, i.x);
+		next_line(&src_pixl, src, i.x);
 		i.y++;
 	}
 }

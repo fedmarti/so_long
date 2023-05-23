@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 15:48:45 by federico          #+#    #+#             */
-/*   Updated: 2023/05/18 22:20:36 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/05/22 22:46:54 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <stdio.h>
 #include "../graphics_logic/graphics.h"
 
-void setup_hooks(t_data *data);
+void	setup_hooks(t_data *data);
 
 void	*free_data(t_data *data)
 {
@@ -44,7 +44,8 @@ int	main(int argc, char **argv)
 		printf("provide valid path as argument\n");
 		return (1);
 	}
-	data->map = map_load(argv[1]);
+	data = graphics_init(data);
+	data->map = map_load(argv[1], data);
 	if (!data->map)
 	{
 		printf("%s map is invalid or failed to load\n", argv[1]);
@@ -53,7 +54,6 @@ int	main(int argc, char **argv)
 	}
 	for (int i = 0; data->map->map[i]; i++)
  		printf ("%s\n", data->map->map[i]);
-	data = graphics_init(data);
 	setup_hooks(data);
 	mlx_loop(data->mlx);
 	free_data(data);

@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 22:22:57 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/05/19 03:44:03 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/05/22 21:39:30 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,7 @@
 #include "graphics_structs.h"
 
 void	*free_data(t_data *data);
-
-void	free_img(t_image *img, void *mlx)
-{
-	if (!img)
-		return ;
-	if (img->img && mlx)
-	{
-		mlx_destroy_image(mlx, img->img);
-	}
-	free(img);
-}
+void	img_free(t_image *img, void *mlx);
 
 static t_image	*buffer_init(unsigned int width, unsigned int height, void *mlx)
 {
@@ -44,7 +34,7 @@ static t_image	*buffer_init(unsigned int width, unsigned int height, void *mlx)
 	&buffer->line_length, &buffer->endian);
 	if (!buffer->addr)
 	{
-		free_img(buffer, mlx);
+		img_free(buffer, mlx);
 		return (NULL);
 	}
 	buffer->size = point2((int)width, (int)height);

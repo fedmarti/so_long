@@ -6,24 +6,27 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 19:55:13 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/05/19 01:56:34 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/05/22 20:13:07 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// inline unsigned int	subtract(unsigned int a, unsigned int b)
-// {
-// 	return (a - b);
-// }
+#include "graphics_structs.h"
 
-// inline unsigned int	add(unsigned int a, unsigned int b)
-// {
-// 	return (a + b);
-// }
+t_image	*put_solid_color(t_image *dest, unsigned int color)
+{
+	char	*addr;
+	int		i;
 
-// inline unsigned int	multiply(unsigned int a, unsigned int b)
-// {
-// 	return (a * b);
-// }
+	i = 0;
+	addr = dest->addr;
+	while (i < dest->size.y * dest->size.x)
+	{
+		*(unsigned int *)addr = color;
+		addr += dest->bits_per_pixel >> 3;
+		i++;
+	}
+	return (dest);
+}
 
 unsigned int	multiply_colors(unsigned int c1, unsigned int c2, \
 unsigned int (*get_color)(unsigned int))

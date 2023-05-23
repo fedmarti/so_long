@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 02:03:55 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/05/18 17:00:46 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/05/23 20:06:22 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,29 +53,34 @@ t_list	*ft_lstcopy(t_list *head)
 	return (new_list_head);
 }
 
+t_list	*get_actor_list(t_map *map, t_point pos, t_point area_size);
+
 t_list	*get_collision_list(t_point position, t_point size, t_map *map)
 {
 	t_list	*head;
-	t_point	map_size;
-	t_point	i;
+	t_point	area_size;
+	// t_point	i;
 
-	map_size = point2(map->width, map->height);
-	if (position.x < 0 || position.y < 0)
-		return (NULL);
 	head = NULL;
-	i.y = 0;
 	position = point_add(position, point2(-1, -1));
-	while (position.y + i.y < size.y + 1)
-	{
-		i.x = 0;
-		while (position.x + i.x < size.x + 1)
-		{
-			if (is_in_map(point_add(position, i), map_size))
-				head = ft_lstcopy(map->tiles[position.y + i.y][position.x + i.x].entity_list);
-			i.x++;
-		}
-		i.y++;
-	}
+	size = point_add(size, point2(1, 1));
+	area_size = point_add(position, size);
+	// while (position.y + i.y < size.y + 1)
+	// {
+	// 	i.x = 0;
+	// 	while (position.x + i.x < size.x + 1)
+	// 	{
+	// 		if (is_in_map(point_add(position, i), map_size))
+	// 			head = ft_lstcopy(map->tiles[position.y + i.y][position.x + i.x].entity_list);
+	// 		i.x++;
+	// 	}
+	// 	i.y++;
+	// }
+	position.x = ft_max(position.x, 0);
+	position.y = ft_max(position.y, 0);
+	area_size.x = ft_min((int) area_size.x, (int)map->width);
+	area_size.y = ft_min((int) area_size.y, (int)map->height);
+	head = get_actor_list(map, position, area_size);
 	return (head);
 }
 

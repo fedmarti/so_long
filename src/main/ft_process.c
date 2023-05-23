@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 01:13:50 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/05/17 21:43:42 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/05/23 19:36:42 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@ int	ft_process(void *data)
 	//enemy_logic()
 	player_controller(data);
 	render_frame(data);
-	printf("player_position : {x = %i, y = %i}\n", (((t_data *) data)->map->player->position.x), (((t_data *) data)->map->player->position.y));
-	usleep(100000);
+	usleep(10000);
 	if ((((t_data *) data)->map->player->position.x) > 1000 || (((t_data *) data)->map->player->position.y) > 1000)
 		pause();
 	return (0);

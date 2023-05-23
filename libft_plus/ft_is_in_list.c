@@ -1,37 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   general_settings.h                                 :+:      :+:    :+:   */
+/*   ft_is_in_list.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/09 23:00:42 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/05/23 19:36:47 by fedmarti         ###   ########.fr       */
+/*   Created: 2023/05/23 00:00:35 by fedmarti          #+#    #+#             */
+/*   Updated: 2023/05/23 03:33:42 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef	GENERAL_SETTINGS_H
-# define GENERAL_SETTINGS_H
+#include "../libft/libft.h"
+#include <stdbool.h>
 
-# ifndef BASE_SCREEN_WIDTH
-#  define BASE_SCREEN_WIDTH 256
-# endif
-
-# ifndef BASE_SCREEN_HEIGHT
-#  define BASE_SCREEN_HEIGHT 224
-# endif
-
-# ifndef TILE_SIZE
-#  define TILE_SIZE 16
-#endif
-
-# ifndef PLAYER_SPEED
-#  define PLAYER_SPEED 10
-# endif
-
-# ifndef DASH_BOOST
-#  define DASH_BOOST 10
-# endif
-
-# endif
-
+bool	ft_is_in_list(t_list *list, void *content, size_t content_size)
+{
+	while (list)
+	{
+		if (!ft_memcmp(list->content, content, content_size))
+			return (true);
+		list = list->next;
+	}
+	return (false);
+}

@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   actor.h                                            :+:      :+:    :+:   */
+/*   actor_structs.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 04:24:25 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/05/19 05:04:54 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/05/22 19:49:27 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ACTOR_H
-# define ACTOR_H
+#ifndef ACTOR_STRUCTS_H
+# define ACTOR_STRUCTS_H
 
 # include "../t_point/point.h"
 # include "../graphics_logic/graphics_structs.h"
@@ -36,16 +36,12 @@ typedef struct s_actor {
 	t_point				position;
 	t_point				velocity;
 	t_point				size;
-	t_image				*img;
+	t_image				*sprites;
 	enum e_tile_type	type;
 }	t_actor;
 
 typedef struct s_enemy {
 	enum e_enemy_type	type;	
 }	t_enemy;
-
-
-
-void	actor_free(t_actor	**actor);
 
 #endif

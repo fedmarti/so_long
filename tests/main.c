@@ -1,170 +1,66 @@
-#include "../minilibx-linux/mlx.h"
-#include "../src/t_point/point.h"
-#include <stdlib.h>
-#include <stdio.h>
-#include "../src/macro_headers/key_codes.h"
-#include <stdint.h>
+#define _XOPEN_SOURCE 500
+#define _DEFAULT_SOURCE
 #include <unistd.h>
+#include "../so_long.h"
+#include <stdio.h>
+#include "../src/graphics_logic/graphics.h"
+#include "../src/graphics_logic/graphics_internal.h"
 
-//this contains the event code and their respective masks
-#include <X11/X.h>
+void	setup_hooks(t_data *data);
 
-
-//               -L                          -lc
-//			looks for library in       name of library which
-//				  here                  it looks for (removing "lib-" prefix)
-//					|                       |
-//					V                       V
-// g main.c -L../minilibx-linux           -lmlx -lXext -lX11 -o dio
-
-// enum e_mlx_hooks{
-// 	ON_KEYDOWN = 2,
-// 	ON_KEYUP = 3,
-// 	ON_MOUSEDOWN = 4,
-// 	ON_MOUSEUP = 5,
-// 	ON_MOUSEMOVE = 6,
-// 	ON_EXPOSE = 12,
-// 	ON_DESTROY = 17
-// };
-
-
-typedef	struct s_img
+//is called when you want to exit the program
+//needs to be updated 
+int	ft_quit(void *data)
 {
-	t_point	size;
-	void	*img;
-}	t_img;
+	(void)data;
+	exit(0);
+}
 
-
-
-
-typedef struct s_data
+t_vector	get_player_direction(t_input input)
 {
-	void	*mlx;
-	void	*mlx_window;
-	t_img	*img;
-	t_point	*pos;
-	//possibly more data
-} t_data;
+	t_vector	direction;
 
-int	free_all(t_data *data)
+	direction = vector2(input.right - input.left, input.down - input.up);
+	if (direction.x && direction.y)
+		direction = vector_normalize(direction);
+	return (direction);
+}
+
+int	ft_process(void *data)
 {
-	if (!data)
-		return (0);
-	// if (data->map)
-		// map_free(data->map);
-	if (data->img->img)
-		mlx_destroy_image(data->mlx, data->img->img);
-	if (data->mlx_window)
-		mlx_destroy_window(data->mlx, data->mlx_window);
+	// static t_point g_pos[1];
+	// *g_pos = point_add(*g_pos, vector_to_point(vector_multiply(get_player_direction(((t_data *)data)->input), 10)));
+	((t_data *)data)->pre_buffer = put_solid_color(((t_data *)data)->pre_buffer, 0x000000FF);
+	blend_images(((t_data *)data)->buffer, ((t_data *)data)->pre_buffer, point2(0,0), overlay);
+	mlx_put_image_to_window(((t_data *)data)->mlx, ((t_data *)data)->mlx_window, ((t_data *)data)->pre_buffer->img, 0, 0);
+	usleep(10000);
+	return (1);
+}
+
+void	*free_data(t_data *data)
+{
 	if (data->mlx)
 	{
+		if (data->mlx_window)
+			mlx_destroy_window(data->mlx, data->mlx_window);
 		mlx_destroy_display(data->mlx);
 		free(data->mlx);
 	}
 	free(data);
-	exit (0);
-	return (0);
+	return (NULL);
 }
 
-int	print_key(int keypress, t_data *data)
-{
-	int unit = 5;
-	(void *)data;
-	switch (keypress)
-	{
-	case ESC_KEY:
-	{
-		printf("bye");
-		free_all(data);
-	}
-	case ARROW_LEFT_KEY:
-		if ((*data->pos).x >= unit)
-			(*data->pos).x += -unit; 
-		printf("<\n");
-		break;
-	case ARROW_UP_KEY:
-		if ((*data->pos).y >= unit)
-			(*data->pos).y += -unit; 
-		printf("^\n");
-		break;
-	case ARROW_RIGHT_KEY:
-		if ((*data->pos).x <= 600 - unit - data->img->size.x)
-			(*data->pos).x += unit; 
-		printf(">\n");
-		break;
-	case ARROW_DOWN_KEY:
-		if ((*data->pos).y <= 600 - unit - data->img->size.y)
-			(*data->pos).y += unit;
-		printf("V\n");
-		break;
-	default:
-		printf("pressed key: %i\n", keypress);
-		break;
-	}
-	mlx_put_image_to_window(data->mlx, data->mlx_window, data->img->img, (*data->pos).x, (*data->pos).y);
-	return (keypress);
-}
-
-
-typedef struct mlx
-{
-	void*		window;
-	void*		context;
-	int32_t		width;
-	int32_t		height;
-	double		delta_time;
-}	mlx_t;
-
-t_data	*data_init(void)
+int	main()
 {
 	t_data	*data;
 
-	data = calloc(sizeof(*data), 1);
-	return (data);
-}
-
-int	process(struct mlx *mlx)
-{
-
-	printf("delta time = %.32f\n %li\n", mlx->delta_time, sizeof(int32_t));
-	for (int i = 0; i / 3 < 1000000; i += i / 5 + 1)
-	{
-		if (i % 20 > 10)
-			i++;
-		else
-			i += 2;
-	}
-	return (0);
-}	
-
-int main()
-{
-	void	*mlx;
-	void	*mlx_win;
-	t_img	img;
 	
-	t_point	position = {0,0};
-	t_data	*data;
-
-	data = data_init();
+	data = ft_calloc(1, sizeof(*data));
 	if (!data)
 		return (1);
-	mlx = (void *)mlx_init();
-	mlx_win = mlx_new_window(mlx, 600, 600, "Hello world!");
-	img.img = mlx_xpm_file_to_image(mlx, "characters/slime.xpm", &(img.size.x),  &(img.size.y));
-	if (!img.img)
-		return (1);
-	data->mlx = mlx;
-	data->mlx_window = mlx_win;
-	data->img = &img;
-	data->pos = &position;
-	mlx_put_image_to_window(mlx, mlx_win, img.img, position.x, position.y);
-	mlx_hook(mlx_win, DestroyNotify, 0L, free_all, (void *)data);
-	mlx_hook(mlx_win, KeyPress, KeyPressMask, print_key, (void *)data);
-	mlx_loop_hook(mlx, process, mlx);
-	mlx_loop(mlx);
-	mlx_destroy_window(mlx, mlx_win);
-	mlx_destroy_display(mlx);
-	free(mlx);
-
-} 
+	data = graphics_init(data);
+	data->buffer = image_init_color(16, 16, ((t_data *)data)->mlx, 0x00FF0000);
+	setup_hooks(data);
+	mlx_loop(data->mlx);
+	free_data(data);
+}

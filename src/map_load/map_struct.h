@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 00:11:44 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/05/16 18:30:20 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/05/23 01:19:00 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 # define MAP_STRUCT_H
 # include "../t_point/point.h"
 # include "../../libft/libft.h"
+
+typedef struct s_data	t_data;
+
 
 typedef struct s_tile{
 	t_point	coordinates;
@@ -32,6 +35,7 @@ typedef struct s_map{
 	t_list			*entity_list;
 	char			**map;
 	char			*map_path;
+	t_data			*data;
 }	t_map;
 
 #endif
