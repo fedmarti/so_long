@@ -1,19 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   controller.h                                       :+:      :+:    :+:   */
+/*   ft_sign.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/09 22:43:46 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/05/25 23:50:51 by fedmarti         ###   ########.fr       */
+/*   Created: 2023/05/25 23:38:35 by fedmarti          #+#    #+#             */
+/*   Updated: 2023/05/25 23:39:30 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CONTROLLER_H
-# define CONTROLLER_H
-
-# include "../../so_long.h"
-void	player_controller(t_data *data);
-
-#endif
+int	ft_sign(int	n)
+{
+	return ((n > 0) - (n < 0));
+}

@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 23:31:55 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/05/23 10:15:19 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/06/06 00:10:18 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	blend_images(t_image *src, t_image *dst, t_point position, \
 	while (position.y + i.y + offset.y < dst->size.y && i.y + offset.y < src->size.y)
 	{
 		i.x = 0;
-		while (position.x + i.x + offset.x < dst->size.y && i.x + offset.x < src->size.x)
+		while (position.x + i.x + offset.x < dst->size.x && i.x + offset.x < src->size.x)
 		{
 			blend(dst_pixl, src_pixl, blend_mode);
 			dst_pixl += dst->bits_per_pixel >> 3;

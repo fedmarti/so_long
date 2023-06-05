@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 02:20:24 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/05/10 20:33:18 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/05/25 23:55:07 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_vector	vector_add(t_vector v1, t_vector v2)
 	t_vector	result;
 
 	result.x = v1.x + v2.x;
-	result.y = v1.x + v2.y;
+	result.y = v1.y + v2.y;
 	return (result);
 }
 

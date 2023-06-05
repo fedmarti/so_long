@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 20:03:06 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/05/23 01:28:10 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/06/06 01:03:26 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,12 @@
 
 //setting placeholder sprites, hopefully these get overwritten by another header
 # ifndef PLAYER_SPRITES
-#  define PLAYER_SPRITES "./media/player/idle_front \
-./media/player/idle_back.xpm \
-./media/player/idle_left \
-./media/player/idle_right"
+#  define PLAYER_SPRITES "./media/player/idle_front.xpm"
 # endif
+ 
+// ./media/player/idle_back.xpm 
+// ./media/player/idle_left.xpm 
+// ./media/player/idle_right.xpm"
 
 # ifndef WALL_SPRITES
 #  define WALL_SPRITES NULL

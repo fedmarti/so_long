@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 20:09:24 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/05/23 01:29:29 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/05/26 01:07:07 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	*exit_additional(t_point position, char *filepath, \
 	bool	*open;
 
 	(void)data;
-	main->size = point_subtract(main->size, point2(-2, -1));
+	// main->size = point_subtract(main->size, point2(2, 1));
 	open = ft_calloc(1, sizeof(bool *));
 	(void)position;
 	(void)filepath;
