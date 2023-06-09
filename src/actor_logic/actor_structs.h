@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 04:24:25 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/05/22 19:49:27 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/06/06 19:56:16 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ enum e_enemy_type {
 typedef struct s_actor {
 	void				*additional_struct;
 	t_point				position;
+	t_vector			sub_pixel_pos;
 	t_point				velocity;
 	t_point				size;
 	t_image				*sprites;

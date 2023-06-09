@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 02:03:55 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/06/06 01:08:09 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/06/06 20:23:36 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,32 +145,32 @@ double	solve_collision_x(t_actor *actor1, double vel, t_actor *actor2)
 {
 	double	displacement;
 	int		pos_after_movement;
+	double	old_vel;
 
+	old_vel = vel;
 	pos_after_movement = actor1->position.x + (int)vel;
 	displacement = 0;
-	
 	if (vel > 0 && actor1->position.x < actor2->position.x)
 		displacement = -1 * (pos_after_movement + actor1->size.x - actor2->position.x);
 	else if (vel < 0 && actor1->position.x > actor2->position.x)
 		displacement = actor2->position.x + actor2->size.x - pos_after_movement;
-	return ((double)((int)vel) + (double)displacement);
+	return ((double)ft_abs_clamp_d((vel + (double)displacement), 0, old_vel));
 }
 
 double	solve_collision_y(t_actor *actor1, double vel, t_actor *actor2)
 {
 	int		displacement;
 	int		pos_after_movement;
-	int		old_vel;
+	double	old_vel;
 
 	old_vel = vel;
 	pos_after_movement = actor1->position.y + (int)vel;
 	displacement = 0;
-	
 	if (vel > 0 && actor1->position.y < actor2->position.y)
 		displacement = -1 * (pos_after_movement + actor1->size.y - actor2->position.y);
 	else if (vel < 0 && actor1->position.y > actor2->position.y)
 		displacement = actor2->position.y + actor2->size.y - pos_after_movement;
-	return ((double)ft_abs_clamp((((int)vel) + displacement), 0, old_vel));
+	return ((double)ft_abs_clamp_d((vel + (double)displacement), 0, old_vel));
 }
 
 t_vector	solve_collision(t_actor *actor1, t_vector vel, t_actor *actor2)
@@ -205,7 +205,30 @@ t_vector	solve_collision(t_actor *actor1, t_vector vel, t_actor *actor2)
 	return (vel);
 }
 
+t_vector	update_sub_pixels(t_vector	sub_pix_pos, t_vector velocity)
+{
+	t_vector	sub_pixels;
 
+	sub_pixels = vector_subtract \
+	(velocity, vector2((double)((int)velocity.x), (double)((int)velocity.y)));
+	sub_pix_pos = vector_add(sub_pix_pos, sub_pixels);
+	return (sub_pix_pos);
+}
+
+t_vector	recover_sub_pixels(t_vector	*sub_pixels, t_vector vel)
+{
+	if (ft_abs_d(sub_pixels->x) >= 1)
+	{
+		vel.x += (int)sub_pixels->x;
+		sub_pixels->x -= (int)sub_pixels->x;
+	}
+	if (ft_abs_d(sub_pixels->y) >= 1)
+	{
+		vel.y += (int)sub_pixels->y;
+		sub_pixels->y -= (int)sub_pixels->y;
+	}
+	return (vel);
+}
 
 void	move_and_collide(t_actor *actor, t_vector velocity, t_map *map)
 {
@@ -216,6 +239,7 @@ void	move_and_collide(t_actor *actor, t_vector velocity, t_map *map)
 	actor_size = point_divide(actor->size, TILE_SIZE);
 	entity_list = get_collision_list \
 	(get_tile(actor->position, map), actor_size, map);
+	velocity = recover_sub_pixels(&actor->sub_pixel_pos, velocity);
 	while (entity_list)
 	{
 		if (is_colliding(actor, velocity, (t_actor *)entity_list->content))
@@ -227,6 +251,7 @@ void	move_and_collide(t_actor *actor, t_vector velocity, t_map *map)
 		ft_lstdelone(entity_list, ft_do_nothing);
 		entity_list = temp;
 	}
+	actor->sub_pixel_pos = update_sub_pixels(actor->sub_pixel_pos, velocity);
 	actor->position = point_add(actor->position, vector_to_point(velocity));
 }
 

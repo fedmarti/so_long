@@ -6,11 +6,16 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 23:47:18 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/05/02 23:48:02 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/06/06 20:07:52 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 int	ft_max(int a, int b)
+{
+	return (a * (a >= b) + b * (b > a));
+}
+
+double	ft_max_d(double a, double b)
 {
 	return (a * (a >= b) + b * (b > a));
 }

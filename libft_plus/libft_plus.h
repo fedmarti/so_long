@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 22:56:18 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/06/02 00:30:31 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/06/06 20:08:11 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,23 @@
 
 int		ft_sign(int n);
 int		ft_max(int a, int b);
+double	ft_max_d(double a, double b);
 int		ft_min(int a, int b);
+double	ft_min_d(double a, double b);
 int		ft_clamp(int num, int min, int max);
+double	ft_clamp_d(double num, double min, double max);
 int		ft_abs(int a);
 int		abs_max(int a, int b);
 int		abs_min(int a, int b);
+double	ft_abs_d(double a);
+double	abs_max_d(double a, double b);
+double	abs_min_d(double a, double b);
+double	abs_max_signed_d(double a, double b);
+double	abs_min_signed_d(double a, double b);
 int		abs_max_signed(int a, int b);
 int		abs_min_signed(int a, int b);
 int		ft_abs_clamp(int num, int min, int max);
+double	ft_abs_clamp_d(double num, double min, double max);
 void	ft_do_nothing(void *p);
 void	ft_do_nothing_2(void *p, void *p2);
 int		ft_lstlen(t_list *lst);

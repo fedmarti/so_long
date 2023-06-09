@@ -1,6 +1,7 @@
 NAME = libft_plus.a
 
 SRC = ft_abs.c \
+	ft_abs_d.c \
 	ft_sign.c \
 	ft_do_nothing.c \
 	ft_do_nothing_2.c \
