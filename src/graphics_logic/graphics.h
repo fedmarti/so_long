@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 21:52:19 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/05/23 00:17:10 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/06/14 16:51:58 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include "graphics_structs.h"
 # include "../../so_long.h"
 
-void	render_frame(t_data *data);
+void	render_game(t_data *data);
 t_data	*graphics_init(t_data *data);
 void	img_free(t_image *img, void *mlx);
 t_image	*upscale(t_image *dest, t_image *src);

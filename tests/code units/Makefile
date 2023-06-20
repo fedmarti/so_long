@@ -1,10 +1,6 @@
 LIBFT = ..libft/libft.a
 #
-LIBFT_PLUS = ..libft_plus/libft_plus.a
-#
 MLX = minilibx-linux/libmlx.a
-#
-GET_NEXT_LINE = get_next_line/libgnl.a
 #
 LINKER_FLAGS = -Lminilibx-linux -lmlx -lXext -lX11 -lm
 ######
@@ -67,12 +63,6 @@ ${MLX}:
 
 ${LIBFT}:
 		@ make -s -C ./libft bonus clean
-
-${LIBFT_PLUS}:
-		@ make -s -C ./libft_plus all clean	
-
-${GET_NEXT_LINE}:
-		@ make -s -C ./get_next_line all clean
 
 clean:
 			@ rm -f ${call objects, $(POINT)}

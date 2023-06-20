@@ -6,12 +6,12 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 18:42:34 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/05/23 01:27:09 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/06/20 15:55:12 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "map_load_internal.h"
-#include "../../get_next_line/get_next_line_bonus.h"
+#include "../../libft/libft.h"
 #include "../../so_long.h"
 #include <sys/types.h>
 #include <sys/stat.h>

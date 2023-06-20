@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 17:14:56 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/05/22 19:29:31 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/06/20 15:54:40 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,7 @@
 # define SO_LONG_H
 
 # include "minilibx-linux/mlx.h"
-# include "libft_plus/libft_plus.h"
 # include "libft/libft.h"
-# include "get_next_line/get_next_line_bonus.h"
 // # include "src/graphics_logic/graphics.h"
 # include "src/t_point/point.h"
 # include "src/map_load/map_load.h"
@@ -31,16 +29,22 @@
 #  define NAME "so_long"
 # endif
 
-
+enum	e_game_state {
+	MainMenu,
+	Loading,
+	InGame,
+	PausedMenu
+};
 
 typedef struct s_data
 {
-	t_map	*map;
-	void	*mlx;
-	void	*mlx_window;
-	t_image	*buffer;
-	t_image	*pre_buffer;
-	t_input	input;
+	t_map				*map;
+	void				*mlx;
+	void				*mlx_window;
+	t_image				*buffer;
+	t_image				*pre_buffer;
+	t_input				input;
+	enum e_game_state	state;
 	//possibly more data
 }	t_data;
 

@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 23:59:26 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/05/23 01:19:20 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/06/20 16:00:07 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <stdbool.h>
 # include "map_struct.h"
 # include "../../so_long.h"
-# include "../../libft_plus/libft_plus.h"
+# include "../../libft/libft.h"
 
 int		check_tile(t_map *map, char tile, t_point point);
 t_map	*map_init(t_list *row_list, char *filepath, t_data *data);

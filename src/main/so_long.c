@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 15:48:45 by federico          #+#    #+#             */
-/*   Updated: 2023/05/22 22:46:54 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/06/14 17:33:37 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	main(int argc, char **argv)
 	t_data	*data;
 
 	data = ft_calloc(1, sizeof(*data));
+	data->state = InGame;
 	if (!data)
 		return (1);
 	if (argc != 2)

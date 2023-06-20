@@ -1,7 +1,6 @@
 NAME = test
 
-LIBS = ../libft_plus/libft_plus.a \
-		../libft/libft.a 
+LIBS = .../libft/libft.a 
 
 SRC = main.c \
 	../src/graphics_logic/blend_images.c \
@@ -32,7 +31,6 @@ all: ${NAME}
 
 ${LIBS}:
 	@ make -s -C ../libft all clean
-	@ make -s -C ../libft_plus all clean
 
 clean: 
 	rm *.o -f

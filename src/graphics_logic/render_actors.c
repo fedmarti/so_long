@@ -6,12 +6,12 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 00:16:24 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/05/23 19:41:56 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/06/20 15:52:54 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../graphics_logic/graphics.h"
-#include "../../libft_plus/libft_plus.h"
+#include "../../libft/libft.h"
 #include "graphics_internal.h"
 
 t_list	*get_actor_list(t_map *map, t_point pos, t_point area_size)

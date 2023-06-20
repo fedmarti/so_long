@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 21:01:38 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/05/17 17:43:44 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/06/20 16:12:27 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,8 @@ int			vector_cmpr(t_vector v1, t_vector v2);
 t_point		vector_to_point(t_vector v);
 //turns a t_point into a t_vector
 t_vector	point_to_vector(t_point p);
+
+
+void	ft_get_directions(t_point *directions);
 
 #endif

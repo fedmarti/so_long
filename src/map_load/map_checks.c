@@ -6,11 +6,12 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 22:25:49 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/05/17 20:19:51 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/06/20 16:11:25 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "map_load_internal.h"
+#include "../t_point/point.h"
 #include "../../so_long.h" //also gotta remove
 
 //for the type of objects that need to be unique (player, exit...)

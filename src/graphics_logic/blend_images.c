@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 23:31:55 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/06/06 00:10:18 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/06/14 18:15:15 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	blend_images(t_image *src, t_image *dst, t_point position, \
 	if (!src || !dst || !src->addr || !dst->addr \
 	|| position.x + src->size.x < 0 || position.y + src->size.y < 0)
 		return ;
+	position = point_add(position, src->offset);
 	offset = get_offset(position);
 	i.y = 0;
 	dst_pixl = dst->addr + get_pointer_offset_img(dst, position.x, position.y);
