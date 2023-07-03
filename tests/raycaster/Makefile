@@ -1,11 +1,20 @@
 NAME = raycast_test
 
-LIBFT = ../../libft/libft.a
+LIB_DIR = ../code_units/
 
+LIBRARIES = $(LIB_DIR)libgraphics.a \
+	$(LIB_DIR)libinput.a \
+	$(LIB_DIR)libpoint.a
 
-MLX = ../../minilibx-linux/libmlx.a
+LIBFT = $(LIBFT_DIR)libft.a
 
-LINKER_FLAGS = -Lminilibx-linux -lmlx -lXext -lX11 -lm
+LIBFT_DIR = ../../libft/
+
+MLX = $(MLX_DIR)libmlx.a
+
+MLX_DIR = ../../minilibx-linux/
+
+LINKER_FLAGS = -L$(MLX_DIR) -lmlx -lXext -lX11 -lm
 
 SRC = $(wildcard ./*.c)
 
@@ -16,23 +25,27 @@ FLAGS = -Wall -Wextra -Werror -g
 .c.o:
 	@ gcc ${FLAGS} -c $< -o ${<:.c=.o}
 
-${NAME}: ${LIBFT} ${OBJS} ${MLX}
+${NAME}: ${OBJS} ${LIBRARIES} ${LIBFT} ${MLX}
 		@ gcc ${FLAGS} -o $@ $^ ${LINKER_FLAGS}
 		@ echo "$@ created 🗿"
 
 all: ${NAME}
 
+$(LIBRARIES):
+	@ make -sC $(LIB_DIR) $(@:$(LIB_DIR)%=%)
+
 ${MLX}: 
-		@ make -s -C ../../minilibx-linux
+		@ make -s -C ../../minilibx-linux/
 
 ${LIBFT}:
 		@ make -s -C ../../libft bonus clean
 
 clean:
 	@ rm -f *.o
+	@ make -sC $(LIB_DIR) fclean
 	
 fclean:	clean
-	rm -f $(NAME)
+	@ rm -f $(NAME)
 
 re: fclean all
 

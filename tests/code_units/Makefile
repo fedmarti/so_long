@@ -1,8 +1,12 @@
-LIBFT = ..libft/libft.a
+LIBFT = $(LIBFT_DIR)libft.a
+
+LIBFT_DIR = ../../libft/
 #
-MLX = minilibx-linux/libmlx.a
+MLX = $(MLX_DIR)libmlx.a
+
+MLX_DIR = ../../minilibx-linux/
 #
-LINKER_FLAGS = -Lminilibx-linux -lmlx -lXext -lX11 -lm
+LINKER_FLAGS = -L$(MLX_DIR) -lmlx -lXext -lX11 -lm
 ######
 #
 POINT = libpoint.a
@@ -45,24 +49,30 @@ directory = $($(shell echo $(1:lib%.a=%) | tr '[:lower:]' '[:upper:]')_DIR)
 
 sources = $(wildcard $(call directory, $1)/*.c)
 
-objects = $(patsubst %.c, %.o, $(call sources, $1))
-
-.c.o:
-	@ gcc ${FLAGS} -c $< -o $@
+objects = $(patsubst %.c,%.o,$(call sources, $1))
 
 all: ${POINT} ${GRAPHICS} ${PLAYER_CONTROLLER} ${INPUT} ${ACTOR_LOGIC} ${MAP_LOAD}
 
-test:
+nothing:
+	touch nothing
 
-lib%.a: ${call objects, $@}
-	@ ar rc $@ $^
+.c.o:
+#	@ echo "compiling $< into $@"
+	@ gcc ${FLAGS} -c $< -o $@
+
+lib%.a:
+	@ make -s ${call objects, $@}
+	@ ar rc $@ ${call objects, $@}
+#	@ echo "$@'s dir : { ${call directory, $@} }"
+#	@ echo "$@'s sources : { ${call sources, $@} }"
+#	@ echo "$@'s objects : { ${call objects, $@} }"
 	@ echo "$@ archived :D"
 
 ${MLX}: 
-		@ make -s -C ./minilibx-linux
+		@ make -s -C $(MLX_DIR)
 
 ${LIBFT}:
-		@ make -s -C ./libft bonus clean
+		@ make -s -C $(LIBFT_DIR) bonus clean
 
 clean:
 			@ rm -f ${call objects, $(POINT)}
@@ -71,6 +81,7 @@ clean:
 			@ rm -f ${call objects, ${INPUT}}
 			@ rm -f ${call objects, ${ACTOR_LOGIC}}
 			@ rm -f ${call objects, ${MAP_LOAD}}
+			@ echo "Removed all objects files"
 
 fclean:		clean
 			@ rm -f ${POINT}
@@ -79,7 +90,8 @@ fclean:		clean
 			@ rm -f ${INPUT}
 			@ rm -f ${ACTOR_LOGIC}
 			@ rm -f ${MAP_LOAD}
+			@ echo "Removed all archives"
 
 re:			fclean all
 
-.PHONY:		all clean fclean 
+.PHONY:		all clean fclean re

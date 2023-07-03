@@ -1,42 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_quit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/03 15:48:45 by federico          #+#    #+#             */
-/*   Updated: 2023/06/23 23:12:54 by fedmarti         ###   ########.fr       */
+/*   Created: 2023/05/10 00:51:36 by fedmarti          #+#    #+#             */
+/*   Updated: 2023/06/20 18:13:18 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "raycaster.h"
 #include "../code_units/graphics_logic.h"
 
-void	*free_data(t_data *data)
+
+void	free_all(t_data *data)
 {
+	if (!data)
+		return ;
+	if (data->pre_buffer)
+		img_free(data->pre_buffer, data->mlx);
+	if (data->buffer)
+		img_free(data->buffer, data->mlx);
+	if (data->mlx_window)
+		mlx_destroy_window(data->mlx, data->mlx_window);
 	if (data->mlx)
 	{
-		if (data->mlx_window)
-			mlx_destroy_window(data->mlx, data->mlx_window);
 		mlx_destroy_display(data->mlx);
 		free(data->mlx);
 	}
 	free(data);
-	return (NULL);
 }
 
-int	main(void)
+//is called when you want to exit the program
+//needs to be updated 
+int	ft_quit(void *data)
 {
-	t_data	*data;
-
-	data = ft_calloc(1, sizeof(*data));
-	if (!data)
-		return (1);
-	data = graphics_init(data);
-	data->raycaster_struct = ft_calloc(1, sizeof(*data->raycaster_struct));
-	setup_hooks(data);
-	mlx_loop(data->mlx);
-	free_data(data);
+	free_all((t_data *)data);
+	exit(0);
 }
