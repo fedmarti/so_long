@@ -20,7 +20,7 @@ t_vector	get_player_direction(t_input input)
 
 	direction = vector2(input.right - input.left, input.down - input.up);
 	if (direction.x && direction.y)
-		direction = vector_normalize(direction);
+		direction = vector_multiply(direction, 0.70710678118);
 	return (direction);
 }
 
