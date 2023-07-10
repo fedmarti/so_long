@@ -1,27 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   raycast.h                                          :+:      :+:    :+:   */
+/*   line.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/23 21:46:55 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/10 19:26:49 by fedmarti         ###   ########.fr       */
+/*   Created: 2023/07/10 21:54:22 by fedmarti          #+#    #+#             */
+/*   Updated: 2023/07/10 22:02:32 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RAYCAST_H
-# define RAYCAST_H
+#ifndef LINE_H
+# define LINE_H
 
-# include "code_units/point.h"
-# include <stdbool.h>
+# include "../t_point/point.h"
 
-typedef struct s_hit
+typedef struct s_line
 {
-	t_point	intersection;
-	bool	collision;
-}	t_hit;
+	t_point	p1;
+	t_point	p2;
+}	t_line;
 
-struct s_hit	raycast(t_point p1, t_point p2, t_point p3, t_point p4);
+double	line_len(t_line line);
 
 #endif

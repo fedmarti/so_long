@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 02:03:55 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/06/06 20:23:36 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/07/10 22:52:09 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -230,27 +230,57 @@ t_vector	recover_sub_pixels(t_vector	*sub_pixels, t_vector vel)
 	return (vel);
 }
 
+#include "../2d_geometry/raycast.h"
+
+t_actor	*get_colliding_actor(t_list *entity_list, t_actor *actor, t_vector vel)
+{
+	t_list	*temp_node;
+	t_hit	hit;
+	t_hit	temp_hit;
+	t_actor	*ca;
+	t_actor	*temp_actor;
+
+	ca = NULL;
+	temp_actor = NULL;
+	hit = (t_hit){(t_point){0,0}, false};
+	while (entity_list)
+	{
+		temp_actor = entity_list->content;
+		temp_hit = raycast_to_rectangle(actor->position, point_add(actor->position,\
+		vector_to_point(vel)), temp_actor->position, temp_actor->size);
+		if (is_h2_closer(hit, temp_hit, actor->position))
+		{
+			ca = temp_actor;
+			hit = temp_hit;
+		}
+		temp_node = entity_list->next;
+		ft_lstdelone(entity_list, ft_do_nothing);
+		entity_list = temp_node;
+	}
+	return (ca);
+}
+
 void	move_and_collide(t_actor *actor, t_vector velocity, t_map *map)
 {
 	t_point	actor_size;
 	t_list	*entity_list;
-	t_list	*temp;
+	// t_list	*temp;
+	t_actor	*colliding_actor;
 
 	actor_size = point_divide(actor->size, TILE_SIZE);
 	entity_list = get_collision_list \
 	(get_tile(actor->position, map), actor_size, map);
 	velocity = recover_sub_pixels(&actor->sub_pixel_pos, velocity);
-	while (entity_list)
+	colliding_actor = get_colliding_actor(entity_list, actor, velocity);
+	if (colliding_actor && is_colliding(actor, velocity, colliding_actor))
 	{
-		if (is_colliding(actor, velocity, (t_actor *)entity_list->content))
-		{
-			velocity = solve_collision (actor, velocity, (t_actor *)entity_list->content);
-			// actor->sprites = put_solid_color(actor->sprites, 0x00FF0000);
-		}
-		temp = entity_list->next;
-		ft_lstdelone(entity_list, ft_do_nothing);
-		entity_list = temp;
+		velocity = solve_collision (actor, velocity, (t_actor *)entity_list->content);
+		// actor->sprites = put_solid_color(actor->sprites, 0x00FF0000);
 	}
+		// temp = entity_list->next;
+		// ft_lstdelone(entity_list, ft_do_nothing);
+		// entity_list = temp;
+	// }
 	actor->sub_pixel_pos = update_sub_pixels(actor->sub_pixel_pos, velocity);
 	actor->position = point_add(actor->position, vector_to_point(velocity));
 }

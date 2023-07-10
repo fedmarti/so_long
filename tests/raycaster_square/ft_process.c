@@ -6,16 +6,18 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 01:13:50 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/10 19:49:08 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/07/11 00:03:39 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #define _XOPEN_SOURCE 500
 #define _DEFAULT_SOURCE
-#include "raycast.h"
 #include "raycaster.h"
 #include "../code_units/graphics_logic.h"
 #include "../code_units/player_controller.h"
+# include "../../src/2d_geometry/line.h"
+# include "../../src/2d_geometry/raycast.h"
+
 
 void	draw_line_bres\
 (t_image *img, t_point start, t_point end, unsigned int color);
@@ -31,17 +33,32 @@ t_point	point_clamp(t_point point, t_point min, t_point max)
 	return (ret);
 }
 
-
-void	draw_walls(t_image *img, rc_p_struct *raycast_data)
+static inline void	get_lines(t_line *lines, t_point rec_pos, t_point rec_size)
 {
-	t_list	*wall_list;
+	lines[0] = (t_line){rec_pos, (t_point){rec_pos.x + rec_size.x, rec_pos.y}};
+	lines[1] = (t_line)\
+	{(t_point){rec_pos.x + rec_size.x, rec_pos.y}, \
+	(t_point){rec_pos.x + rec_size.x, rec_pos.y + rec_size.y}};
+	lines[2] = (t_line)\
+	{(t_point){rec_pos.x + rec_size.x, rec_pos.y + rec_size.y},\
+	(t_point){rec_pos.x, rec_pos.y + rec_size.y}};
+	lines[3] = (t_line){{rec_pos.x, rec_pos.y + rec_size.y}, rec_pos};
+}
 
-	wall_list = raycast_data->line_list;
-	while (wall_list)
+
+void	draw_rectangles(t_image *img, rc_p_struct *raycast_data)
+{
+	t_list	*rec_list;
+
+	rec_list = raycast_data->rec_list;
+	while (rec_list)
 	{
-		t_line line = *((t_line *)wall_list->content);
-		draw_line_gba(img, line.start, line.end, 0x00ffffff);
-		wall_list = wall_list->next;
+		t_rectangle rec = *((t_rectangle *)rec_list->content);
+		t_line	lines[4];
+		get_lines(lines, rec.pos, rec.size);
+		for (int i = 0; i < 4; i++)
+			draw_line_gba(img, lines[i].p1, lines[i].p2, 0x00ffffff);
+		rec_list = rec_list->next;
 	}
 }
 
@@ -54,23 +71,23 @@ bool	len_check(t_point origin, t_point p1, t_point p2)
 
 t_hit	ray_hit(rc_p_struct *raycast_data)
 {
-	t_list	*wall_list;
+	t_list	*rec_list;
 	t_line	ray;
 	t_hit	hit = (t_hit){(t_point){0,0}, false};
 
 	ray = (t_line){raycast_data->position, raycast_data->mouse_position};
-	wall_list = raycast_data->line_list;
-	while (wall_list)
+	rec_list = raycast_data->rec_list;
+	while (rec_list)
 	{
 		t_hit	temp_hit;
-		t_line line = *((t_line *)wall_list->content);
-		temp_hit = raycast(ray.start, ray.end, line.start, line.end);
+		t_rectangle rec = *((t_rectangle *)rec_list->content);
+		temp_hit = raycast_to_rectangle(ray.p1, ray.p2, rec.pos, rec.size);
 		if (temp_hit.collision)
 		{
 			if (!hit.collision || len_check(raycast_data->position, hit.intersection, temp_hit.intersection))
 				hit = temp_hit; 
 		}
-		wall_list = wall_list->next;
+		rec_list = rec_list->next;
 	}
 	return (hit);
 }
@@ -85,7 +102,7 @@ int	ft_process(void *data)
 		mlx_clear_window(d->mlx, d->mlx_window);
 	d->pre_buffer = put_solid_color(d->pre_buffer, 0x00330866);
 	d->buffer = upscale(d->buffer, d->pre_buffer);
-	draw_walls(d->buffer, d->raycaster_struct);
+	draw_rectangles(d->buffer, d->raycaster_struct);
 	unsigned int color;
 	hit = ray_hit(d->raycaster_struct);
 	if (hit.collision)

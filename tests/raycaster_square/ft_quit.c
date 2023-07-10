@@ -6,21 +6,18 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 00:51:36 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/10 21:07:20 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/06/20 18:13:18 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../so_long.h"
-#include "../graphics_logic/graphics.h"
-
+#include "raycaster.h"
+#include "../code_units/graphics_logic.h"
 
 
 void	free_all(t_data *data)
 {
 	if (!data)
 		return ;
-	if (data->map)
-		map_free(&data->map);
 	if (data->pre_buffer)
 		img_free(data->pre_buffer, data->mlx);
 	if (data->buffer)
@@ -39,8 +36,6 @@ void	free_all(t_data *data)
 //needs to be updated 
 int	ft_quit(void *data)
 {
-	if (((t_data *)data)->mlx)
-		mlx_do_key_autorepeaton(((t_data *)data)->mlx);
 	free_all((t_data *)data);
 	exit(0);
 }

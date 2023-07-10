@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include <math.h>
-#include "code_units/graphics_logic.h"
+#include "graphics_structs.h"
 #include "../../libft/libft.h"
 
 void	put_pixel_to_img(t_image *img, int x, int y, int color);

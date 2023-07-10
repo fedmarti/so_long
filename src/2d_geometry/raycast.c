@@ -6,12 +6,19 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 23:17:53 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/10 19:26:36 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/07/10 22:51:41 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "code_units/point.h"
+#include "../t_point/point.h"
 #include "raycast.h"
+
+bool	is_h2_closer(t_hit h1, t_hit h2, t_point point)
+{
+	return (h2.collision && (!h1.collision \
+	|| line_len((t_line){point, h1.intersection}) \
+	> line_len((t_line){point, h2.intersection})));
+}
 
 struct s_hit	raycast(t_point p1, t_point p2, t_point p3, t_point p4)
 {

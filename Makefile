@@ -38,8 +38,9 @@ SRC = src/t_point/t_point.c \
 	src/actor_logic/enemy_init.c \
 	src/actor_logic/exit_init.c \
 	src/actor_logic/player_init.c \
-
-	
+	src/2d_geometry/raycast.c \
+	src/2d_geometry/raycast_to_rectangle.c \
+	src/2d_geometry/line_len.c
 
 OBJS = $(SRC:.c=.o)
 
