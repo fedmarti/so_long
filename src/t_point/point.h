@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 21:01:38 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/06/20 16:12:27 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/07/14 23:07:40 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_point	point_subtract(t_point p1, t_point p2);
 // it does what it says it does
 // point.x *= factor
 // point.y *= factor
-t_point		point_multiply(t_point point, int factor);
+t_point		point_multiply(t_point point, double factor);
 // point.x /= divisor
 // point.y /= divisor
 t_point		point_divide(t_point point, int	divisor);

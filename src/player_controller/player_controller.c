@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 02:03:55 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/10 22:52:09 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/07/14 22:57:59 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -232,6 +232,45 @@ t_vector	recover_sub_pixels(t_vector	*sub_pixels, t_vector vel)
 
 #include "../2d_geometry/raycast.h"
 
+
+void	get_starting_points(t_point *sp, t_point dir, t_actor *actor)
+{
+	sp[0] = actor->position;
+	sp[1] = point_add(actor->position, point_multiply(actor->size, 0.5));
+	sp[2] = point_add(actor->position, actor->size);
+	sp[1].x += actor->size.x * 0.5 * ft_sign(dir.x);
+	sp[1].y += actor->size.y * 0.5 * ft_sign(dir.y);
+	if (ft_sign(dir.x) == ft_sign(dir.y))
+	{
+		sp[0].y += actor->size.y;
+		sp[2].y -= actor->size.y;
+	}
+	if (!dir.x && dir.y)
+		sp[2 * (dir.y < 0)].y += actor->size.y * ft_sign(dir.y);
+	else if (!dir.y && dir.x)
+		sp[2 * (dir.x < 0)].x += actor->size.x * ft_sign(dir.x);
+}
+
+t_hit	rec_shoot_rays(t_actor *actor, t_point direction_vector, t_actor *target)
+{
+	t_hit	hit;
+	t_hit	temp_hit;
+	t_point	starting_point[3];
+	
+	get_starting_points(starting_point, direction_vector, actor);
+	hit = raycast_to_rectangle(starting_point[0], point_add(starting_point[0],\
+	direction_vector), target->position, target->size);
+	temp_hit = raycast_to_rectangle(starting_point[1], point_add\
+	(starting_point[1], direction_vector), target->position, target->size);
+	if (is_h2_closer(hit, temp_hit))
+		hit = temp_hit;
+	temp_hit = raycast_to_rectangle(starting_point[2], point_add\
+	(starting_point[2], direction_vector), target->position, target->size);
+	if (is_h2_closer(hit, temp_hit))
+		hit = temp_hit;
+	return (hit);
+}
+
 t_actor	*get_colliding_actor(t_list *entity_list, t_actor *actor, t_vector vel)
 {
 	t_list	*temp_node;
@@ -242,13 +281,12 @@ t_actor	*get_colliding_actor(t_list *entity_list, t_actor *actor, t_vector vel)
 
 	ca = NULL;
 	temp_actor = NULL;
-	hit = (t_hit){(t_point){0,0}, false};
+	hit = (t_hit){(t_point){0,0}, (t_point){0,0}, false};
 	while (entity_list)
 	{
 		temp_actor = entity_list->content;
-		temp_hit = raycast_to_rectangle(actor->position, point_add(actor->position,\
-		vector_to_point(vel)), temp_actor->position, temp_actor->size);
-		if (is_h2_closer(hit, temp_hit, actor->position))
+		temp_hit = rec_shoot_rays(actor, vector_to_point(vel), (t_actor *)entity_list->content);
+		if (is_h2_closer(hit, temp_hit))
 		{
 			ca = temp_actor;
 			hit = temp_hit;
@@ -274,7 +312,7 @@ void	move_and_collide(t_actor *actor, t_vector velocity, t_map *map)
 	colliding_actor = get_colliding_actor(entity_list, actor, velocity);
 	if (colliding_actor && is_colliding(actor, velocity, colliding_actor))
 	{
-		velocity = solve_collision (actor, velocity, (t_actor *)entity_list->content);
+		velocity = solve_collision (actor, velocity, colliding_actor);
 		// actor->sprites = put_solid_color(actor->sprites, 0x00FF0000);
 	}
 		// temp = entity_list->next;

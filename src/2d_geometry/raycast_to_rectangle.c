@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 21:29:20 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/10 22:53:30 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/07/14 22:58:23 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ raycast_to_rectangle \
 	t_hit	temp;
 	int		i;
 
-	hit = (t_hit){(t_point){0,0}, false};
+	hit = (t_hit){(t_point){0,0}, (t_point){0,0}, false};
 	get_lines(lines, rec_pos, rec_size);
 	i = 0;
 	while (i < 4)
@@ -42,7 +42,7 @@ raycast_to_rectangle \
 		// if (temp.collision && (!hit.collision 
 		// || line_len((t_line){from, hit.intersection}) 
 		// > line_len((t_line){from, temp.intersection})))
-		if (is_h2_closer(hit, temp, from))
+		if (is_h2_closer(hit, temp))
 			hit = temp;
 		i++;
 	}

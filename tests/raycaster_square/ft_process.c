@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 01:13:50 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/11 00:03:39 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/07/14 23:01:27 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ t_hit	ray_hit(rc_p_struct *raycast_data)
 {
 	t_list	*rec_list;
 	t_line	ray;
-	t_hit	hit = (t_hit){(t_point){0,0}, false};
+	t_hit	hit = (t_hit){(t_point){0,0},(t_point){0,0}, false};
 
 	ray = (t_line){raycast_data->position, raycast_data->mouse_position};
 	rec_list = raycast_data->rec_list;

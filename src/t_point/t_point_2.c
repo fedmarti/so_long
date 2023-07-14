@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 20:50:58 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/05/17 17:43:04 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/07/14 23:07:01 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_point	point_subtract(t_point p1, t_point p2)
 	return (result);
 }
 
-t_point	point_multiply(t_point point, int factor)
+t_point	point_multiply(t_point point, double factor)
 {
 	t_point result;
 	
