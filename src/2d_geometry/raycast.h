@@ -19,8 +19,8 @@
 
 typedef struct s_hit
 {
-	t_point	intersection;
 	t_point	origin;
+	t_point	intersection;	
 	bool	collision;
 }	t_hit;
 
