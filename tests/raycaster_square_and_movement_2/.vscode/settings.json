@@ -1,0 +1,18 @@
+{
+	"files.associations": {
+		"so_long.h": "c",
+		"stdio.h": "c",
+		"graphics_structs.h": "c",
+		"graphics.h": "c",
+		"controller.h": "c",
+		"raycaster.h": "c",
+		"handle_input.h": "c",
+		"input.h": "c",
+		"libft.h": "c",
+		"graphics_logic.h": "c",
+		"point.h": "c",
+		"stdbool.h": "c",
+		"player_controller.h": "c",
+		"raycast.h": "c"
+	}
+}
