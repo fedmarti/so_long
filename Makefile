@@ -65,6 +65,12 @@ clean:
 			@ rm -f *.o */*.o */*/*.o
 			@ echo "Deleting $(NAME) objs ✔️"
 
+lclean:		clean
+			@ rm -f ${NAME}
+			@ echo "Deleting $(NAME) Binary ✔️"
+			@ echo "Didn't remake Libft"
+
+
 fclean:		clean
 			@ rm -f ${NAME}
 			@ make -s -C ./libft fclean
@@ -72,10 +78,8 @@ fclean:		clean
 
 re:			fclean all
 
-lre:		clean all
-			@ rm -f ${NAME}
-			@ echo "Deleting $(NAME) Binary ✔️"
-			@ echo "Didn't remake Libft"
+lre:		lclean all
+			
 
 superclean: fclean
 			@ make -sC ./tests/raycaster fclean

@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 02:03:55 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/17 23:53:38 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/07/18 16:48:13 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,9 @@ t_point	get_tile(t_point global_position, t_map *map)
 	t_point	tile;
 
 	tile = point_divide(global_position, TILE_SIZE);
+	tile = point_add(tile, (t_point){((double)(global_position.x - tile.x * \
+	TILE_SIZE) > TILE_SIZE * 0.5), ((double)(global_position.y - tile.y * \
+	TILE_SIZE) > TILE_SIZE * 0.5)});
 	if (tile.x >= (int) map->width || tile.y >= (int) map->width)
 		return	(point2(-1,-1));
 	return (tile);
@@ -155,6 +158,7 @@ double	solve_collision_x(t_actor *actor1, double vel, t_actor *actor2)
 	else if (vel < 0 && actor1->position.x > actor2->position.x)
 		displacement = actor2->position.x + actor2->size.x - pos_after_movement;
 	return ((double)ft_abs_clamp_d((vel + (double)displacement), 0, old_vel));
+	// return (vel + displacement);
 }
 
 double	solve_collision_y(t_actor *actor1, double vel, t_actor *actor2)
@@ -171,19 +175,20 @@ double	solve_collision_y(t_actor *actor1, double vel, t_actor *actor2)
 	else if (vel < 0 && actor1->position.y > actor2->position.y)
 		displacement = actor2->position.y + actor2->size.y - pos_after_movement;
 	return ((double)ft_abs_clamp_d((vel + (double)displacement), 0, old_vel));
+	// return (vel + displacement);
 }
 
 t_vector	solve_collision(t_actor *actor1, t_vector vel, t_actor *actor2)
 {
-	if (vel.y && !is_colliding(actor1, vector2(vel.x, 0), actor2))
+	// if (vel.y && !is_colliding(actor1, vector2(vel.x, 0), actor2))
+	// 	vel.y = solve_collision_y(actor1, vel.y, actor2);
+	// else if (vel.x && !is_colliding(actor1, vector2(0, vel.y), actor2))
+	// 	vel.x = solve_collision_x(actor1, vel.x, actor2);
+	// else
+	// {
 		vel.y = solve_collision_y(actor1, vel.y, actor2);
-	else if (vel.x && !is_colliding(actor1, vector2(0, vel.y), actor2))
 		vel.x = solve_collision_x(actor1, vel.x, actor2);
-	else
-	{
-		vel.y = solve_collision_y(actor1, vel.y, actor2);
-		vel.x = solve_collision_x(actor1, vel.x, actor2);
-	}
+	// }
 			// 	velocity.x = solve_collision_x(actor, velocity.x, (t_actor *)entity_list->content);
 	// t_vector	displacement;
 	// t_point		pos_after_movement;

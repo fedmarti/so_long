@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 22:04:47 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/05/19 05:05:37 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/07/18 16:02:11 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	free_tiles(t_map *map)
 		j = 0;
 		while (j < (int) map->width)
 		{
-			ft_lstclear(&((matrix)[i][j]).entity_list, free);
+			ft_lstclear(&((matrix)[i][j]).entity_list, ft_do_nothing);
 			j++;
 		}
 		free((matrix)[i]);
