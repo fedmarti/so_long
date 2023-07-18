@@ -1,39 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   general_settings.h                                 :+:      :+:    :+:   */
+/*   rectangle.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/09 23:00:42 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/17 21:49:52 by fedmarti         ###   ########.fr       */
+/*   Created: 2023/07/17 19:43:13 by fedmarti          #+#    #+#             */
+/*   Updated: 2023/07/17 19:46:11 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef	GENERAL_SETTINGS_H
-# define GENERAL_SETTINGS_H
+#ifndef RECTANGLE_H
+# define RECTANGLE_H
 
-//previously 256
-# ifndef BASE_SCREEN_WIDTH
-#  define BASE_SCREEN_WIDTH 304
-# endif
+# include "../t_point/point.h"
 
-//previously 224
-# ifndef BASE_SCREEN_HEIGHT
-#  define BASE_SCREEN_HEIGHT 176
-# endif
+typedef struct s_rectangle
+{
+	t_point	pos;
+	t_point	size;
+}	t_rectangle;
 
-# ifndef TILE_SIZE
-#  define TILE_SIZE 16
 #endif
-
-# ifndef PLAYER_SPEED
-#  define PLAYER_SPEED 1
-# endif
-
-# ifndef DASH_BOOST
-#  define DASH_BOOST 1
-# endif
-
-# endif
-

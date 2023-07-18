@@ -6,7 +6,7 @@
 #    By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/03 15:01:24 by fedmarti          #+#    #+#              #
-#    Updated: 2023/06/20 16:09:57 by fedmarti         ###   ########.fr        #
+#    Updated: 2023/07/17 19:37:01 by fedmarti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,6 +69,7 @@ SOURCES := ft_atoi.c \
 	ft_lstlast.c \
 	ft_lstmap.c \
 	ft_lstnew.c \
+	ft_lst_insert.c \
 	get_next_line.c \
 	get_next_line_utils.c 
 

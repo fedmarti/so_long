@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 21:29:20 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/14 22:58:23 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/07/17 21:01:25 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,20 @@ raycast_to_rectangle \
 			hit = temp;
 		i++;
 	}
+	return (hit);
+}
+
+t_hit	rec_shoot_ray(t_rectangle actor, \
+t_point direction_vector, t_rectangle target)
+{
+	t_hit		hit;
+	t_rectangle	big_rec;
+	t_point		starting_point;
+	
+	big_rec.pos = point_subtract(target.pos, point_multiply(actor.size, 0.5));
+	big_rec.size = point_add(actor.size, target.size);
+	starting_point = point_add(actor.pos, point_multiply(actor.size, 0.5));
+	hit = raycast_to_rectangle(starting_point, point_add(starting_point,\
+	direction_vector), big_rec.pos, big_rec.size);
 	return (hit);
 }

@@ -21,12 +21,6 @@
 // 	t_list	*entity_list; 
 // }	t_data;
 
-typedef struct s_rectangle
-{
-	t_point	pos;
-	t_point size;
-}	t_rectangle;
-
 enum	e_game_state {
 	uselsess_shit_i_fucked_myself_by_coupling_graphics_with_this
 };

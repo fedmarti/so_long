@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 02:03:55 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/14 22:57:59 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/07/17 23:53:38 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -298,27 +298,201 @@ t_actor	*get_colliding_actor(t_list *entity_list, t_actor *actor, t_vector vel)
 	return (ca);
 }
 
+// void	move_and_collide(t_actor *actor, t_vector velocity, t_list *entity_list)
+// {
+// 	t_list			*colliding_actors;
+// 	t_list			*temp_node;
+// 	t_rectangle		*temp_rec;
+
+// 	colliding_actors = get_colliding_actors(entity_list, actor, velocity);
+// 	while (colliding_actors)
+// 	{
+// 		temp_rec = (t_rectangle *)colliding_actors->content;
+// 		draw_ray_and_rec(*actor, vector_to_point(velocity), temp_rec, data);
+// 		if (is_colliding(actor, velocity, temp_rec))
+// 		{
+// 			velocity = solve_collision (actor, velocity, temp_rec);
+// 			color = 0x30ff0000;
+// 		}
+// 		temp_node = colliding_actors;
+// 		colliding_actors = colliding_actors->next;
+// 		ft_lstdelone(temp_node, ft_do_nothing);
+// 	}
+// 	actor->position = point_add(actor->position, vector_to_point(velocity));
+// 	// ft_lstclear(&entity_list, ft_do_nothing);
+// }
+
+t_hit	shoot_ray_to_entity(t_actor *actor, t_vector vel, t_actor *entity)
+{
+	return (rec_shoot_ray((t_rectangle){actor->position, actor->size}, \
+	vector_to_point(vel), (t_rectangle){entity->position, entity->size}));
+}
+
+// void	add_to_collision_list(t_list **list, t_actor *actor, unsigned short )
+
+void	add_to_collision_list(t_list **collision_list, t_actor *actor, unsigned short *hit_dist, unsigned short arr_len)
+{
+	unsigned short	list_position;
+	unsigned short	current_hit_dist;
+	t_list			*new_node;
+
+	list_position = 0;
+	current_hit_dist = hit_dist[arr_len - 1];
+	while (arr_len--)
+	{
+		if (*hit_dist < current_hit_dist)
+			list_position++;
+		hit_dist++;
+	}
+	new_node = ft_lstnew(actor);
+	if (!new_node)
+		return ;
+	ft_lst_insert_n(collision_list, new_node, list_position);
+}
+
+#ifndef MAX_COLLISIONS
+# define MAX_COLLISIONS 5U
+#endif
+
+unsigned short	max_collision_chk(unsigned short *arr, unsigned short i, unsigned short val)
+{
+	unsigned short	j;
+	unsigned short	index_of_highest;
+
+	if (i < MAX_COLLISIONS)
+		return (val);
+	j = 0;
+	index_of_highest = MAX_COLLISIONS - 1;
+	while (j < MAX_COLLISIONS)
+	{
+		if (arr[index_of_highest] < arr[j])
+			index_of_highest = j;
+		j++;
+	}
+	if (val > arr[index_of_highest])
+		return (arr[MAX_COLLISIONS - 1]);
+	j = index_of_highest;
+	while (j < MAX_COLLISIONS - 1)
+	{
+		arr[j] = arr[j + 1];
+		j++;
+	}
+	return (val);
+}
+
+void ft_lst_remove_n(t_list **list, int n, void (*del)(void *))
+{
+	t_list	*temp;
+	t_list	*prev;
+
+	if (!*list)
+		return ;
+	temp = *list;
+	prev = NULL;
+	while (n-- && temp->next)
+	{
+		prev = temp;
+		temp = temp->next;
+	}
+	if (!prev)
+		*list = temp->next;
+	else
+		prev->next = temp->next;
+	ft_lstdelone(temp, del);
+}
+
+unsigned short	arr_max_us(unsigned short *arr, unsigned short len)
+{
+	unsigned short	i;
+	unsigned short	j;
+
+	i = 0;
+	j = 0;
+	while (i < len)
+	{
+		if (arr[j] < arr[i])
+			j = i;
+		i++;
+	}
+	return (j);
+}
+
+void arr_rm_us(unsigned short *arr, unsigned short i, unsigned short len)
+{
+	while (i < len)
+	{
+		arr[i] = arr[i + 1];
+		i++;
+	}
+}
+
+bool	max_collision_check(unsigned short *arr, t_list **list, \
+unsigned short val, unsigned short *i)
+{
+	unsigned short index_of_highest;
+
+	if (*i == MAX_COLLISIONS)
+	{
+		index_of_highest = arr_max_us(arr, MAX_COLLISIONS);
+		if (val > arr[index_of_highest])
+			return (false);
+		ft_lst_remove_n(list, MAX_COLLISIONS, ft_do_nothing);
+		arr_rm_us(arr, index_of_highest, MAX_COLLISIONS);
+	}
+	arr[*i] = val;
+	i += (*i < MAX_COLLISIONS);
+	return (true);
+}
+
+t_list	*get_colliding_actors(t_list *entity_list, t_actor *actor, t_vector vel)
+{
+	t_list			*temp_node;
+	unsigned short	hit_distance[MAX_COLLISIONS];
+	unsigned short	i;
+	struct s_hit	hit;
+	t_list			*collision_list;
+
+	i = 0;
+	collision_list = NULL;
+	while (entity_list)
+	{
+		hit = shoot_ray_to_entity(actor, vel, entity_list->content);
+		if (hit.collision)
+		{
+			if (max_collision_check(hit_distance, &collision_list, (unsigned \
+			short) line_len((t_line){hit.origin, hit.intersection}), &i))
+				add_to_collision_list(&collision_list, (t_actor *)entity_list->\
+				content, hit_distance, i);
+		}
+		temp_node = entity_list->next;
+		ft_lstdelone(entity_list , ft_do_nothing);
+		entity_list = temp_node;
+	}
+	return (collision_list);
+}
+
 void	move_and_collide(t_actor *actor, t_vector velocity, t_map *map)
 {
 	t_point	actor_size;
 	t_list	*entity_list;
-	// t_list	*temp;
-	t_actor	*colliding_actor;
+	t_list	*temp;
+	t_list	*colliding_actors;
 
 	actor_size = point_divide(actor->size, TILE_SIZE);
 	entity_list = get_collision_list \
 	(get_tile(actor->position, map), actor_size, map);
 	velocity = recover_sub_pixels(&actor->sub_pixel_pos, velocity);
-	colliding_actor = get_colliding_actor(entity_list, actor, velocity);
-	if (colliding_actor && is_colliding(actor, velocity, colliding_actor))
+	colliding_actors = get_colliding_actors(entity_list, actor, velocity);
+	while (colliding_actors)
 	{
-		velocity = solve_collision (actor, velocity, colliding_actor);
+		temp = colliding_actors;
+		if (is_colliding(actor, velocity, (t_actor *)temp->content))
+			velocity = solve_collision (actor, velocity, \
+			(t_actor *)temp->content);
+		colliding_actors = temp->next;
+		ft_lstdelone(temp, ft_do_nothing);
 		// actor->sprites = put_solid_color(actor->sprites, 0x00FF0000);
 	}
-		// temp = entity_list->next;
-		// ft_lstdelone(entity_list, ft_do_nothing);
-		// entity_list = temp;
-	// }
 	actor->sub_pixel_pos = update_sub_pixels(actor->sub_pixel_pos, velocity);
 	actor->position = point_add(actor->position, vector_to_point(velocity));
 }

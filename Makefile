@@ -67,18 +67,20 @@ clean:
 
 fclean:		clean
 			@ rm -f ${NAME}
-			@ echo "Deleting $(NAME) Binary ✔️"
-
-aclean:		fclean
-			@ rm -f ${LIBFT}
-
-sclean:		fclean
 			@ make -s -C ./libft fclean
+			@ echo "Deleting $(NAME) Binary ✔️"
 
 re:			fclean all
 
-rre:		aclean all
+lre:		clean all
+			@ rm -f ${NAME}
+			@ echo "Deleting $(NAME) Binary ✔️"
+			@ echo "Didn't remake Libft"
 
-rrre:		sclean all
+superclean: fclean
+			@ make -sC ./tests/raycaster fclean
+			@ make -sC ./tests/raycaster_square fclean
+			@ make -sC ./tests/raycaster_square_and_movement fclean
+			@ make -sC ./tests/raycaster_square_and_movement_2 fclean
 
-.PHONY:		all clean fclean aclean sclean re rre rrre
+.PHONY:		all clean fclean sclean re rre rrre
