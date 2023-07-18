@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 17:14:56 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/06/20 15:54:40 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/07/18 20:59:56 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <stdlib.h>
 # include "src/graphics_logic/graphics_structs.h"
 # include "src/actor_logic/actor.h"
+# include "src/time/time_structs.h"
 # ifndef NAME
 #  define NAME "so_long"
 # endif
@@ -45,6 +46,7 @@ typedef struct s_data
 	t_image				*pre_buffer;
 	t_input				input;
 	enum e_game_state	state;
+	struct s_time		time;
 	//possibly more data
 }	t_data;
 

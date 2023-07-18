@@ -40,7 +40,12 @@ SRC = src/t_point/t_point.c \
 	src/actor_logic/player_init.c \
 	src/2d_geometry/raycast.c \
 	src/2d_geometry/raycast_to_rectangle.c \
-	src/2d_geometry/line_len.c
+	src/2d_geometry/line_len.c \
+	src/time/time_update.c \
+	src/time/lock_framerate.c \
+	src/time/timeval_to_usec.c \
+	src/time/time_subtract.c \
+	src/time/time_recalibrate.c
 
 OBJS = $(SRC:.c=.o)
 

@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 02:03:55 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/18 19:22:03 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/07/18 22:36:54 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ t_list	*get_collision_list(t_point position, t_point size, t_map *map)
 
 	head = NULL;
 	position = point_add(position, point2(-1, -1));
+	size = (t_point){size.x + !size.x, size.y + !size.y};
 	size = point_add(size, point2(2, 2));
 	area_size = point_add(position, size);
 	position.x = ft_max(position.x, 0);
@@ -483,7 +484,8 @@ t_list	*get_colliding_actors(t_list *entity_list, t_actor *actor, t_vector vel)
 	while (entity_list)
 	{
 		hit = shoot_ray_to_entity(actor, vel, entity_list->content);
-		if (hit.collision)
+		if (hit.collision && is_colliding(actor, vel, (t_actor *)entity_list->\
+				content))
 		{
 			if (max_collision_check(hit_distance, &collision_list, (unsigned \
 			short) line_len((t_line){hit.origin, hit.intersection}), &i))
@@ -528,7 +530,10 @@ void	move_and_collide(t_actor *actor, t_vector velocity, t_map *map)
 void	player_controller(t_data *data)
 {
 	t_vector	direction;
+	t_vector	velocity;
 
 	direction = get_player_direction(data->input);
-	move_and_collide(data->map->player, vector_multiply(direction, (PLAYER_SPEED + (DASH_BOOST * data->input.shift_left))), data->map);
+	velocity = vector_multiply(direction, (PLAYER_SPEED + (DASH_BOOST * data->input.shift_left)));
+	velocity = vector_multiply(velocity, ((double)data->time.delta / ONE_SEC));
+	move_and_collide(data->map->player, velocity, data->map);
 }

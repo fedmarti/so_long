@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 23:00:42 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/17 21:49:52 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/07/18 22:40:38 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,16 @@
 #endif
 
 # ifndef PLAYER_SPEED
-#  define PLAYER_SPEED 1
+#  define PLAYER_SPEED 20
 # endif
 
 # ifndef DASH_BOOST
-#  define DASH_BOOST 1
+#  define DASH_BOOST PLAYER_SPEED * 2
 # endif
 
+# ifndef FRAME_TIME
+#  define FRAME_TIME 16666l
 # endif
+
+#endif
 
