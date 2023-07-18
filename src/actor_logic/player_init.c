@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 20:10:35 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/06/20 16:02:50 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/07/18 18:38:39 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	*player_additional(t_point position, char *filepath, \
 	main->sprites = ft_calloc(1, sizeof(*main->sprites));
 	main->sprites = image_init_xpm(main->sprites, PLAYER_SPRITES, data->mlx);
 	main->sprites->offset = point2(-7, -8);
+	// main->size = point2(TILE_SIZE - 1, TILE_SIZE - 1);
 	(void)position;
 	(void)filepath;
 	(void)main;
