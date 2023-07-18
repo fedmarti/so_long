@@ -82,9 +82,9 @@ lre:		lclean all
 			
 
 superclean: fclean
-			@ make -sC ./tests/raycaster fclean
-			@ make -sC ./tests/raycaster_square fclean
-			@ make -sC ./tests/raycaster_square_and_movement fclean
-			@ make -sC ./tests/raycaster_square_and_movement_2 fclean
+			@ make -s -C ./tests/raycaster fclean
+			@ make -s -C ./tests/raycaster_square fclean
+			@ make -s -C ./tests/raycaster_square_and_movement fclean
+			@ make -s -C ./tests/raycaster_square_and_movement_2 fclean
 
 .PHONY:		all clean fclean sclean re rre rrre
