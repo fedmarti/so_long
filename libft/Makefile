@@ -6,7 +6,7 @@
 #    By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/03 15:01:24 by fedmarti          #+#    #+#              #
-#    Updated: 2023/07/17 19:37:01 by fedmarti         ###   ########.fr        #
+#    Updated: 2023/07/18 16:56:33 by fedmarti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -82,7 +82,7 @@ all: $(NAME)
 $(NAME): $(OBJECTS)
 	@ ar rc $@ $^
 	@ echo $^
-	@ echo "$(NAME) compiled ✅"
+#	@ echo "$(NAME) compiled ✅"
 
 bonus: $(NAME)
 
