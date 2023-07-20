@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 16:14:11 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/20 18:19:49 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/07/20 20:09:53 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,21 @@ void	sprite_array_init(t_array *sprites, t_list *sprite_list)
 	}
 }
 
+t_img_fraction	get_img_fraction(t_image *big, t_image *small, t_point position)
+{
+	t_img_fraction	fraction;
+
+	fraction.addr = big->addr + \
+	(position.y * big->line_length + position.x * (big->bits_per_pixel >> 3));
+	fraction.bits_per_pixel = big->bits_per_pixel;
+	fraction.endian = big->endian;
+	fraction.line_length = big->line_length;
+	fraction.offset = small->offset;
+	fraction.size = small->size;
+	fraction.whole_image_size = big->size;
+	return (fraction);
+}
+
 t_image \
 	*spritelist_to_spritesheet(t_list *sprite_list, void *mlx, t_array *sprites)
 {
@@ -116,7 +131,10 @@ t_image \
 	while (sprite_list)
 	{
 		blend_images(sprite_list->content, spritesheet, position, overlay);
-		((t_img_fraction *)&sprites->arr[i])->addr = spritesheet->addr ///
+		*((t_img_fraction *)&sprites->arr[i]) = \
+		get_img_fraction(spritesheet, sprite_list->content, position);
+		position.y += ((t_image *)sprite_list->content)->size.y;
+		sprite_list = sprite_list->next;
 	}
 	return (spritesheet);
 }
