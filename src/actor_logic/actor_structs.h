@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 04:24:25 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/06/06 19:56:16 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/07/19 17:36:51 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "../t_point/point.h"
 # include "../graphics_logic/graphics_structs.h"
+# include "../animation_logic/animation_structs.h"
 
 enum e_tile_type {
 	Player = 'P',
@@ -37,7 +38,8 @@ typedef struct s_actor {
 	t_vector			sub_pixel_pos;
 	t_point				velocity;
 	t_point				size;
-	t_image				*sprites;
+	t_image				*sprite;
+	t_anim_data			animation;
 	enum e_tile_type	type;
 }	t_actor;
 

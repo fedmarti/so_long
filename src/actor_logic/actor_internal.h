@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 20:03:06 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/06/06 01:03:26 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/07/19 17:35:27 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@
 # include "../../so_long.h"
 # include <stdlib.h>
 
-//setting placeholder sprites, hopefully these get overwritten by another header
+//setting placeholder sprite, hopefully these get overwritten by another header
 # ifndef PLAYER_SPRITES
 #  define PLAYER_SPRITES "./media/player/idle_front.xpm"
 # endif
- 
+
 // ./media/player/idle_back.xpm 
 // ./media/player/idle_left.xpm 
 // ./media/player/idle_right.xpm"
@@ -43,15 +43,15 @@
 # endif
 
 void	actor_free(t_actor	**actor);
-void		*enemy_additional(t_point position, char *filepath, \
+void	*enemy_additional(t_point position, char *filepath, \
 									t_actor *main, t_data *data);
-void		*collectable_additional(t_point	position, char *filepath, \
+void	*collectable_additional(t_point	position, char *filepath, \
 									t_actor *main, t_data *data);
-void		*wall_additional(t_point position, char *filepath, \
+void	*wall_additional(t_point position, char *filepath, \
 									t_actor *main, t_data *data);
-void		*player_additional(t_point position, char *filepath, \
+void	*player_additional(t_point position, char *filepath, \
 									t_actor *main, t_data *data);
-void		*exit_additional(t_point position, char *filepath, \
+void	*exit_additional(t_point position, char *filepath, \
 									t_actor *main, t_data *data);
 
 

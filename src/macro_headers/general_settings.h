@@ -6,11 +6,11 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 23:00:42 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/18 22:40:38 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/07/19 20:32:07 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef	GENERAL_SETTINGS_H
+#ifndef GENERAL_SETTINGS_H
 # define GENERAL_SETTINGS_H
 
 //previously 256
@@ -25,7 +25,11 @@
 
 # ifndef TILE_SIZE
 #  define TILE_SIZE 16
-#endif
+# endif
+
+# ifndef ANIMATION_HEADER
+#  define ANIMATION_HEADER "Animation data file\n"
+# endif
 
 # ifndef PLAYER_SPEED
 #  define PLAYER_SPEED 20

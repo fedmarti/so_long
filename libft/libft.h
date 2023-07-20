@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 22:08:09 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/17 19:36:34 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/07/20 18:10:49 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,14 @@ typedef struct s_list
 	void			*content;
 	struct s_list	*next;
 }			t_list;
+
+typedef struct s_array
+{
+	void	*arr;
+	size_t	member_size;
+	size_t	n_members;
+}	t_array;
+
 
 int		ft_sign(int n);
 int		ft_max(int a, int b);
@@ -113,6 +121,9 @@ void	ft_lst_insert_n(t_list **list, t_list *new, unsigned short n);
 void	ft_lst_insert_when(t_list **list, \
 t_list *new_node, bool (*comparison)(void *, void *));
 size_t	ft_lslen(t_list *lst);
+void	**ft_lst_to_matrix(t_list *lst);
+char	**ft_read_file(char *path);
+size_t	ft_matrix_size(void **mat);
 void	ft_do_nothing(void *p);
 
 #endif

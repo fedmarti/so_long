@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 14:47:07 by fedmarti          #+#    #+#             */
-/*   Updated: 2022/10/12 15:00:52 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/07/19 20:06:15 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	ft_lstdelone(t_list *lst, void (*del)(void *))
 {
-	del(lst->content);
+	if (del)
+		del(lst->content);
 	free(lst);
 }

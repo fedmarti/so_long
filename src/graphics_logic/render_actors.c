@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 00:16:24 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/06/20 15:52:54 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/07/19 17:25:03 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	render_actor(void *a, void *d)
 
 	actor = (t_actor *)a;
 	data = (t_data *)d;
-	blend_images(actor->sprites, data->pre_buffer, actor->position, overlay);
+	blend_images(actor->sprite, data->pre_buffer, actor->position, overlay);
 }
 
 

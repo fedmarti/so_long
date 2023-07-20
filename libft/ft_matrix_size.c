@@ -1,28 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstclear.c                                      :+:      :+:    :+:   */
+/*   ft_matrix_size.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/12 15:01:36 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/19 20:20:47 by fedmarti         ###   ########.fr       */
+/*   Created: 2023/07/19 20:27:05 by fedmarti          #+#    #+#             */
+/*   Updated: 2023/07/19 20:29:55 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstclear(t_list **lst, void (*del)(void *))
+//please pass a null terminated 2d array
+size_t	ft_matrix_size(void **mat)
 {
-	t_list	*temp;
+	size_t	i;
 
-	while (*lst)
-	{
-		temp = (*lst)->next;
-		if (del)
-			del((*lst)->content);
-		free(*lst);
-		*lst = temp;
-	}
-	lst = NULL;
+	if (!mat)
+		return (0);
+	i = 0;
+	while (mat[i] != NULL)
+		i++;
+	return (i);
 }

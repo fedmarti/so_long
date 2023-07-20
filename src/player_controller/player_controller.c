@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 02:03:55 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/18 22:36:54 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/07/19 17:25:03 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -521,7 +521,7 @@ void	move_and_collide(t_actor *actor, t_vector velocity, t_map *map)
 			(t_actor *)temp->content);
 		colliding_actors = temp->next;
 		ft_lstdelone(temp, ft_do_nothing);
-		// actor->sprites = put_solid_color(actor->sprites, 0x00FF0000);
+		// actor->sprite = put_solid_color(actor->sprite, 0x00FF0000);
 	}
 	actor->sub_pixel_pos = update_sub_pixels(actor->sub_pixel_pos, velocity);
 	actor->position = point_add(actor->position, vector_to_point(velocity));

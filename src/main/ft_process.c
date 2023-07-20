@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 01:13:50 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/18 22:38:47 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/07/19 17:25:03 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	ft_process(void *data)
 {
 	program_state_machine(data);
 	//enemy_logic()
-	// ((t_data *)data)->map->player->sprites = put_solid_color(((t_data *)data)->map->player->sprites, 0x694299);
+	// ((t_data *)data)->map->player->sprite = put_solid_color(((t_data *)data)->map->player->sprite, 0x694299);
 	lock_framerate(((t_data *)data)->time.last_frame);
 	return (0);
 }

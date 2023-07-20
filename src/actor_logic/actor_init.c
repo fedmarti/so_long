@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 19:29:58 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/05/23 19:30:59 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/07/19 17:25:03 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ t_actor	*actor_init(t_point	position, char *filepath, char type, t_data *data)
 	actor->size = point2(TILE_SIZE, TILE_SIZE);
 	actor->type = type;
 	actor->additional_struct = additional(position, filepath, actor, data);
-	if (!actor->sprites)
-		actor->sprites = placeholder_img(actor, data->mlx);
+	if (!actor->sprite)
+		actor->sprite = placeholder_img(actor, data->mlx);
 	return (actor);
 }
