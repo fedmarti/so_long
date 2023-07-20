@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 19:37:31 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/20 17:15:16 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/07/21 00:45:24 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,12 @@
 #include "../../so_long.h"
 
 t_animation	*new_animation(char **anim_file, int i, int j);
-void	advance_to_next_field(char **file, int *i, int *j, char *field_tag);
-void	load_spritesheet(char **file, t_anim_data **animation_struct, void *mlx);
+void		advance_to_next_field(char **file, int *i, int *j, char *field_tag);
+void		load_spritesheet(char **file, \
+t_anim_data **animation_struct, void *mlx);
 
-void \
-	parse_animation_data_file(char **file, t_anim_data **anim_struct, void *mlx)
+void	parse_animation_data_file(char **file, \
+t_anim_data **anim_struct, void *mlx)
 {
 	int			i;
 	int			j;
@@ -48,8 +49,8 @@ void \
 	add_animations(anim_struct, animation_list);
 }
 
-void \
-	read_animation_file(char *filepath, t_anim_data **anim_struct, void *mlx)
+void	read_animation_file(char *filepath, \
+t_anim_data **anim_struct, void *mlx)
 {
 	char	**file;
 
@@ -61,10 +62,9 @@ void \
 	ft_free_matrix(&file, ft_matrix_size(file));
 }
 
-
 /*\
 Animation data file
 sprites:[{path:'', path:'',....}]
 animation_name:['']
 frames:[{sprite:'(num that indicates the loaded sprites)',duration:'', ...}]
-type:[]*/
+type:['']*/
