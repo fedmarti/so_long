@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 20:14:19 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/05/23 01:32:17 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/07/21 23:52:41 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 t_image	*put_solid_color(t_image *dest, unsigned int color);
 
-void	img_free(t_image *img, void *mlx)
+void	img_free(struct s_image *img, void *mlx)
 {
 	if (!img)
 		return ;

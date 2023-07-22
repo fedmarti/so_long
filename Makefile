@@ -45,7 +45,10 @@ SRC = src/t_point/t_point.c \
 	src/time/lock_framerate.c \
 	src/time/timeval_to_usec.c \
 	src/time/time_subtract.c \
-	src/time/time_recalibrate.c
+	src/time/time_recalibrate.c \
+	src/animation_logic/new_animation.c \
+	src/animation_logic/load_spritesheet.c \
+	src/animation_logic/animation_load.c
 
 OBJS = $(SRC:.c=.o)
 
@@ -87,6 +90,7 @@ lre:		lclean all
 			
 
 superclean: fclean
+			@ make -s -C ./tests/read_anim fclean
 			@ make -s -C ./tests/raycaster fclean
 			@ make -s -C ./tests/raycaster_square fclean
 			@ make -s -C ./tests/raycaster_square_and_movement fclean

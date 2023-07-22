@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 04:24:25 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/19 17:36:51 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/07/21 23:45:53 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ enum e_tile_type {
 
 enum e_enemy_type {
 	Zombie = 1,
-	Default = 0
+	Null = 0
 };
 
 typedef struct s_actor {

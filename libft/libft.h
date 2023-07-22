@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 22:08:09 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/20 18:10:49 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/07/21 23:38:42 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ void	ft_lst_insert_n(t_list **list, t_list *new, unsigned short n);
 void	ft_lst_insert_when(t_list **list, \
 t_list *new_node, bool (*comparison)(void *, void *));
 size_t	ft_lslen(t_list *lst);
+t_array	ft_lst_to_array(t_list **list, size_t member_size, void (*del)(void *));
 void	**ft_lst_to_matrix(t_list *lst);
 char	**ft_read_file(char *path);
 size_t	ft_matrix_size(void **mat);

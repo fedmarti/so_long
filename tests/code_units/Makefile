@@ -43,9 +43,14 @@ MAP_LOAD_DIR = ../../src/map_load
 #######
 2D_GEOMETRY = lib2d_geometry.a 
 
-2D_GEOMETRY_DIR =  ../../src/2d_geometry
+2D_GEOMETRY_DIR = ../../src/2d_geometry
 #
 #######
+ANIM = libanim.a
+
+ANIM_DIR = ../../src/animation_logic
+#######
+#
 FLAGS = -Wall -Wextra -Werror -g
 
 # uc = $(subst a,A,$(subst b,B,$(subst c,C,$(subst d,D,$(subst e,E,$(subst f,F,$(subst g,G,$(subst h,H,$(subst i,I,$(subst j,J,$(subst k,K,$(subst l,L,$(subst m,M,$(subst n,N,$(subst o,O,$(subst p,P,$(subst q,Q,$(subst r,R,$(subst s,S,$(subst t,T,$(subst u,U,$(subst v,V,$(subst w,W,$(subst x,X,$(subst y,Y,$(subst z,Z,$1))))))))))))))))))))))))))
@@ -58,7 +63,7 @@ sources = $(wildcard $(call directory, $1)/*.c)
 
 objects = $(patsubst %.c,%.o,$(call sources, $1))
 
-all: ${POINT} ${GRAPHICS} ${PLAYER_CONTROLLER} ${INPUT} ${ACTOR_LOGIC} ${MAP_LOAD} ${2D_GEOMETRY}
+all: ${POINT} ${GRAPHICS} ${PLAYER_CONTROLLER} ${INPUT} ${ACTOR_LOGIC} ${MAP_LOAD} ${2D_GEOMETRY} ${ANIM}
 
 nothing:
 	touch nothing
@@ -89,6 +94,7 @@ clean:
 			@ rm -f ${call objects, ${ACTOR_LOGIC}}
 			@ rm -f ${call objects, ${MAP_LOAD}}
 			@ rm -f ${call objects, ${2D_GEOMETRY}}
+			@ rm -f ${call objects, $(ANIM)}
 			@ echo "Removed all objects files"
 
 fclean:		clean
@@ -99,6 +105,7 @@ fclean:		clean
 			@ rm -f ${ACTOR_LOGIC}
 			@ rm -f ${MAP_LOAD}
 			@ rm -f ${2D_GEOMETRY}
+			@ rm -f ${ANIM}
 			@ echo "Removed all archives"
 
 re:			fclean all

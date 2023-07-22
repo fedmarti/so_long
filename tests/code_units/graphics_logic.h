@@ -1,5 +1,7 @@
 #include "../../src/graphics_logic/graphics_structs.h"
-#include "../raycaster/raycaster.h"
+#ifndef ANIME_H
+# include "../raycaster/raycaster.h"
+#endif	
 
 unsigned int	multiply(unsigned int dest_color, unsigned int src_color);
 unsigned int	overlay(unsigned int dest_color, unsigned int src_color);

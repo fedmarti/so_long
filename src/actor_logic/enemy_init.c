@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 20:11:59 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/05/23 01:29:14 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/07/21 23:46:43 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	*enemy_additional(t_point position, char *filepath, \
 	enemy_characteristics = ft_calloc(1, sizeof(*enemy_characteristics));
 	if (!enemy_characteristics)
 		return (NULL);
-	enemy_characteristics->type = Default;//i gotta change this sometime
+	enemy_characteristics->type = Null;//i gotta change this sometime
 	(void)position;
 	(void)filepath;
 	(void)main;

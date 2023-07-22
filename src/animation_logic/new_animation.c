@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 14:14:00 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/21 01:47:34 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/07/22 17:43:27 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ void	next_char(char **file, int *i, int *j)
 	if (file[*j][*i] == '\0')
 	{
 		*i = 0;
-		*j++;
+		*j = *j + 1;
 	}
 	else
-		*i++;
+		*i = *i + 1;
 }
 
 int	get_field_lenght(char **file, int i, int j)
@@ -58,7 +58,7 @@ static char	*get_animation_name(char **file, int i, int j)
 {
 	char	*name;
 
-	name = ft_calloc((size_t)get_field_lenght(name, i, j) + 1, sizeof(char));
+	name = ft_calloc((size_t)get_field_lenght(file, i, j) + 1, sizeof(char));
 	if (!name)
 		return (NULL);
 	copy_field_content(file, i, j, name);
@@ -67,11 +67,21 @@ static char	*get_animation_name(char **file, int i, int j)
 
 void	advance_to_next_field(char **file, int *i, int *j, char *field_tag)
 {
-	while (file[*j] && file[*j][*i] != ']')
+	size_t	tag_len;
+
+	tag_len = ft_strlen(field_tag);
+	// while (file[*j] && file[*j][*i] != ']')
+		// next_char(file, i, j);
+	while (file[*j])
+	{
+		if (!ft_strncmp(field_tag, &file[*j][*i], tag_len))
+		{
+			while(tag_len--)
+				next_char(file, i, j);
+			return ;
+		}
 		next_char(file, i, j);
-	while (file[*j] && \
-	(!ft_strncmp(field_tag, &file[*j][*i], ft_strlen(field_tag))))
-		next_char(file, i, j);
+	}
 }
 
 t_frame	*new_frame(char **file, int *i, int *j, t_array	*sprite_arr)
@@ -91,56 +101,37 @@ t_frame	*new_frame(char **file, int *i, int *j, t_array	*sprite_arr)
 	return (new_frame);
 }
 
-//copies the content of a list to an array and frees the list
-t_array	ft_lst_to_array(t_list **list, size_t member_size, void (*del)(void *))
+t_list	*new_frame_node(char **anim_file, int *i, int *j, t_array *arr)
 {
-	t_array	array;
-	t_list	*temp;
+	t_frame	*frame;
 	t_list	*node;
-	size_t	i;
 
-	array = (t_array){(void *)0, member_size, ft_lstlen(*list)};
-	array.arr = ft_calloc(array.n_members, array.member_size);
-	if (!array.arr)
-	{
-		ft_lstclear(list, del);
-		return ((t_array){(void *)0, 0, 0});
-	}
-	node = *list;
-	i = 0;
-	while (i < array.n_members)
-	{
-		ft_memcpy(&array.arr[i], node->content, member_size);
-		temp = node;
-		node = node->next;
-		ft_lstdelone(temp, del);
-		i++;
-	}
-	return (array);
+	frame = new_frame(anim_file, i, j, arr);
+	if (!frame)
+		return (NULL);
+	node = ft_lstnew(frame);
+	if (!node)
+		free(frame);
+	return (node);
 }
 
 t_array	get_animation_frames(char **anim_file, int i, int j, t_array *arr)
 {
 	t_list	*list;
 	t_list	*temp;
-	t_frame	*frame;
 
+	list = NULL;
 	advance_to_next_field(anim_file, &i, &j, "sprite:'");
 	while (anim_file[j] && anim_file[j][i] != ']')
 	{
-		frame = new_frame(anim_file, &i, &j, arr);
-		if (!frame)
-		{
-			ft_lstclear(&list, free);
-			return ((t_array){(void *)0, 0, 0});
-		}
-		temp = ft_lstnew(frame);
+		temp = new_frame_node(anim_file, &i, &j, arr);
 		if (!temp)
 		{
-			free(frame);
 			ft_lstclear(&list, free);
 			return ((t_array){(void *)0, 0, 0});
 		}
+		else
+			ft_lstadd_back(&list, temp);
 		advance_to_next_field(anim_file, &i, &j, "sprite:'");
 	}
 	return (ft_lst_to_array(&list, sizeof(t_frame), free));
@@ -149,7 +140,7 @@ t_array	get_animation_frames(char **anim_file, int i, int j, t_array *arr)
 void	*animation_free(t_animation **animation)
 {
 	if (!*animation)
-		return ;
+		return (NULL);
 	if ((*animation)->name)
 		free((*animation)->name);
 	if ((*animation)->frames.arr)
@@ -157,6 +148,25 @@ void	*animation_free(t_animation **animation)
 	free(*animation);
 	*animation = NULL;
 	return (NULL);
+}
+
+suseconds_t	get_aniamtion_duration(t_animation *anim)
+{
+	suseconds_t	tot_duration;
+	t_frame		*frame_array;
+	size_t		i;
+
+	if (!anim->frames.arr)
+		return (0);
+	tot_duration = 0;
+	i = 0;
+	frame_array = anim->frames.arr;
+	while (i < anim->frames.n_members)
+	{
+		tot_duration += frame_array[i].duration;
+		i++;
+	}
+	return (tot_duration);
 }
 
 t_animation	*new_animation(char **anim_file, int i, int j, t_array *sprite_arr)
@@ -169,7 +179,7 @@ t_animation	*new_animation(char **anim_file, int i, int j, t_array *sprite_arr)
 	animation->name = get_animation_name(anim_file, i, j);
 	if (!animation->name)
 		return (animation_free(&animation));
-	advance_to_next_field(anim_file, &i, &j, "frames:['");
+	advance_to_next_field(anim_file, &i, &j, "frames:[{");
 	if (!anim_file[j])
 		return (animation_free(&animation));
 	animation->frames = get_animation_frames(anim_file, i, j, sprite_arr);
@@ -177,7 +187,10 @@ t_animation	*new_animation(char **anim_file, int i, int j, t_array *sprite_arr)
 		return (animation_free(&animation));
 	animation->tot_duration = get_aniamtion_duration(animation);
 	advance_to_next_field(anim_file, &i, &j, "type:[");
-	animation->type = get_animation_type(anim_file, i, j);
+	if (anim_file[j])
+		animation->type = (suseconds_t)ft_atoi(&anim_file[j][i]);
+	else
+		animation->type = 0;
 	return (animation);
 }
 

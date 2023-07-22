@@ -1,5 +1,5 @@
-#ifndef RAYCASTER_H
-# define RAYCASTER_H
+#ifndef ANIME_H
+# define ANIME_H
 
 # include "../../minilibx-linux/mlx.h"
 # include "../../libft/libft.h"
@@ -8,6 +8,7 @@
 # include <X11/X.h>
 # include <stdlib.h>
 # include "../../src/graphics_logic/graphics_structs.h"
+# include "../../src/animation_logic/animation_structs.h"
 
 // typedef struct s_data
 // {
@@ -19,16 +20,13 @@
 // 	t_list	*entity_list; 
 // }	t_data;
 
-typedef struct s_project_struct {
-	t_point	position;
-	// double	angle;
-	t_point	mouse_position;
-	t_list	*line_list;
-}	rc_p_struct;
+enum	e_game_state {
+	uselsess_shit_i_fucked_myself_by_coupling_graphics_with_this
+};
 
 typedef struct s_data
 {
-	rc_p_struct			*raycaster_struct;
+	t_anim_data			*anime;
 	void				*mlx;
 	void				*mlx_window;
 	t_image				*buffer;
@@ -37,15 +35,13 @@ typedef struct s_data
 	enum e_game_state	state;
 }	t_data;
 
-typedef struct s_line {
-	t_point	start;
-	t_point	end;
-}	t_line;
 
 int		ft_quit(void *data);
 int		ft_process(void *data);
 int		on_click(int button, int x, int y, void *param);
 void	setup_hooks(t_data *data);
+void	read_animation_file(char *filepath, \
+t_anim_data **anim_struct, void *mlx);
 
 
 #endif

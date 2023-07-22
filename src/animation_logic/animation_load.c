@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 19:37:31 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/21 00:45:24 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/07/22 17:33:19 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,25 @@
 #include "animation_structs.h"
 #include "../../so_long.h"
 
-t_animation	*new_animation(char **anim_file, int i, int j);
+t_animation	*new_animation(char **anim_file, int i, int j, t_array *sprite_arr);
 void		advance_to_next_field(char **file, int *i, int *j, char *field_tag);
 void		load_spritesheet(char **file, \
 t_anim_data **animation_struct, void *mlx);
+
+static void	ani_free(void *ani)
+{
+	t_animation	**animation;
+
+	animation = ani;
+	if (!*animation)
+		return ;
+	if ((*animation)->name)
+		free((*animation)->name);
+	if ((*animation)->frames.arr)
+		free((*animation)->frames.arr);
+	free(*animation);
+	*animation = NULL;
+}
 
 void	parse_animation_data_file(char **file, \
 t_anim_data **anim_struct, void *mlx)
@@ -35,7 +50,7 @@ t_anim_data **anim_struct, void *mlx)
 	advance_to_next_field(file, &i, &j, "animation_name:['");
 	while (file[j])
 	{
-		content = new_animation(file, i, j);
+		content = new_animation(file, i, j, &(*anim_struct)->sprites);
 		if (content)
 		{
 			temp_node = ft_lstnew(content);
@@ -46,7 +61,7 @@ t_anim_data **anim_struct, void *mlx)
 		}
 		advance_to_next_field(file, &i, &j, "animation_name:['");
 	}
-	add_animations(anim_struct, animation_list);
+	(*anim_struct)->animations = ft_lst_to_array(&animation_list, sizeof(t_animation), ani_free);
 }
 
 void	read_animation_file(char *filepath, \
@@ -59,7 +74,7 @@ t_anim_data **anim_struct, void *mlx)
 		return ;
 	if (!ft_strncmp(*file, ANIMATION_HEADER, ft_strlen(ANIMATION_HEADER)))
 		parse_animation_data_file(file, anim_struct, mlx);
-	ft_free_matrix(&file, ft_matrix_size(file));
+	ft_free_matrix((void ***)&file, ft_matrix_size((void **)file));
 }
 
 /*\
