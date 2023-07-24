@@ -4,6 +4,8 @@
 		"raycaster.h": "c",
 		"ft_time.h": "c",
 		"time_structs.h": "c",
-		"animation_structs.h": "c"
+		"animation_structs.h": "c",
+		"graphics.h": "c",
+		"graphics_structs.h": "c"
 	}
 }

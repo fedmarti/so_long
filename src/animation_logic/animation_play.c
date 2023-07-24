@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   animation_play.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fedmarti <fedmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 16:50:33 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/24 00:01:44 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/07/24 22:14:35 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_animation	*find_animation_by_name(char *aniamtion_name, t_array *anim_arr, \
 		ft_min((int)len, (int)ft_strlen(current_animation->name))))
 			return (current_animation);
 		i++;
-		current_animation += i * anim_arr->member_size;
+		current_animation++;
 	}
 	return (NULL);
 }

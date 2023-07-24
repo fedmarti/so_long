@@ -3,19 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   setup_hooks.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fedmarti <fedmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 00:31:38 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/22 16:10:35 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/07/24 22:25:35 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "anime.h"
 #include "../code_units/handle_input.h"
+#include "../../src/animation_logic/animation.h"
 
 void	mouse_left(t_data *data, t_point pos)
 {
-	(void)data;
+	t_data	*d = data;
+
+	if (!ft_strncmp(d->anime->current_animation.animation->name, "run", 3))
+		animation_play("amogu", data->anime, 100);
+	else
+		animation_play("run", data->anime, 50);
 	(void)pos;
 }
 
@@ -32,7 +38,6 @@ int	on_click(int button, int x, int y, void *data)
 	}
 	return (0);
 }
-
 
 
 void	setup_hooks(t_data *data)

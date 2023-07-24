@@ -1,5 +1,9 @@
 Animation data file
-sprites:[{path:'media/1.xpm', path:'media/2.xpm', path:'media/3.xpm', path:'media/4.xpm', path:'media/5.xpm', path:'media/6.xpm', path:'media/7.xpm', path:'media/8.xpm', path:'media/9.xpm'}]
+sprites:[{path:'media/1.xpm', path:'media/2.xpm', path:'media/3.xpm', path:'media/4.xpm', path:'media/5.xpm', path:'media/6.xpm', path:'media/7.xpm', path:'media/8.xpm', path:'media/9.xpm',
+path:'media/a1.xpm', path:'media/a2.xpm', path:'media/a3.xpm', path:'media/a4.xpm', path:'media/a5.xpm', path:'media/a6.xpm'}]
 animation_name:['run']
 frames:[{sprite:'0',duration:'50000', sprite:'1', duration:'50000', sprite:'2', duration:'50000', sprite:'3', duration:'50000', sprite:'4', duration:'50000', sprite:'5', duration:'50000', sprite:'6', duration:'50000', sprite:'7', duration:'50000', sprite:'8', duration:'50000'}]
+type:['1']
+animation_name:['amogu']
+frames:[{sprite:'9',duration:'50000', sprite:'10', duration:'50000', sprite:'11', duration:'50000', sprite:'12', duration:'50000', sprite:'13', duration:'50000', sprite:'14', duration:'50000'}]
 type:['1']

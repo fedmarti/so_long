@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   animation_load.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fedmarti <fedmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 19:37:31 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/24 00:05:12 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/07/24 23:23:06 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,6 @@ t_anim_data **animation_struct, void *mlx);
 // 		return ;
 // 	if ((*animation)->name)
 // 		free((*animation)->name);
-// 	if ((*animation)->frames.arr)
-// 		free((*animation)->frames.arr);
-// 	free(*animation);
 // 	*animation = NULL;
 // }
 

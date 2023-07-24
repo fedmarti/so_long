@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fedmarti <fedmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 15:48:45 by federico          #+#    #+#             */
-/*   Updated: 2023/07/24 02:17:53 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/07/24 20:52:43 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,31 @@
 void	*g_mlx = NULL;
 void	*g_mlx_win = NULL;
 
+void	blend_img_fraction(t_img_fraction *src, t_image *dst, t_point position, \
+	unsigned int (*blend_mode)(unsigned int, unsigned int));
+
 void	print_now(t_image	*img, t_point	pos){
 	mlx_put_image_to_window(g_mlx, g_mlx_win, img->img, pos.x, pos.y);
+}
+
+void	put_fraction_now(t_img_fraction *img, t_point position)
+{
+	t_image *new = ft_calloc(1, sizeof(*new));
+	t_image *big = ft_calloc(1, sizeof(*big));
+
+	new->size = img->size;
+	new->img = mlx_new_image(g_mlx, img->size.x, img->size.y);
+	new->addr = mlx_get_data_addr(new->img, &new->bits_per_pixel, &new->line_length, &new->endian);
+	new->offset = (t_point){0,0};
+	blend_img_fraction((img), new, (t_point){0,0}, overlay);
+	big = image_init_color(new->size.x * 4, new->size.y * 4, g_mlx, 0);
+	upscale(big, new);
+	mlx_put_image_to_window(g_mlx, g_mlx_win, big->img, position.x * 4, position.y * 4);
+	mlx_destroy_image(g_mlx, new->img);
+	mlx_destroy_image(g_mlx, big->img);
+	
+	free(big);
+	free(new);
 }
 
 void	*free_data(t_data *data)
@@ -73,7 +96,7 @@ int	main(int argc, char **argv)
 			}
 			printf("tot_duration = %li\ntype = %s\n\n", animation.tot_duration, (animation.type == 0)? "Default" : "Looping");
 		}
-		animation_play("run", data->anime, 35);
+		animation_play("run", data->anime, 50);
 	}
 	setup_hooks(data);
 	mlx_loop(data->mlx);

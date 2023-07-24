@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_process.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fedmarti <fedmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 01:13:50 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/24 02:19:55 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/07/24 21:08:09 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@
 
 #include "../code_units/graphics_logic.h"
 
+
+void	put_fraction_now(t_img_fraction *img, t_point position);
+void	put_pixel_to_img(t_image *img, int x, int y, int color);
 
 void	blend_img_fraction(t_img_fraction *src, t_image *dst, t_point position, \
 	unsigned int (*blend_mode)(unsigned int, unsigned int));
@@ -31,6 +34,7 @@ int	ft_process(void *data)
 	// ft_putstr_fd("delta:", 1);
 	// ft_putnbr_fd((int)d->time->delta, 1);
 	// ft_putchar_fd('\n', 1);
+
 	// ft_putchar_fd('\n', 1);
 	if (d && d->anime)
 		render_animation(d->anime, d->time->delta);
@@ -38,7 +42,10 @@ int	ft_process(void *data)
 	for (int i = 0; (size_t)i < d->anime->sprites.n_members; i++)
 	{
 		// blend_img_fraction(((t_frame *)d->anime->current_animation.animation->frames.arr)[i].img, d->pre_buffer, (t_point){16, i * 16}, overlay);
-		blend_img_fraction((d->anime->sprites.arr) + i * d->anime->sprites.member_size, d->pre_buffer, pos, overlay);
+		// blend_img_fraction((d->anime->sprites.arr) + i * d->anime->sprites.member_size, d->pre_buffer, pos, overlay);
+		// put_fraction_now((d->anime->sprites.arr) + i * d->anime->sprites.member_size, pos);
+		// usleep(500000);
+		// put_pixel_to_img(d->pre_buffer, pos.x, pos.y, 0xFF0000);
 		pos.y += ((t_img_fraction *)d->anime->sprites.arr)[i].size.y;
 	}
 	// blend_images(d->anime->spritesheet, d->pre_buffer, (t_point){32, 0}, overlay);

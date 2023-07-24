@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   new_animation.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fedmarti <fedmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 14:14:00 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/24 00:22:52 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/07/24 23:05:04 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 #include <stdlib.h>
 #include "../graphics_logic/graphics_structs.h"
 #include <sys/time.h>
+
+
+void	*animation_free(t_animation **animation);
 
 void	next_char(char **file, int *i, int *j)
 {
@@ -115,15 +118,39 @@ t_list	*new_frame_node(char **anim_file, int *i, int *j, t_array *arr)
 	return (node);
 }
 
+// t_array	get_animation_frames(char **anim_file, int i, int j, t_array *arr)
+// {
+// 	t_list	*list;
+// 	t_list	*temp;
+
+// 	list = NULL;
+// 	advance_to_next_field(anim_file, &i, &j, "sprite:'");
+// 	while (anim_file[j] && anim_file[j][i] != ']')
+// 	{
+// 		temp = new_frame_node(anim_file, &i, &j, arr);
+// 		if (!temp)
+// 		{
+// 			ft_lstclear(&list, free);
+// 			return ((t_array){(void *)0, 0, 0});
+// 		}
+// 		else
+// 			ft_lstadd_back(&list, temp);
+		
+// 		advance_to_next_field(anim_file, &i, &j, "sprite:'");
+// 	}
+// 	return (ft_lst_to_array(&list, sizeof(t_frame), free));
+// }
+
+
 t_array	get_animation_frames(char **anim_file, int i, int j, t_array *arr)
 {
 	t_list	*list;
 	t_list	*temp;
 
 	list = NULL;
-	advance_to_next_field(anim_file, &i, &j, "sprite:'");
-	while (anim_file[j] && anim_file[j][i] != ']')
+	while (anim_file[j] && anim_file[j][i] != '}')
 	{
+		advance_to_next_field(anim_file, &i, &j, "sprite:'");
 		temp = new_frame_node(anim_file, &i, &j, arr);
 		if (!temp)
 		{
@@ -132,22 +159,11 @@ t_array	get_animation_frames(char **anim_file, int i, int j, t_array *arr)
 		}
 		else
 			ft_lstadd_back(&list, temp);
-		advance_to_next_field(anim_file, &i, &j, "sprite:'");
+		advance_to_next_field(anim_file, &i, &j, "'");
+		while (anim_file[j] && (anim_file[j][i] == '\n' || anim_file[j][i] == ' ' || anim_file[j][i] == '\''))
+			next_char(anim_file, &i, &j);
 	}
 	return (ft_lst_to_array(&list, sizeof(t_frame), free));
-}
-
-void	*animation_free(t_animation **animation)
-{
-	if (!*animation)
-		return (NULL);
-	if ((*animation)->name)
-		free((*animation)->name);
-	if ((*animation)->frames.arr)
-		free((*animation)->frames.arr);
-	free(*animation);
-	*animation = NULL;
-	return (NULL);
 }
 
 suseconds_t	get_aniamtion_duration(t_animation *anim)

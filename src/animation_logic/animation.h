@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   animation.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fedmarti <fedmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 19:23:04 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/23 23:36:02 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/07/24 23:04:50 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,8 @@ t_animation	*find_animation_by_name(char *aniamtion_name, \
 void		read_animation_file(char *filepath, \
 				t_anim_data **anim_struct, void *mlx);
 void		render_animation(t_anim_data *data, suseconds_t delta_time);
+void		*animation_free(t_animation **animation);
+void		animation_struct_free(t_anim_data **data, void *mlx);
+void		free_speadsheet(t_anim_data *data, void *mlx);
 
 #endif
