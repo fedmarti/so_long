@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 16:14:11 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/22 17:20:46 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/07/24 01:23:58 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,12 +146,13 @@ t_image \
 	i = 0;
 	while (sprite_list)
 	{
-		print_now(sprite_list->content, position);
+		// print_now(sprite_list->content, position);
 		blend_images(sprite_list->content, spritesheet, position, overlay);
 		((t_img_fraction *)sprites->arr)[i] = \
 		get_img_fraction(spritesheet, sprite_list->content, position);
 		position.y += ((t_image *)sprite_list->content)->size.y;
 		sprite_list = sprite_list->next;
+		i++;
 	}
 	return (spritesheet);
 }

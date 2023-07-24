@@ -3,6 +3,7 @@ NAME = animation_test
 LIB_DIR = ../code_units/
 
 LIBRARIES =$(LIB_DIR)libanim.a \
+	$(LIB_DIR)libtime.a \
 	$(LIB_DIR)libgraphics.a \
 	$(LIB_DIR)libinput.a \
 	$(LIB_DIR)libpoint.a \

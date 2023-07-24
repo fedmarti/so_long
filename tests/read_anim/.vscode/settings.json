@@ -1,6 +1,9 @@
 {
 	"files.associations": {
 		"anime.h": "c",
-		"raycaster.h": "c"
+		"raycaster.h": "c",
+		"ft_time.h": "c",
+		"time_structs.h": "c",
+		"animation_structs.h": "c"
 	}
 }

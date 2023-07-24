@@ -6,7 +6,7 @@
       "type": "cppdbg",
       "request": "launch",
       "program": "${workspaceFolder}/animation_test",
-      "args": ["test_animation_file"],
+      "args": ["adf"],
       "stopAtEntry": false,
       "cwd": "${workspaceFolder}",
       "environment": [],

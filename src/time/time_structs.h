@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 20:50:26 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/18 21:26:46 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/07/23 19:36:17 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ struct s_time{
 	suseconds_t		delta;
 	struct timeval	last_frame;
 	struct timeval	this_frame;
-	struct timezone	tz;
 };
 
 

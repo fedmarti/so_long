@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 14:14:00 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/22 17:43:27 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/07/24 00:22:52 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,9 +186,9 @@ t_animation	*new_animation(char **anim_file, int i, int j, t_array *sprite_arr)
 	if (!animation->frames.arr)
 		return (animation_free(&animation));
 	animation->tot_duration = get_aniamtion_duration(animation);
-	advance_to_next_field(anim_file, &i, &j, "type:[");
+	advance_to_next_field(anim_file, &i, &j, "type:['");
 	if (anim_file[j])
-		animation->type = (suseconds_t)ft_atoi(&anim_file[j][i]);
+		animation->type = ft_atoi(&anim_file[j][i]);
 	else
 		animation->type = 0;
 	return (animation);

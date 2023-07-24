@@ -6,13 +6,14 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 15:48:45 by federico          #+#    #+#             */
-/*   Updated: 2023/07/22 17:10:40 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/07/24 02:17:53 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include "anime.h"
 #include "../code_units/graphics_logic.h"
+#include "../../src/animation_logic/animation.h"
 
 void	*g_mlx = NULL;
 void	*g_mlx_win = NULL;
@@ -50,6 +51,11 @@ int	main(int argc, char **argv)
 	g_mlx = data->mlx;
 	g_mlx_win = data->mlx_window;
 	data->anime = ft_calloc(1, sizeof(*data->anime));
+	if (!data->anime)
+		return 0;
+	data->time = ft_calloc(1, sizeof(*data->time));
+	if (!data->time)
+		return 0;
 	read_animation_file(argv[1], &data->anime, data->mlx);
 	if (data->anime)
 	{
@@ -62,11 +68,12 @@ int	main(int argc, char **argv)
 				for (int j = 0; (size_t)j < animation.frames.n_members; j++)
 				{
 					t_frame frame = ((t_frame *)animation.frames.arr)[j];
-					printf("	frame n. %i: img:%p duration: %li\n", j, frame.img, frame.duration);
+					printf("	frame n. %i: img:%p duration: %li\n", j, frame.img->addr, frame.duration);
 				}
 			}
 			printf("tot_duration = %li\ntype = %s\n\n", animation.tot_duration, (animation.type == 0)? "Default" : "Looping");
 		}
+		animation_play("run", data->anime, 35);
 	}
 	setup_hooks(data);
 	mlx_loop(data->mlx);

@@ -48,7 +48,9 @@ SRC = src/t_point/t_point.c \
 	src/time/time_recalibrate.c \
 	src/animation_logic/new_animation.c \
 	src/animation_logic/load_spritesheet.c \
-	src/animation_logic/animation_load.c
+	src/animation_logic/animation_load.c \
+	src/animation_logic/render_animation.c \
+	src/animation_logic/animation_play.c
 
 OBJS = $(SRC:.c=.o)
 

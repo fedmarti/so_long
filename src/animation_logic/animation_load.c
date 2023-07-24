@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 19:37:31 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/22 17:33:19 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/07/24 00:05:12 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,20 @@ void		advance_to_next_field(char **file, int *i, int *j, char *field_tag);
 void		load_spritesheet(char **file, \
 t_anim_data **animation_struct, void *mlx);
 
-static void	ani_free(void *ani)
-{
-	t_animation	**animation;
+// static void	ani_free(void *ani)
+// {
+// 	t_animation	**animation;
 
-	animation = ani;
-	if (!*animation)
-		return ;
-	if ((*animation)->name)
-		free((*animation)->name);
-	if ((*animation)->frames.arr)
-		free((*animation)->frames.arr);
-	free(*animation);
-	*animation = NULL;
-}
+// 	animation = ani;
+// 	if (!*animation)
+// 		return ;
+// 	if ((*animation)->name)
+// 		free((*animation)->name);
+// 	if ((*animation)->frames.arr)
+// 		free((*animation)->frames.arr);
+// 	free(*animation);
+// 	*animation = NULL;
+// }
 
 void	parse_animation_data_file(char **file, \
 t_anim_data **anim_struct, void *mlx)
@@ -61,7 +61,7 @@ t_anim_data **anim_struct, void *mlx)
 		}
 		advance_to_next_field(file, &i, &j, "animation_name:['");
 	}
-	(*anim_struct)->animations = ft_lst_to_array(&animation_list, sizeof(t_animation), ani_free);
+	(*anim_struct)->animations = ft_lst_to_array(&animation_list, sizeof(t_animation), free);
 }
 
 void	read_animation_file(char *filepath, \
