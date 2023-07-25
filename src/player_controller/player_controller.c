@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_controller.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fedmarti <fedmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 02:03:55 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/19 17:25:03 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/07/26 00:15:06 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_vector	get_player_direction(t_input input)
 {
 	t_vector	direction;
 
-	direction = vector2(input.right - input.left, input.down - input.up);
+	direction = vector2(input.right - input.left, 0 * input.down - input.up);
 	if (direction.x && direction.y)
 		direction = vector_multiply(direction, 0.70710678118);
 	return (direction);
@@ -127,6 +127,11 @@ t_point	get_tile(t_point global_position, t_map *map)
 
 //only works with squares so far
 // AABB collision
+bool	AABB(t_point p1, t_point p2, t_point p3, t_point p4)
+{
+	return (p1.x < p4.x && p2.x > p3.x && p1.y < p4.y && p2.y > p3.y);
+}
+
 bool	is_colliding(t_actor *actor1, t_vector vel, t_actor *actor2)
 {
 	t_point	pos_after_movement;
@@ -138,11 +143,21 @@ bool	is_colliding(t_actor *actor1, t_vector vel, t_actor *actor2)
     // rect1.h + rect1.y > rect2.y
 	if (actor1 == actor2)
 		return (false);
+
+
 	pos_after_movement = point_add(actor1->position, vector_to_point(vel));
-	return (pos_after_movement.x < actor2->position.x + actor2->size.x
-		&& pos_after_movement.x + actor1->size.x > actor2->position.x
-		&& pos_after_movement.y < actor2->position.y + actor2->size.y
-		&& pos_after_movement.y + actor1->size.y > actor2->position.y);
+	
+	// return (pos_after_movement.x < actor2->position.x + actor2->size.x
+	// 	&& pos_after_movement.x + actor1->size.x > actor2->position.x
+	// 	&& pos_after_movement.y < actor2->position.y + actor2->size.y
+	// 	&& pos_after_movement.y + actor1->size.y > actor2->position.y);
+
+
+	t_point p1 = pos_after_movement;
+	t_point p2 = point_add(p1, actor1->size);
+	t_point p3 = actor2->position;
+	t_point	p4 = point_add(p3, actor2->size);
+	return (AABB(p1, p2, p3, p4));
 }
 
 double	solve_collision_x(t_actor *actor1, double vel, t_actor *actor2)
@@ -499,16 +514,11 @@ t_list	*get_colliding_actors(t_list *entity_list, t_actor *actor, t_vector vel)
 	return (collision_list);
 }
 
-void	move_and_collide(t_actor *actor, t_vector velocity, t_map *map)
+void	move_and_collide(t_actor *actor, t_vector velocity, t_list	*entity_list)
 {
-	t_point	actor_size;
-	t_list	*entity_list;
 	t_list	*temp;
 	t_list	*colliding_actors;
 
-	actor_size = point_divide(actor->size, TILE_SIZE);
-	entity_list = get_collision_list \
-	(get_tile(actor->position, map), actor_size, map);
 	velocity = recover_sub_pixels(&actor->sub_pixel_pos, velocity);
 	// if (entity_list && entity_list->next)
 	// 	entity_list = sort_collision_list(entity_list, point_add(actor->position, vector_to_point(velocity)));
@@ -525,15 +535,50 @@ void	move_and_collide(t_actor *actor, t_vector velocity, t_map *map)
 	}
 	actor->sub_pixel_pos = update_sub_pixels(actor->sub_pixel_pos, velocity);
 	actor->position = point_add(actor->position, vector_to_point(velocity));
+	actor->velocity = velocity;
+}
+
+bool	is_on_ground(t_actor *actor, t_list *entity_list)
+{
+	t_rectangle	feet_hitbox;
+	t_actor		*temp_actor;
+	
+	feet_hitbox.pos = (t_point){actor->position.x, actor->position.y + actor->size.y};
+	feet_hitbox.size = (t_point){actor->size.x, 1};
+	while (entity_list)
+	{
+		temp_actor = entity_list->content;
+		if (temp_actor != actor && AABB(feet_hitbox.pos, point_add(feet_hitbox.pos, feet_hitbox.size), temp_actor->position, point_add(temp_actor->position, temp_actor->size)))
+			return (true);
+		entity_list = entity_list->next;
+	}
+	return (false);
+}
+
+t_list	*get_entity_list(t_data *data)
+{
+	t_list	*entity_list;
+	t_point actor_size;
+
+
+	actor_size = point_divide(data->map->player->size, TILE_SIZE);
+	entity_list = get_collision_list \
+	(get_tile(data->map->player->position, data->map), actor_size, data->map);
+	return (entity_list);
 }
 
 void	player_controller(t_data *data)
 {
 	t_vector	direction;
 	t_vector	velocity;
-
+	t_list	*entity_list;
+	
+	entity_list = get_entity_list(data);
 	direction = get_player_direction(data->input);
 	velocity = vector_multiply(direction, (PLAYER_SPEED + (DASH_BOOST * data->input.shift_left)));
 	velocity = vector_multiply(velocity, ((double)data->time.delta / ONE_SEC));
-	move_and_collide(data->map->player, velocity, data->map);
+	if (data->input.space && is_on_ground(data->map->player, entity_list))
+		velocity.y -= JUMP;
+	velocity.y += data->map->player->velocity.y;
+	move_and_collide(data->map->player, velocity, entity_list);
 }

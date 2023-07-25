@@ -9,7 +9,8 @@
 # include <stdlib.h>
 # include "../../src/graphics_logic/graphics_structs.h"
 # include "../../src/2d_geometry/line.h"
-# include "../../src/2d_geometry/raycast.h"
+# include "../../src/2d_geometry/rectangle.h"
+// # include "../../src/2d_geometry/raycast.h"
 
 // typedef struct s_data
 // {
@@ -20,6 +21,20 @@
 // 	t_input	input;
 // 	t_list	*entity_list; 
 // }	t_data;
+
+// typedef struct s_hit
+// {
+// 	t_point	origin;
+// 	t_point	intersection;	
+// 	bool	collision;
+// }	t_hit;
+
+typedef struct s_hit t_hit;
+
+struct s_hit	raycast(t_point p1, t_point p2, t_point p3, t_point p4);
+struct s_hit	raycast_to_rectangle(t_point from, \
+t_point to, t_point rec_pos, t_point rec_size);
+bool			is_h2_closer(t_hit h1, t_hit h2);
 
 enum	e_game_state {
 	uselsess_shit_i_fucked_myself_by_coupling_graphics_with_this

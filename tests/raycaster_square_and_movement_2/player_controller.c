@@ -3,18 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   player_controller.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fedmarti <fedmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 02:03:55 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/17 21:01:00 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/07/26 00:11:19 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "raycaster.h"
 
+typedef struct s_hit
+{
+	t_point	origin;
+	t_point	intersection;	
+	bool	collision;
+}	t_hit;
+
+struct s_hit	raycast(t_point p1, t_point p2, t_point p3, t_point p4);
+t_hit			rec_shoot_ray(t_rectangle actor, \
+t_point direction_vector, t_rectangle target);
+bool			is_h2_closer(t_hit h1, t_hit h2);
+
 void \
 	draw_line_gba(t_image *img, t_point start, t_point end, unsigned int color);
 
+
+bool	AABB(t_point p1, t_point p2, t_point p3, t_point p4)
+{
+	return (p1.x < p4.x && p2.x > p3.x && p1.y < p4.y && p2.y > p3.y);
+}
 
 //only works with squares so far
 // AABB collision
@@ -30,10 +47,18 @@ bool	is_colliding(t_rectangle *actor1, t_vector vel, t_rectangle *actor2)
 	if (actor1 == actor2)
 		return (false);
 	pos_after_movement = point_add(actor1->pos, vector_to_point(vel));
-	return (pos_after_movement.x < actor2->pos.x + actor2->size.x
-		&& pos_after_movement.x + actor1->size.x > actor2->pos.x
-		&& pos_after_movement.y < actor2->pos.y + actor2->size.y
-		&& pos_after_movement.y + actor1->size.y > actor2->pos.y);
+
+
+	// return (pos_after_movement.x < actor2->pos.x + actor2->size.x
+	// 	&& pos_after_movement.x + actor1->size.x > actor2->pos.x
+	// 	&& pos_after_movement.y < actor2->pos.y + actor2->size.y
+	// 	&& pos_after_movement.y + actor1->size.y > actor2->pos.y);
+
+	t_point p1 = pos_after_movement;
+	t_point p2 = point_add(p1, actor1->size);
+	t_point p3 = actor2->pos;
+	t_point	p4 = point_add(p3, actor2->size);
+	return (AABB(p1, p2, p3, p4));
 }
 
 double	solve_collision_x(t_rectangle *actor1, double vel, t_rectangle *actor2)
@@ -67,6 +92,9 @@ double	solve_collision_y(t_rectangle *actor1, double vel, t_rectangle *actor2)
 		displacement = actor2->pos.y + actor2->size.y - pos_after_movement;
 	return ((double)ft_abs_clamp_d((vel + (double)displacement), 0, old_vel));
 }
+
+
+
 
 t_vector	solve_collision(t_rectangle *actor1, t_vector vel, t_rectangle *actor2)
 {
@@ -121,19 +149,19 @@ void	get_starting_points(t_point *sp, t_point dir, t_rectangle *actor)
 		sp[2 * (dir.x < 0)].x += actor->size.x * ft_sign(dir.x);
 }
 
-t_hit	rec_shoot_ray(t_rectangle *actor, t_point direction_vector, t_rectangle *target)
-{
-	t_hit		hit;
-	t_rectangle	big_rec;
-	t_point		starting_point;
+// t_hit	rec_shoot_ray(t_rectangle *actor, t_point direction_vector, t_rectangle *target)
+// {
+// 	t_hit		hit;
+// 	t_rectangle	big_rec;
+// 	t_point		starting_point;
 	
-	big_rec.pos = point_subtract(target->pos, point_multiply(actor->size, 0.5));
-	big_rec.size = point_add(actor->size, target->size);
-	starting_point = point_add(actor->pos, point_multiply(actor->size, 0.5));
-	hit = raycast_to_rectangle(starting_point, point_add(starting_point,\
-	direction_vector), big_rec.pos, big_rec.size);
-	return (hit);
-}
+// 	big_rec.pos = point_subtract(target->pos, point_multiply(actor->size, 0.5));
+// 	big_rec.size = point_add(actor->size, target->size);
+// 	starting_point = point_add(actor->pos, point_multiply(actor->size, 0.5));
+// 	hit = raycast_to_rectangle(starting_point, point_add(starting_point,
+// 	direction_vector), big_rec.pos, big_rec.size);
+// 	return (hit);
+// }
 
 void	add_to_collision_list(t_list **collision_list, t_rectangle *rec, unsigned short *hit_dist, unsigned short arr_len)
 {
@@ -167,7 +195,7 @@ t_list	*get_colliding_actors(t_list *entity_list, t_rectangle *actor, t_vector v
 	collision_list = NULL;
 	while (entity_list)
 	{
-		hit = rec_shoot_ray(actor, vector_to_point(vel), (t_rectangle *)entity_list->content);
+		hit = rec_shoot_ray(*actor, vector_to_point(vel), *(t_rectangle *)entity_list->content);
 		if (hit.collision)
 		{
 			hit_distance[i] = line_len((t_line){hit.origin, hit.intersection});

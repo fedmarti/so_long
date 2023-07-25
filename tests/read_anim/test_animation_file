@@ -1,5 +1,2 @@
 Animation data file
-sprites:[{path:'media/test/frame1.xpm', path:'media/test/frame2.xpm', path:'media/test/frame3.xpm', path:'media/test/frame4.xpm', path:'media/test/frame5.xpm', path:'media/test/frame6.xpm'}]
-animation_name:['idle']
-frames:[{sprite:'0',duration:'100000', sprite:'1', duration:'100000', sprite:'2', duration:'100000', sprite:'3', duration:'100000', sprite:'4', duration:'100000', sprite:'5', duration:'100000',}]
-type:['1']
+

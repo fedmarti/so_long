@@ -6,7 +6,7 @@
 /*   By: fedmarti <fedmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 00:31:38 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/25 17:46:31 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/07/25 21:38:38 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ int	on_click(int button, int x, int y, void *data)
 	(void)d;
 	if (button == 1)
 		mouse_left(data, point2(x, y), mogu_vel);
+	else if (button == 2)
+		d->flipped = !d->flipped;
 	else if (button == 3)
 	{
 		mogu_vel += 10;

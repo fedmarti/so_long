@@ -35,6 +35,7 @@ typedef struct s_data
 	t_input				input;
 	enum e_game_state	state;
 	struct s_time		*time;
+	bool				flipped;
 }	t_data;
 
 
@@ -44,6 +45,11 @@ int		on_click(int button, int x, int y, void *param);
 void	setup_hooks(t_data *data);
 void	read_animation_file(char *filepath, \
 t_anim_data **anim_struct, void *mlx);
+
+void	blend_img_fraction_flipped_x(t_img_fraction *src, t_image *dest, \
+t_point position, unsigned int (*blend)(unsigned int, unsigned int));
+void	blend_images_flipped_x(t_image *src, t_image *dest, t_point position, \
+unsigned int (*blend)(unsigned int, unsigned int));
 
 
 #endif

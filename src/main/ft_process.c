@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_process.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fedmarti <fedmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 01:13:50 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/19 17:25:03 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/07/26 00:18:53 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,9 @@ static void	paused_menu_logic(t_data *data)
 static void	in_game_logic(t_data *data)
 {
 	time_update(&data->time);
+	data->map->player->velocity.y += GRAVITY * (double)data->time.delta / (2 * ONE_SEC);
 	player_controller(data);
+	data->map->player->velocity.y += GRAVITY * (double)data->time.delta / (2 * ONE_SEC);
 	render_game(data);
 }
 

@@ -6,7 +6,7 @@
 /*   By: fedmarti <fedmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 01:13:50 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/24 21:08:09 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/07/25 22:12:13 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,11 @@ void	put_pixel_to_img(t_image *img, int x, int y, int color);
 
 void	blend_img_fraction(t_img_fraction *src, t_image *dst, t_point position, \
 	unsigned int (*blend_mode)(unsigned int, unsigned int));
+
+t_point	centered(t_img_fraction *src, t_image *dest)
+{
+	return ((t_point){(dest->size.x - src->size.x) / 2, (dest->size.y - src->size.y) / 2});
+}
 
 
 int	ft_process(void *data)
@@ -48,8 +53,13 @@ int	ft_process(void *data)
 		// put_pixel_to_img(d->pre_buffer, pos.x, pos.y, 0xFF0000);
 		pos.y += ((t_img_fraction *)d->anime->sprites.arr)[i].size.y;
 	}
+	if (d->anime->current_frame){
 	// blend_images(d->anime->spritesheet, d->pre_buffer, (t_point){32, 0}, overlay);
-	blend_img_fraction(d->anime->current_frame, d->pre_buffer, (t_point){0, 0}, overlay);
+	if (d->flipped)
+		blend_img_fraction_flipped_x(d->anime->current_frame, d->pre_buffer, centered(d->anime->current_frame, d->pre_buffer), overlay);
+	else
+		blend_img_fraction(d->anime->current_frame, d->pre_buffer, centered(d->anime->current_frame, d->pre_buffer), overlay);
+	}
 	d->buffer = upscale(d->buffer, d->pre_buffer);
 	mlx_put_image_to_window \
 	(d->mlx, d->mlx_window, d->buffer->img, 0, 0);

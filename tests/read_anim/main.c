@@ -6,7 +6,7 @@
 /*   By: fedmarti <fedmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 15:48:45 by federico          #+#    #+#             */
-/*   Updated: 2023/07/24 20:52:43 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/07/25 22:04:32 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int	main(int argc, char **argv)
 				for (int j = 0; (size_t)j < animation.frames.n_members; j++)
 				{
 					t_frame frame = ((t_frame *)animation.frames.arr)[j];
-					printf("	frame n. %i: img:%p duration: %li\n", j, frame.img->addr, frame.duration);
+					printf("	frame n. %i: img:%p duration: %li offset = (%i, %i)\n", j, frame.img->addr, frame.duration, frame.img->offset.x, frame.img->offset.y);
 				}
 			}
 			printf("tot_duration = %li\ntype = %s\n\n", animation.tot_duration, (animation.type == 0)? "Default" : "Looping");

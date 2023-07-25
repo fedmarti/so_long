@@ -3,7 +3,6 @@ NAME = raycast_test
 LIB_DIR = ../code_units/
 
 LIBRARIES = $(LIB_DIR)lib2d_geometry.a \
-	$(LIB_DIR)libplayer_controller.a \
 	$(LIB_DIR)libgraphics.a \
 	$(LIB_DIR)libactor_logic.a \
 	$(LIB_DIR)libinput.a \

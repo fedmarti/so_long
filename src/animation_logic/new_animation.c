@@ -6,7 +6,7 @@
 /*   By: fedmarti <fedmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 14:14:00 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/24 23:05:04 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/07/25 22:45:19 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,6 +184,8 @@ suseconds_t	get_aniamtion_duration(t_animation *anim)
 	}
 	return (tot_duration);
 }
+
+void	*animation_free(t_animation **animation);
 
 t_animation	*new_animation(char **anim_file, int i, int j, t_array *sprite_arr)
 {

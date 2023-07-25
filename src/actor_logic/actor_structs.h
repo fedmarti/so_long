@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   actor_structs.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fedmarti <fedmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 04:24:25 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/21 23:45:53 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/07/25 23:07:46 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ typedef struct s_actor {
 	void				*additional_struct;
 	t_point				position;
 	t_vector			sub_pixel_pos;
-	t_point				velocity;
+	t_vector			velocity;
 	t_point				size;
 	t_image				*sprite;
 	t_anim_data			animation;
