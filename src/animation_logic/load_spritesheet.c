@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   load_spritesheet.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fedmarti <fedmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 16:14:11 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/24 01:23:58 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/07/25 19:44:36 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,54 @@ void	advance_to_next_field(char **file, int *i, int *j, char *field_tag);
 int		get_field_lenght(char **file, int i, int j);
 void	next_char(char **file, int *i, int *j);
 void	copy_field_content(char **src, int i, int j, char *dest);
+
+void	skip_chars(char **file, int *i, int *j, char *charset)
+{
+	unsigned short	r;
+	bool			found;
+
+	if (!charset)
+		return ;
+	while (file[*j])
+	{
+		r = 0;
+		found = false;
+		while (charset[r] && !found)
+		{
+			if (file[*j][*i] == charset[r] || file[*j][*i] == '\0')
+				found = true;
+			r++;	
+		}
+		if (!found)
+				break ;
+		next_char(file, i, j);
+	}
+}
+
+t_point	get_img_offset(char **file, int i, int j, int path_len)
+{
+	t_point	offset;
+
+	offset = (t_point){0, 0};
+	while (path_len--)
+		next_char(file, &i, &j);
+	skip_chars(file, &i, &j, " '\n,");
+	if (!file[j] || ft_strncmp(&file[j][i], "offset:(", ft_strlen("offset:(")))
+		return (offset);
+	advance_to_next_field(file, &i, &j, "(");
+	skip_chars(file, &i, &j, " '\n,");
+	if (!file[j] || ft_strncmp(&file[j][i], "x:'", ft_strlen("x:'")))
+		return (offset);
+	advance_to_next_field(file, &i, &j, "'");
+	offset.x = ft_atoi(&file[j][i]);
+	advance_to_next_field(file, &i, &j, "'");
+	skip_chars(file, &i, &j, " '\n,");
+	if (!file[j] || ft_strncmp(&file[j][i], "y:'", ft_strlen("y:'")))
+		return (offset);
+	advance_to_next_field(file, &i, &j, "'");
+	offset.y = ft_atoi(&file[j][i]);
+	return (offset);
+}
 
 t_image	*read_sprite(char **file, int i, int j, void *mlx)
 {
@@ -33,6 +81,7 @@ t_image	*read_sprite(char **file, int i, int j, void *mlx)
 	copy_field_content(file, i, j, sprite_path);
 	img = ft_calloc(1, sizeof(*img));
 	img = image_init_xpm(img, sprite_path, mlx);
+	img->offset = get_img_offset(file, i, j, path_len);
 	free(sprite_path);
 	return (img);
 }
@@ -127,6 +176,12 @@ t_img_fraction	get_img_fraction(t_image *big, t_image *small, t_point position)
 
 void	print_now(t_image	*img, t_point	pos);
 
+void	copy_into_spritesheet(t_image *spritesheet, t_image *sprite, t_point position)
+{
+	position = point_subtract(position, sprite->offset);
+	blend_images(sprite, spritesheet, position, overlay);
+}
+
 t_image \
 	*spritelist_to_spritesheet(t_list *sprite_list, void *mlx, t_array *sprites)
 {
@@ -147,7 +202,7 @@ t_image \
 	while (sprite_list)
 	{
 		// print_now(sprite_list->content, position);
-		blend_images(sprite_list->content, spritesheet, position, overlay);
+		copy_into_spritesheet(spritesheet, sprite_list->content, position);
 		((t_img_fraction *)sprites->arr)[i] = \
 		get_img_fraction(spritesheet, sprite_list->content, position);
 		position.y += ((t_image *)sprite_list->content)->size.y;

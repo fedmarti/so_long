@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fedmarti <fedmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 22:08:09 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/21 23:38:42 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/07/25 18:25:04 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,7 @@ t_array	ft_lst_to_array(t_list **list, size_t member_size, void (*del)(void *));
 void	**ft_lst_to_matrix(t_list *lst);
 char	**ft_read_file(char *path);
 size_t	ft_matrix_size(void **mat);
+void	ft_array_free(t_array *arr, void (*del)(void *));
 void	ft_do_nothing(void *p);
 
 #endif

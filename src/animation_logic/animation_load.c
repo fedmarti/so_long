@@ -6,7 +6,7 @@
 /*   By: fedmarti <fedmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 19:37:31 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/24 23:23:06 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/07/25 18:01:47 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,13 @@ t_anim_data **animation_struct, void *mlx);
 // 	*animation = NULL;
 // }
 
+static void	vars_init(int *i, int *j, t_list **animation_list)
+{
+	*animation_list = NULL;
+	*i = 0;
+	*j = 1;
+}
+
 void	parse_animation_data_file(char **file, \
 t_anim_data **anim_struct, void *mlx)
 {
@@ -40,9 +47,7 @@ t_anim_data **anim_struct, void *mlx)
 	t_list		*temp_node;
 	t_animation	*content;
 
-	animation_list = NULL;
-	i = 0;
-	j = 1;
+	vars_init(&i, &j, &animation_list);
 	load_spritesheet(file, anim_struct, mlx);
 	advance_to_next_field(file, &i, &j, "animation_name:['");
 	while (file[j])
@@ -51,10 +56,12 @@ t_anim_data **anim_struct, void *mlx)
 		if (content)
 		{
 			temp_node = ft_lstnew(content);
-			if (temp_node)
-				ft_lstadd_back(&animation_list, temp_node);
-			else
+			if (!temp_node)
+			{
+				free(content);
 				break ;
+			}
+			ft_lstadd_back(&animation_list, temp_node);
 		}
 		advance_to_next_field(file, &i, &j, "animation_name:['");
 	}

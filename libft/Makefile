@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: fedmarti <fedmarti@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/03 15:01:24 by fedmarti          #+#    #+#              #
-#    Updated: 2023/07/21 23:39:59 by fedmarti         ###   ########.fr        #
+#    Updated: 2023/07/25 18:26:16 by fedmarti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -73,6 +73,7 @@ SOURCES := ft_atoi.c \
 	ft_read_file.c \
 	ft_lst_to_matrix.c \
 	ft_lst_to_array.c \
+	ft_array_free.c \
 	ft_matrix_size.c \
 	get_next_line.c \
 	get_next_line_utils.c 

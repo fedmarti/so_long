@@ -6,6 +6,8 @@
 		"time_structs.h": "c",
 		"animation_structs.h": "c",
 		"graphics.h": "c",
-		"graphics_structs.h": "c"
+		"graphics_structs.h": "c",
+		"graphics_logic.h": "c",
+		"libft.h": "c"
 	}
 }

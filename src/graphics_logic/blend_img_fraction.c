@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   blend_img_fraction.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fedmarti <fedmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 00:08:46 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/24 00:16:30 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/07/25 19:35:36 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static inline void next_line_f(char **addr, t_img_fraction *img, \
 void	blend_img_fraction(t_img_fraction *src, t_image *dst, t_point position, \
 	unsigned int (*blend_mode)(unsigned int, unsigned int))
 {
-	t_point	i;
+	t_point	i;	
 	t_point	offset;
 	char	*dst_pixl;
 	char	*src_pixl;
@@ -65,7 +65,7 @@ void	blend_img_fraction(t_img_fraction *src, t_image *dst, t_point position, \
 	offset = get_offset(position);
 	i.y = 0;
 	dst_pixl = dst->addr + get_pointer_offset_img(dst, position.x, position.y);
-	src_pixl = src->addr + (position.y * src->line_length + position.x * (src->bits_per_pixel >> 3));
+	src_pixl = src->addr + (offset.y * src->line_length + offset.x * (src->bits_per_pixel >> 3));
 	while (position.y + i.y + offset.y < dst->size.y && i.y + offset.y < src->size.y)
 	{
 		i.x = 0;

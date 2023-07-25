@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   graphics.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fedmarti <fedmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 21:52:19 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/21 23:54:32 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/07/25 18:06:56 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,5 @@ t_image	*image_init_color(unsigned int width, unsigned int height, \
 						void *mlx, unsigned int color);
 t_image	*image_init_xpm(t_image *dest_wrapper, char *filepath, void *mlx);
 t_image	*render_actors(t_data *data);
+void	img_fraction_free(t_img_fraction *img);
 #endif

@@ -6,32 +6,12 @@
 /*   By: fedmarti <fedmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 22:40:14 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/24 23:38:35 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/07/25 18:28:29 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "animation_structs.h"
 #include "../graphics_logic/graphics.h"
-
-void	array_free(t_array *arr, void (*del)(void *))
-{
-	size_t i;
-
-	if (!arr || !arr->arr)
-		return ;
-	if (!del)
-	{
-		free(arr->arr);
-		*arr = (t_array){NULL, 0, 0};
-		return ;
-	}
-	i = 0;
-	while (i < arr->n_members)
-	{
-		del(arr->arr + i * arr->member_size);
-		i++;
-	}
-}
 
 void	*animation_free(t_animation **animation)
 {
@@ -53,7 +33,16 @@ void	free_speadsheet(t_anim_data *data, void *mlx)
 		img_free(data->spritesheet, mlx);
 		data->spritesheet = NULL;
 	}
-	array_free(&(data)->sprites, NULL);
+	ft_array_free(&(data)->sprites, NULL);
+}
+
+void	frame_free(void *f)
+{
+	t_frame	*frame;
+
+	frame = f;
+	if (frame && frame->img)
+		free(frame->img);	
 }
 
 static void	ani_free(void *ani)
@@ -63,7 +52,7 @@ static void	ani_free(void *ani)
 	animation = ani;
 	if (animation->name)
 		free(animation->name);
-	array_free(&animation->frames, NULL);
+	ft_array_free(&animation->frames, NULL);
 }
 
 void	animation_struct_free(t_anim_data **data, void *mlx)
@@ -72,7 +61,7 @@ void	animation_struct_free(t_anim_data **data, void *mlx)
 		return ;
 	free_speadsheet(*data, mlx);
 	(*data)->current_animation = (t_loaded_anim){NULL, 0, 0, 0};
-	array_free(&(*data)->animations, ani_free);
+	ft_array_free(&(*data)->animations, ani_free);
 	free(*data);
 	*data = NULL;
 }
