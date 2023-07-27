@@ -3,14 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ft_sign.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fedmarti <fedmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 23:38:35 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/05/25 23:39:30 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/07/27 18:31:01 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 int	ft_sign(int	n)
+{
+	return ((n > 0) - (n < 0));
+}
+
+double ft_sign_d(double n)
 {
 	return ((n > 0) - (n < 0));
 }

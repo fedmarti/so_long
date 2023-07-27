@@ -6,7 +6,7 @@
 /*   By: fedmarti <fedmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 22:08:09 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/25 18:25:04 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/07/27 18:31:32 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct s_array
 
 
 int		ft_sign(int n);
+double	ft_sign_d(double n);
 int		ft_max(int a, int b);
 double	ft_max_d(double a, double b);
 int		ft_min(int a, int b);

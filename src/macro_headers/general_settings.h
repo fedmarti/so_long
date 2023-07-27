@@ -6,7 +6,7 @@
 /*   By: fedmarti <fedmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 23:00:42 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/26 00:17:01 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/07/27 19:24:21 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,11 @@
 # endif
 
 # ifndef GRAVITY
-#  define GRAVITY 1.5
+#  define GRAVITY 35
 # endif 
 
 # ifndef JUMP
-#  define JUMP 0.5
+#  define JUMP 1.125
 # endif 
 
 # ifndef FRAME_TIME

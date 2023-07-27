@@ -6,13 +6,14 @@
 /*   By: fedmarti <fedmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 02:03:55 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/26 00:15:06 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/07/27 19:56:06 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../so_long.h"
 #include "../macro_headers/general_settings.h"
 #include "../graphics_logic/graphics.h"
+#include "swept_aabb.h"
 
 t_vector	get_player_direction(t_input input)
 {
@@ -520,9 +521,6 @@ void	move_and_collide(t_actor *actor, t_vector velocity, t_list	*entity_list)
 	t_list	*colliding_actors;
 
 	velocity = recover_sub_pixels(&actor->sub_pixel_pos, velocity);
-	// if (entity_list && entity_list->next)
-	// 	entity_list = sort_collision_list(entity_list, point_add(actor->position, vector_to_point(velocity)));
-	colliding_actors = get_colliding_actors(entity_list, actor, velocity);
 	while (colliding_actors)
 	{
 		temp = colliding_actors;
@@ -538,32 +536,71 @@ void	move_and_collide(t_actor *actor, t_vector velocity, t_list	*entity_list)
 	actor->velocity = velocity;
 }
 
-bool	is_on_ground(t_actor *actor, t_list *entity_list)
+
+t_list	*get_ground_list(t_point position, t_point size, t_map *map)
 {
+	t_list	*head;
+	t_point	area_size;
+
+	head = NULL;
+	position = point_add(position, point2(-1, 0));
+	size = (t_point){size.x + !size.x, size.y + !size.y};
+	size = point_add(size, point2(2, 1));
+	area_size = point_add(position, size);
+	position.x = ft_max(position.x, 0);
+	position.y = ft_max(position.y, 0);
+	area_size.x = ft_min((int) area_size.x, (int)map->width);
+	area_size.y = ft_min((int) area_size.y, (int)map->height);
+	head = get_actor_list(map, position, area_size);
+	return (head);
+}
+
+t_list	*get_ground_entity_list(t_actor *actor, t_map *map)
+{
+	t_list	*entity_list;
+	t_point actor_size;
+
+	actor_size = point_divide(actor->size, TILE_SIZE);
+	entity_list = get_ground_list \
+	(get_tile(actor->position, map), actor_size, map);
+	return (entity_list);
+}
+
+bool	is_on_ground(t_actor *actor, t_map *map)
+{
+	t_list		*entity_list;
 	t_rectangle	feet_hitbox;
+	t_list		*temp_node;
 	t_actor		*temp_actor;
-	
+	bool		grounded;
+
+	temp_node = NULL;
+	grounded = false;
+	entity_list = get_ground_entity_list(actor, map);
 	feet_hitbox.pos = (t_point){actor->position.x, actor->position.y + actor->size.y};
 	feet_hitbox.size = (t_point){actor->size.x, 1};
 	while (entity_list)
 	{
 		temp_actor = entity_list->content;
-		if (temp_actor != actor && AABB(feet_hitbox.pos, point_add(feet_hitbox.pos, feet_hitbox.size), temp_actor->position, point_add(temp_actor->position, temp_actor->size)))
-			return (true);
+		if (!grounded && temp_actor != actor && AABB(feet_hitbox.pos, \
+		point_add(feet_hitbox.pos, feet_hitbox.size), temp_actor->position, \
+		point_add(temp_actor->position, temp_actor->size)))
+			grounded = true;
+		temp_node = entity_list;
 		entity_list = entity_list->next;
+		free(temp_node);
 	}
-	return (false);
+	return (grounded);
 }
 
-t_list	*get_entity_list(t_data *data)
+t_list	*get_entity_list(t_actor *actor, t_map *map)
 {
 	t_list	*entity_list;
 	t_point actor_size;
 
-
-	actor_size = point_divide(data->map->player->size, TILE_SIZE);
+	actor_size = point_divide(actor->size, TILE_SIZE);
 	entity_list = get_collision_list \
-	(get_tile(data->map->player->position, data->map), actor_size, data->map);
+	(get_tile(actor->position, map), actor_size, map);
 	return (entity_list);
 }
 
@@ -571,14 +608,14 @@ void	player_controller(t_data *data)
 {
 	t_vector	direction;
 	t_vector	velocity;
-	t_list	*entity_list;
-	
-	entity_list = get_entity_list(data);
+
 	direction = get_player_direction(data->input);
 	velocity = vector_multiply(direction, (PLAYER_SPEED + (DASH_BOOST * data->input.shift_left)));
 	velocity = vector_multiply(velocity, ((double)data->time.delta / ONE_SEC));
-	if (data->input.space && is_on_ground(data->map->player, entity_list))
-		velocity.y -= JUMP;
 	velocity.y += data->map->player->velocity.y;
-	move_and_collide(data->map->player, velocity, entity_list);
+	if (data->input.space && is_on_ground(data->map->player, data->map))
+		velocity.y = -JUMP;
+	//change system to get entity list, base it on the bres_line_draw
+	move_and_collide(data->map->player, velocity, entity_list/*change to data->map*/);/*implement update tilemap position*/
+	
 }

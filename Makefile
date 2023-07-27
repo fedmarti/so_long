@@ -17,6 +17,7 @@ SRC = src/t_point/t_point.c \
 	src/map_load/map_checks_2.c \
 	src/map_load/map_actor_lists.c \
 	src/player_controller/player_controller.c \
+	src/player_controller/swept_aabb.c \
 	src/main/so_long.c \
 	src/main/ft_quit.c \
 	src/main/setup_hooks.c \
@@ -44,6 +45,7 @@ SRC = src/t_point/t_point.c \
 	src/2d_geometry/raycast.c \
 	src/2d_geometry/raycast_to_rectangle.c \
 	src/2d_geometry/line_len.c \
+	src/2d_geometry/aabb.c \
 	src/time/time_update.c \
 	src/time/lock_framerate.c \
 	src/time/timeval_to_usec.c \
