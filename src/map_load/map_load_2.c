@@ -6,11 +6,11 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 22:04:47 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/18 16:02:11 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/07/28 04:18:18 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "map_struct.h"
+#include "../map/map_struct.h"
 
 void	free_tiles(t_map *map)
 {

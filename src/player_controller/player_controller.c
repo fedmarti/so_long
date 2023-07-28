@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_controller.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fedmarti <fedmarti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 02:03:55 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/27 19:56:06 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/07/27 23:00:13 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -515,7 +515,7 @@ t_list	*get_colliding_actors(t_list *entity_list, t_actor *actor, t_vector vel)
 	return (collision_list);
 }
 
-void	move_and_collide(t_actor *actor, t_vector velocity, t_list	*entity_list)
+void	move_and_collide(t_actor *actor, t_vector velocity, t_list *entity_list)
 {
 	t_list	*temp;
 	t_list	*colliding_actors;
@@ -577,7 +577,8 @@ bool	is_on_ground(t_actor *actor, t_map *map)
 	temp_node = NULL;
 	grounded = false;
 	entity_list = get_ground_entity_list(actor, map);
-	feet_hitbox.pos = (t_point){actor->position.x, actor->position.y + actor->size.y};
+	feet_hitbox.pos = \
+	(t_point){actor->position.x, actor->position.y + actor->size.y};
 	feet_hitbox.size = (t_point){actor->size.x, 1};
 	while (entity_list)
 	{
@@ -615,7 +616,8 @@ void	player_controller(t_data *data)
 	velocity.y += data->map->player->velocity.y;
 	if (data->input.space && is_on_ground(data->map->player, data->map))
 		velocity.y = -JUMP;
-	//change system to get entity list, base it on the bres_line_draw
-	move_and_collide(data->map->player, velocity, entity_list/*change to data->map*/);/*implement update tilemap position*/
+	//change system to take entity list, base it on the bres_line_draw
+	move_and_collide(data->map->player, velocity, get_entity_list(data->map->player, data->map));
+	/*implement update tilemap position*/
 	
 }

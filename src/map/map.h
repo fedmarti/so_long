@@ -1,29 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   swept_aabb.h                                       :+:      :+:    :+:   */
+/*   map.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/27 19:07:32 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/28 00:53:16 by fedmarti         ###   ########.fr       */
+/*   Created: 2023/07/28 00:36:27 by fedmarti          #+#    #+#             */
+/*   Updated: 2023/07/28 00:37:14 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SWEPT_AABB_H
-# define SWEPT_AABB_H
+#ifndef MAP_H
+# define MAP_H
 
-# include "../t_point/t_point_structs.h"
-# include "../actor_logic/actor_structs.h"
+# include "map_struct.h"
 
-typedef struct s_swept_aabb
-{
-	double		collision_time;
-	t_vector	normal;
-	bool		collision;
-	t_actor		*target;
-}	t_swept_aabb;
-
-t_swept_aabb	swept_aabb(t_actor *actor, t_vector vel, t_actor *target);
+t_point	get_tile(t_point global_position, t_map *map);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 00:11:44 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/05/23 01:19:00 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/07/28 00:41:49 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include "../../libft/libft.h"
 
 typedef struct s_data	t_data;
-
 
 typedef struct s_tile{
 	t_point	coordinates;

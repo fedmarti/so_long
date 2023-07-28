@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 23:59:26 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/06/20 16:00:07 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/07/28 00:35:22 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define MAP_LOAD_INTERNAL_H
 
 # include <stdbool.h>
-# include "map_struct.h"
+# include "../map/map_struct.h"
 # include "../../so_long.h"
 # include "../../libft/libft.h"
 

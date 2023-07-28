@@ -18,6 +18,7 @@ SRC = src/t_point/t_point.c \
 	src/map_load/map_actor_lists.c \
 	src/player_controller/player_controller.c \
 	src/player_controller/swept_aabb.c \
+	src/player_controller/is_on_ground.c \
 	src/main/so_long.c \
 	src/main/ft_quit.c \
 	src/main/setup_hooks.c \
@@ -57,6 +58,7 @@ SRC = src/t_point/t_point.c \
 	src/animation_logic/render_animation.c \
 	src/animation_logic/animation_play.c \
 	src/animation_logic/animation_free.c \
+	src/map/get_tile.c
 
 
 OBJS = $(SRC:.c=.o)
