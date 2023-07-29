@@ -1,30 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rectangle.h                                        :+:      :+:    :+:   */
+/*   gba_line_draw.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fedmarti <fedmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/17 19:43:13 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/29 18:06:16 by fedmarti         ###   ########.fr       */
+/*   Created: 2023/07/30 00:44:24 by fedmarti          #+#    #+#             */
+/*   Updated: 2023/07/30 00:51:42 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RECTANGLE_H
-# define RECTANGLE_H
+#ifndef GBA_LINE_DRAW_H
+# define GBA_LINE_DRAW_H
 
-# include "../t_point/point.h"
-# include "line.h"
-# include <stdbool.h>
+# include "../t_point/t_point_structs.h"
 
-typedef struct s_rectangle
+typedef struct s_generalized_bersenham_algorithm_data
 {
-	t_point	pos;
-	t_point	size;
-}	t_rectangle;
+	t_point	start;
+	t_point	end;
+	t_point	delta;
+	t_point	sign;
+	int		ex_change;
+	int		e;
+}	t_gba_data;
 
-bool	AABB(t_point p1, t_point p2, t_point p3, t_point p4);
-bool	AABB_rectangles(t_rectangle rec1, t_rectangle rec2);
-t_line	line_in_area(t_point p1, t_point p2, t_point size);
+t_gba_data	gba_init(t_point start, t_point end);
+t_point		gba_next(t_gba_data *d, t_point *current);
 
 #endif

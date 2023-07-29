@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_controller copy.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fedmarti <fedmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 02:03:55 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/28 04:40:18 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/07/30 00:53:27 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -312,28 +312,79 @@ void	get_s_aabbs(t_list *tile_list, t_actor *actor, t_vector vel, t_list **entit
 	}
 }
 
-t_list *check_surrounding_area(t_point tile, t_actor *actor, t_vector vel, t_map *map)
+typedef	struct s_data_pack
+{
+	t_point		area_size;
+	t_actor		*actor;
+	t_vector	*vel;
+	t_point		last_gba;
+};
+
+void	ft_swap_i(int *a, int *b)
+{
+	int	temp;
+
+	temp = *a;
+	*a = *b;
+	*b = temp;
+}
+
+t_list	*check_more_tiles(t_point tile, struct s_data_pack *data, t_map *map)
+{
+	t_point	i;
+	t_list	*entity_list;
+	t_point	target;
+	t_point	p_sign;
+
+	i = (t_point){-(data->last_gba.x != 0), -(data->last_gba.y != 0)};
+	target = (t_point){data->area_size.x - 1, data->area_size.y - 1};
+	target = (t_point){target.x * -i.x, target.y * -i.y};
+	if (data->last_gba.x < 0)
+		ft_swap_i(&i.x, &target.x);
+	if (data->last_gba.y < 0)
+		ft_swap_i(&i.y, &target.y);
+	p_sign = (t_point){sign(target.x - i.x), sign(target.y - i.y)};
+	while (i.x != target.x)
+	{
+		get_s_aabbs(map->tiles[tile.y + i.y][tile.x + i.x].entity_list, \
+		data->actor, *data->vel, &entity_list);
+		i.x++;
+	}
+	get_s_aabbs(map->tiles[tile.y + i.y][tile.x + i.x].entity_list, \
+	data->actor, *data->vel, &entity_list);
+	while (i.y++ != target.y)
+		get_s_aabbs(map->tiles[tile.y + i.y][tile.x + i.x].entity_list, \
+		data->actor, *data->vel, &entity_list);
+	return (entity_list);
+}
+
+static t_point	vars_init(struct s_data_pack *data, t_point *i, t_point tile)
+{
+	data->area_size = point_divide(data->actor->size, TILE_SIZE);
+	data->area_size = (t_point){!data->area_size.x + data->area_size.x, \
+	!data->area_size.y + data->area_size.y};
+	i->y = tile.y - (data->area_size.y >> 1) - (data->area_size.y & 1);
+	i->y += (abs(i->y) * i->y < 0);
+	data->area_size = point_add(data->area_size, (t_point){2, 2});
+	return (point_add(*i, data->area_size));
+}
+
+t_list	*check_surrounding_area(t_point tile, struct s_data_pack *data, t_map *map)
 {
 	t_list		*entity_list;
-	t_point		a_size;
 	t_point		tile_area;
 	t_point		i;
 
 	entity_list = NULL;
-	a_size = point_divide(actor->size, TILE_SIZE);
-	a_size = (t_point){!a_size.x + a_size.x, !a_size.y + a_size.y};
-	i.y = tile.y - (a_size.y >> 1) - (a_size.y & 1);
-	i.y += (abs(i.y) * i.y < 0);
-	tile_area = (t_point){tile.x + (a_size.x >> 1) + (a_size.x & 1), \
-	tile.y + (a_size.y >> 1) + (a_size.y & 1)};
-	while (i.y <= tile_area.y)
+	tile_area = vars_init(data, &i, tile);
+	while (i.y <= tile_area.y && i.y < (int) map->height)
 	{
-		i.x = tile.y - (a_size.x >> 1) - (a_size.x & 1);
+		i.x = tile.x - (data->area_size.x >> 1) - (data->area_size.x & 1);
 		i.x += (abs(i.x) * i.x < 0);
-		while (i.x <= tile_area.x)
+		while (i.x <= tile_area.x && i.x < (int) map->width)
 		{
-			get_s_aabbs(map->tiles[i.y][i.x].entity_list, actor, vel, \
-			&entity_list);
+			get_s_aabbs(map->tiles[i.y][i.x].entity_list, data->actor, \
+			*data->vel, &entity_list);
 			i.x++;
 		}
 		i.y++;
@@ -341,42 +392,39 @@ t_list *check_surrounding_area(t_point tile, t_actor *actor, t_vector vel, t_map
 	return (entity_list);
 }
 
-static inline t_point init_vars(t_point delta, t_point *sign, int *e, int *ex_change)
+#include "../2d_geometry/gba_line_draw.h"
+
+t_vector	solve_s_aabbs(struct s_data_pack *data, t_list *collision_list)
 {
-	*sign = point2(ft_sign(delta.x), ft_sign(delta.y));
-	*ex_change = (ft_abs(delta.y) > ft_abs(delta.x));
-	delta = (t_point){abs_max_signed(delta.x, delta.y), \
-	abs_min_signed(delta.x, delta.y)};
-	*e = 2 * ft_abs(delta.y) - ft_abs(delta.x);
-	return (delta);
+	
 }
 
+//uses the generalized bresemham algorithm to select a line of map tiles
+//to check, starting from the current tile, 
+//in the direction of the velocity vector
 void \
-	check_collisions_gba(t_line mov, t_actor *actor, t_vector vel, t_map *map)
+	check_collisions_gba(t_line mov, struct s_data_pack data, t_map *map)
 {
-	t_list	*collision_list;
-	t_point	delta;
-	t_point	sign;
-	int		ex_change;
-	int		e;
+	t_list		*collision_list;
+	t_point		i;
+	t_gba_data	gba;
 
-	collision_list = NULL;
-	delta = init_vars(point_subtract(mov.p2, mov.p1), &sign, &e, &ex_change);
-	while (point_cmpr(mov.p1, mov.p2))
+	gba = gba_init(mov.p1, mov.p2);
+	i = mov.p1;
+	collision_list = check_surrounding_area(mov.p1, &data, map);
+	data.last_gba = gba_next(&gba, &i);
+	while ((data.last_gba.x || data.last_gba.y) || collision_list)
 	{
-		ft_lstadd_back(&collision_list, check_surrounding_area(mov.p1, actor, vel, map));
+		if (collision_list)
+		{
+			*data.vel = solve_s_aabbs(&data, collision_list); 
+		}
 		//solve aabbs
 		//if trajectory changed -> return 
 		//if there's still velocity left check again
-		while (e >= 0)
-		{
-			mov.p1 = \
-			point_add(point2(ex_change * sign.x, !ex_change * sign.y), mov.p1);
-			e -= ft_abs(2 * delta.x);
-		}
-		mov.p1 = \
-		point_add(point2(!ex_change * sign.x, ex_change * sign.y), mov.p1);
-		e += ft_abs(2 * delta.y);
+		data.last_gba = gba_next(&gba, &i);
+		ft_lstadd_back(&collision_list, check_more_tiles(i, &data, map));
+		
 	}
 }
 
@@ -391,8 +439,7 @@ void	move_and_collide(t_actor *actor, t_vector velocity, t_map *map)
 	i = get_tile(actor->position, map);
 	movemet_target = point_add(actor->position, vector_to_point(velocity));
 	target_tile = get_tile(movemet_target, map);
-	if (!point_cmpr(i, target_tile))
-		colliding_actors = check_surrounding_area(target_tile, actor, velocity, map);
+	colliding_actors = check_collisions_gba(line_in_area(i, target_tile, (t_point){(int)map->width, (int)map->height}), (struct s_data_pack){(t_point){0, 0}, actor, &velocity}, map);
 	while (colliding_actors)
 	{
 		temp = colliding_actors;

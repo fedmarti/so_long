@@ -46,7 +46,9 @@ SRC = src/t_point/t_point.c \
 	src/2d_geometry/raycast.c \
 	src/2d_geometry/raycast_to_rectangle.c \
 	src/2d_geometry/line_len.c \
+	src/2d_geometry/line_in_area.c \
 	src/2d_geometry/aabb.c \
+	src/2d_geometry/generalized_bresenham_algorithm.c \
 	src/time/time_update.c \
 	src/time/lock_framerate.c \
 	src/time/timeval_to_usec.c \
