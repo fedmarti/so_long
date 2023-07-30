@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   swept_aabb.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fedmarti <fedmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 17:49:59 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/28 00:54:26 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/07/30 04:45:07 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,11 @@ t_vector inv_exit, t_vector vel)
 	return ((t_entry_exit){entry, exit});
 }
 
+	// double		collision_time;
+	// t_vector	normal;
+	// bool		collision;
+	// t_actor		*target;
+
 t_swept_aabb	swept_aabb(t_actor *actor, t_vector vel, t_actor *target)
 {
 	t_swept_aabb	s_aabb;
@@ -76,7 +81,7 @@ t_swept_aabb	swept_aabb(t_actor *actor, t_vector vel, t_actor *target)
 	double			entry_time;
 	double			exit_time;
 
-	s_aabb = (t_swept_aabb){0, 0, false, target};
+	s_aabb = (t_swept_aabb){0, (t_vector){0, 0}, false, target};
 	inv = get_inv_entry_exit(actor, vel, target);
 	regular = get_entry_exit(inv.entry, inv.exit, vel);
 	entry_time = ft_max_d(regular.entry.x, regular.entry.y);
