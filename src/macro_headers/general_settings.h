@@ -6,7 +6,7 @@
 /*   By: fedmarti <fedmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 23:00:42 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/27 19:24:21 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/07/31 03:21:43 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 # endif
 
 # ifndef PLAYER_SPEED
-#  define PLAYER_SPEED 23
+#  define PLAYER_SPEED 210
 # endif
 
 # ifndef DASH_BOOST
@@ -44,7 +44,7 @@
 # endif 
 
 # ifndef JUMP
-#  define JUMP 1.125
+#  define JUMP 5.5
 # endif 
 
 # ifndef FRAME_TIME

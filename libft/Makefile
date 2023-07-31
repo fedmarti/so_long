@@ -6,7 +6,7 @@
 #    By: fedmarti <fedmarti@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/03 15:01:24 by fedmarti          #+#    #+#              #
-#    Updated: 2023/07/25 18:26:16 by fedmarti         ###   ########.fr        #
+#    Updated: 2023/07/31 01:53:59 by fedmarti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,6 +54,7 @@ SOURCES := ft_atoi.c \
 	ft_free_matrix.c \
 	ft_matrix_init.c \
 	ft_lstlen.c \
+	ft_swap.c \
 	ft_max.c \
 	ft_min.c \
 	ft_clamp.c \

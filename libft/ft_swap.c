@@ -1,21 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_sign.c                                          :+:      :+:    :+:   */
+/*   ft_swap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fedmarti <fedmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/25 23:38:35 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/31 01:10:27 by fedmarti         ###   ########.fr       */
+/*   Created: 2023/07/31 01:52:01 by fedmarti          #+#    #+#             */
+/*   Updated: 2023/07/31 01:53:10 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_sign(int	n)
+void	ft_swap_i(int *a, int *b)
 {
-	return ((n > 0) - (n < 0));
+	int	temp;
+
+	temp = *a;
+	*a = *b;
+	*b = temp;
 }
 
-double ft_sign_d(double n)
+void	ft_swap_d(double *a, double *b)
 {
-	return ((n > 0.0) - (n < 0.0));
+	double	temp;
+
+	temp = *a;
+	*a = *b;
+	*b = temp;
 }

@@ -6,7 +6,7 @@
 /*   By: fedmarti <fedmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 17:49:59 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/30 04:45:07 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/07/31 03:08:16 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,14 @@ t_vector vel, t_actor *target)
 	t_vector	inv_entry;
 	t_vector	inv_exit;
 
-	inv_entry.x = (target->position.x - (actor->position.x + actor->size.x));
-	inv_entry.x *= ft_sign_d(vel.x) - !(vel.x);
-	inv_exit.x = (target->position.x + target->size.x) - actor->position.x;
-	inv_exit.x *= ft_sign_d(vel.x) + !(vel.x);
-	inv_entry.y = (target->position.y - (actor->position.y + actor->size.y));
-	inv_entry.y *= ft_sign_d(vel.y) + !(vel.y);
-	inv_exit.y = (target->position.y + target->size.y) - actor->position.y;
-	inv_exit.y *= ft_sign_d(vel.y) + !(vel.y);
+	inv_entry.x = (target->position.x + target->size.x) - actor->position.x;
+	inv_exit.x = (target->position.x - (actor->position.x + actor->size.x));
+	if (vel.x > 0.0)
+		ft_swap_d(&inv_exit.x, &inv_entry.x);
+	inv_entry.y = (target->position.y + target->size.y) - actor->position.y;
+	inv_exit.y = (target->position.y - (actor->position.y + actor->size.y));
+	if (vel.y > 0.0)
+		ft_swap_d(&inv_exit.y, &inv_entry.y);
 	return ((t_entry_exit){inv_entry, inv_exit});
 }
 
@@ -86,8 +86,9 @@ t_swept_aabb	swept_aabb(t_actor *actor, t_vector vel, t_actor *target)
 	regular = get_entry_exit(inv.entry, inv.exit, vel);
 	entry_time = ft_max_d(regular.entry.x, regular.entry.y);
 	exit_time = ft_min_d(regular.exit.x, regular.exit.y);
-	if (entry_time > exit_time || (regular.entry.x < 0 && regular.entry.x > 1) \
-	|| (regular.entry.y < 0 && regular.entry.y > 1)) 
+	if (entry_time > exit_time || ((regular.entry.x < 0.0 || regular.entry.x > 1.0) && (regular.entry.y  < 0.0 || regular.entry.y > 1.0)))
+	// if (entry_time > exit_time || regular.entry.x < 0 && regular.entry.y < 0 
+	// || regular.entry.x > 1 || regular.entry.y > 1)
 		return (s_aabb);
 	s_aabb.normal.x = (regular.entry.x > regular.entry.y) * \
 	-(ft_sign_d(inv.entry.x) + (!inv.entry.x));

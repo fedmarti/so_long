@@ -6,7 +6,7 @@
 /*   By: fedmarti <fedmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 22:08:09 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/27 18:31:32 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/07/31 01:53:46 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ typedef struct s_array
 	size_t	n_members;
 }	t_array;
 
-
+void	ft_swap_i(int *a, int *b);
+void	ft_swap_d(double *a, double *b);
 int		ft_sign(int n);
 double	ft_sign_d(double n);
 int		ft_max(int a, int b);

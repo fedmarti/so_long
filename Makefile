@@ -104,6 +104,7 @@ lre:		lclean all
 
 superclean: fclean
 			@ make -s -C ./tests/read_anim fclean
+			@ make -s -C ./tests/lin fclean
 			@ make -s -C ./tests/raycaster fclean
 			@ make -s -C ./tests/raycaster_square fclean
 			@ make -s -C ./tests/raycaster_square_and_movement fclean

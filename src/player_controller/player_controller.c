@@ -6,7 +6,7 @@
 /*   By: fedmarti <fedmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 02:03:55 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/30 05:10:53 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/07/31 07:05:29 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_vector	get_player_direction(t_input input)
 {
 	t_vector	direction;
 
-	direction = vector2(input.right - input.left, 0 * input.down - input.up);
+	direction = vector2(input.right - input.left, 0 * (input.down - input.up));
 	if (direction.x && direction.y)
 		direction = vector_multiply(direction, 0.70710678118);
 	return (direction);
@@ -72,6 +72,8 @@ t_list	*sort_collision_list(t_list *lst)
 	unsigned int	j;
 	unsigned int	i;
 
+	if (!lst || !lst->next)
+		return (lst);
 	len = ft_lstlen(lst);
 	i = 0;
 	while (i < len)
@@ -222,15 +224,6 @@ struct s_data_pack
 	t_point		last_gba;
 };
 
-void	ft_swap_i(int *a, int *b)
-{
-	int	temp;
-
-	temp = *a;
-	*a = *b;
-	*b = temp;
-}
-
 static inline int _add(int *a, int *b)
 {
 	*a += *b;
@@ -258,16 +251,20 @@ t_list	*check_more_tiles(t_point tile, struct s_data_pack *data, t_map *map)
 	t_point	p_sign;
 
 	_vars_init(&target, data, &i, tile);
+	entity_list = NULL;
 	p_sign = (t_point){ft_sign(target.x - i.x), ft_sign(target.y - i.y)};
-	while (i.x != target.x)
+	while (i.x != target.x && tile.y + i.y < (int)map->height \
+	&& tile.x + i.x < (int)map->width)
 	{
 		get_s_aabbs(map->tiles[tile.y + i.y][tile.x + i.x].entity_list, \
 		data->actor, *data->vel, &entity_list);
 		i.x += p_sign.x;
 	}
-	get_s_aabbs(map->tiles[tile.y + i.y][tile.x + i.x].entity_list, \
-	data->actor, *data->vel, &entity_list);
-	while (i.y != target.y && _add(&i.y, &p_sign.y))
+	if (tile.y + i.y < (int)map->height && tile.x + i.x < (int)map->width)
+		get_s_aabbs(map->tiles[tile.y + i.y][tile.x + i.x].entity_list, \
+		data->actor, *data->vel, &entity_list);
+	while (i.y != target.y && _add(&i.y, &p_sign.y) \
+	&& tile.y + i.y < (int)map->height && tile.x + i.x < (int)map->width)
 		get_s_aabbs(map->tiles[tile.y + i.y][tile.x + i.x].entity_list, \
 		data->actor, *data->vel, &entity_list);
 	return (entity_list);
@@ -278,10 +275,12 @@ static t_point	vars_init(struct s_data_pack *data, t_point *i, t_point tile)
 	data->area_size = point_divide(data->actor->size, TILE_SIZE);
 	data->area_size = (t_point){!data->area_size.x + data->area_size.x, \
 	!data->area_size.y + data->area_size.y};
-	i->y = tile.y - (data->area_size.y >> 1) - (data->area_size.y & 1);
-	i->y += (abs(i->y) * i->y < 0);
 	data->area_size = point_add(data->area_size, (t_point){2, 2});
-	return (point_add(*i, data->area_size));
+	i->y = -1;
+	i->y += (abs(i->y + tile.y) * (i->y + tile.y < 0));
+	i->x = -1;
+	i->x += (abs(i->x + tile.x) * (i->x + tile.x < 0));
+	return (data->area_size);
 }
 
 t_list	*check_surrounding_area(t_point tile, struct s_data_pack *data, t_map *map)
@@ -292,14 +291,13 @@ t_list	*check_surrounding_area(t_point tile, struct s_data_pack *data, t_map *ma
 
 	entity_list = NULL;
 	tile_area = vars_init(data, &i, tile);
-	while (i.y <= tile_area.y && i.y < (int) map->height)
+	while (i.y < tile_area.y && i.y + tile.y < (int) map->height)
 	{
-		i.x = tile.x - (data->area_size.x >> 1) - (data->area_size.x & 1);
-		i.x += (abs(i.x) * i.x < 0);
-		while (i.x <= tile_area.x && i.x < (int) map->width)
+		i.x = -1 + (abs(tile.x - 1) * (tile.x < 1));
+		while (i.x < tile_area.x && i.x + tile.x < (int) map->width)
 		{
-			get_s_aabbs(map->tiles[i.y][i.x].entity_list, data->actor, \
-			*data->vel, &entity_list);
+			get_s_aabbs(map->tiles[i.y + tile.y][i.x + tile.x].entity_list, \
+			data->actor, *data->vel, &entity_list);
 			i.x++;
 		}
 		i.y++;
@@ -338,33 +336,98 @@ static inline t_list *next_and_delete(t_list *node, void (*del)(void *))
 	return (temp);
 }
 
+void	update_position(t_actor *actor, t_vector velocity)
+{
+	t_point	int_vel;
+
+	int_vel = vector_to_point(velocity);
+	actor->position = point_add(int_vel, actor->position);
+	// actor->sub_pixel_pos = vector_add(actor->sub_pixel_pos, 
+	// vector_subtract(velocity, point_to_vector(int_vel)));
+}
+
+// t_vector	solve_s_aabbs(struct s_data_pack *data, t_list **collision_list)
+// {
+// 	t_list		*list;
+// 	short		normal_mask;
+// 	t_vector	impact_normal;
+// 	double		col_tim;
+// 	double		dot_prod;
+
+// 	list = sort_collision_list(*collision_list);
+// 	col_tim = ((t_swept_aabb *)list->content)->collision_time;
+// 	normal_mask = get_mask(((t_swept_aabb *)list->content)->normal);
+// 	list = next_and_delete(list, free);
+// 	while (list && (col_tim == ((t_swept_aabb *)list->content)->collision_time))
+// 	{
+// 		normal_mask |= get_mask(((t_swept_aabb *)list->content)->normal);
+// 		list = next_and_delete(list, free);
+// 	}
+// 	impact_normal = get_normal(normal_mask);
+// 	dot_prod = ((*data->vel).x * impact_normal.y + (*data->vel).y * 
+// 	impact_normal.x) * (1 - col_tim);
+// 	if (col_tim != 0)
+// 		update_position(data->actor, vector_multiply(*data->vel, col_tim));
+// 	ft_lstclear(&list, free);
+// 	*collision_list = NULL;
+// 	return ((t_vector){impact_normal.y * dot_prod, impact_normal.x * dot_prod});
+// }
+
+static inline t_vector	corrected_vel(t_vector vel, t_vector normal, double collision_time)
+{
+	double	dot_prod;
+
+	if (!normal.x && !normal.y)
+		return (vel);
+	dot_prod = (vel.x * normal.y + vel.y * normal.x) * (1 - collision_time);
+	return ((t_vector){normal.y * dot_prod, normal.x * dot_prod});
+}
+
 t_vector	solve_s_aabbs(struct s_data_pack *data, t_list **collision_list)
 {
 	t_list		*list;
+	t_vector	vel;
 	short		normal_mask;
-	t_vector	impact_normal;
+	short		bit_mask;
 	double		col_tim;
-	double		dot_prod;
 
+	vel = *data->vel;
 	list = sort_collision_list(*collision_list);
-	col_tim = ((t_swept_aabb *)list->next->content)->collision_time;
-	normal_mask = get_mask(((t_swept_aabb *)list->next->content)->normal);
+	col_tim = ((t_swept_aabb *)list->content)->collision_time;
+	normal_mask = get_mask(((t_swept_aabb *)list->content)->normal);
 	list = next_and_delete(list, free);
 	while (list && (col_tim == ((t_swept_aabb *)list->content)->collision_time))
 	{
 		normal_mask |= get_mask(((t_swept_aabb *)list->content)->normal);
 		list = next_and_delete(list, free);
 	}
-	impact_normal = get_normal(normal_mask);
-	dot_prod = ((*data->vel).x * impact_normal.y + (*data->vel).y * \
-	impact_normal.x) * (1 - col_tim);
-	*collision_list = list;
-	return (vector_multiply(impact_normal, dot_prod));
+	bit_mask = 1;
+	while (bit_mask <= 8)
+	{
+		vel = corrected_vel(vel, get_normal(normal_mask & bit_mask), col_tim);
+		bit_mask <<= 1;
+	}
+	ft_lstclear(&list, free);
+	*collision_list = NULL;
+	return (vel);
 }
+
 
 static inline t_point map_size(t_map *map)
 {
 	return ((t_point){map->width, map->height});
+}
+
+void	update_gba(t_gba_data *gba, struct s_data_pack *data, t_point i, t_map *map)
+{
+	t_line nl;
+
+	nl = line_in_area(i, get_tile(point_add(data->actor->position, \
+	vector_to_point(*data->vel)), map), map_size(map));
+	if (point_cmpr(nl.p2, gba->end))
+	{
+		*gba = gba_init(i, nl.p2);
+	}
 }
 
 //uses the generalized bresemham algorithm to select a line of map tiles
@@ -386,14 +449,10 @@ void \
 		if (collision_list)
 		{
 			*data.vel = solve_s_aabbs(&data, &collision_list);
-			if (!vector_cmpr(*data.vel, (t_vector){0, 0}))
-				return (ft_lstclear(&collision_list, free));
-			mov = line_in_area(i, get_tile(point_add(data.actor->position, \
-			vector_to_point(*data.vel)), map), map_size(map));
-			if (point_cmpr(mov.p2, gba.end))
-				gba = gba_init(i, mov.p2);
-			else
-				mov = (t_line){gba.start, gba.end};
+			if (!data.vel->x && !data.vel->y)
+				return ;
+			update_gba(&gba, &data, i, map);
+			collision_list = check_surrounding_area(i, &data, map);
 		}
 		data.last_gba = gba_next(&gba, &i);
 		ft_lstadd_back(&collision_list, check_more_tiles(i, &data, map));
@@ -406,6 +465,8 @@ void	move_and_collide(t_actor *actor, t_vector velocity, t_map *map)
 	t_point	movemet_target;
 	t_point	target_tile;
 
+	// velocity = vector_add(actor->sub_pixel_pos, velocity);
+	// actor->sub_pixel_pos = (t_vector){0, 0};
 	current_tile = get_tile(actor->position, map);
 	movemet_target = point_add(actor->position, vector_to_point(velocity));
 	target_tile = get_tile(movemet_target, map);

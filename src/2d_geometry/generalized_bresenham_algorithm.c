@@ -6,7 +6,7 @@
 /*   By: fedmarti <fedmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 00:42:02 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/30 04:58:30 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/07/30 19:55:21 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,9 @@ t_point	gba_next(t_gba_data *d, t_point *current)
 {
 	t_point	increment;
 
+	increment = (t_point){0, 0};
 	if (!point_cmpr(*current, d->end))
-		return ((t_point){0, 0});
+		return (increment);
 	while (d->e >= 0)
 	{
 		increment = point2(d->ex_change * d->sign.x, !d->ex_change * d->sign.y);

@@ -6,7 +6,7 @@
 /*   By: fedmarti <fedmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 17:08:04 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/27 17:21:58 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/07/30 22:30:23 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,3 @@ bool	AABB_rectangles(t_rectangle rec1, t_rectangle rec2)
 	return (AABB(rec1.pos, point_add(rec1.pos, rec1.size), \
 	rec2.pos, point_add(rec2.pos, rec2.size)));
 }
-
-
-
-
-
-
