@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_controller.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fedmarti <fedmarti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 02:03:55 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/31 07:05:29 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/08/01 04:01:47 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -375,7 +375,7 @@ void	update_position(t_actor *actor, t_vector velocity)
 
 static inline t_vector	corrected_vel(t_vector vel, t_vector normal, double collision_time)
 {
-	double	dot_prod;
+	double		dot_prod;
 
 	if (!normal.x && !normal.y)
 		return (vel);
@@ -402,13 +402,13 @@ t_vector	solve_s_aabbs(struct s_data_pack *data, t_list **collision_list)
 		list = next_and_delete(list, free);
 	}
 	bit_mask = 1;
+	data->actor->position = point_add(data->actor->position, vector_to_point((vector_multiply(*data->vel, col_tim))));
 	while (bit_mask <= 8)
 	{
 		vel = corrected_vel(vel, get_normal(normal_mask & bit_mask), col_tim);
 		bit_mask <<= 1;
 	}
 	ft_lstclear(&list, free);
-	*collision_list = NULL;
 	return (vel);
 }
 

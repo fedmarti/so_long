@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   general_settings.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fedmarti <fedmarti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 23:00:42 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/31 03:21:43 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/08/01 06:55:54 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,19 +32,19 @@
 # endif
 
 # ifndef PLAYER_SPEED
-#  define PLAYER_SPEED 210
+#  define PLAYER_SPEED 140
 # endif
 
 # ifndef DASH_BOOST
-#  define DASH_BOOST PLAYER_SPEED * 2
+#  define DASH_BOOST PLAYER_SPEED * 1
 # endif
 
 # ifndef GRAVITY
-#  define GRAVITY 35
+#  define GRAVITY 30
 # endif 
 
 # ifndef JUMP
-#  define JUMP 5.5
+#  define JUMP 6
 # endif 
 
 # ifndef FRAME_TIME
