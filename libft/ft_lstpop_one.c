@@ -1,29 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit_init.c                                        :+:      :+:    :+:   */
+/*   ft_lstpop_one.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/22 20:09:24 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/08/01 18:27:56 by fedmarti         ###   ########.fr       */
+/*   Created: 2023/08/01 18:23:35 by fedmarti          #+#    #+#             */
+/*   Updated: 2023/08/01 18:23:45 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "actor_internal.h"
+#include "libft.h"
 
-#include <stdbool.h>
-
-void	*exit_additional(t_point position, char *filepath, \
-						t_actor *main, t_data *data)
+//searches content through list and removes it if it's found, returning it
+t_list	*ft_lstpop_one(void *content, t_list **list)
 {
-	// bool	*open;
+	t_list	*temp;
+	t_list	*prev;
 
-	(void)data;
-	// main->size = point_subtract(main->size, point2(2, 1));
-//	open = ft_calloc(1, sizeof(bool *));
-	(void)position;
-	(void)filepath;
-	(void)main;
+	prev = NULL;
+	temp = *list;
+	while (temp)
+	{
+		if (temp->content == content)
+		{
+			if (prev)
+				prev->next = temp->next;
+			else
+				*list = temp->next;
+			return (temp);
+		}
+		prev = temp;
+		temp = temp->next;
+	}
 	return (NULL);
 }

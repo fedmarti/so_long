@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 22:25:49 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/06/20 16:11:25 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/08/01 19:14:45 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,7 @@ bool	valid_map_check(t_map *map)
 		ft_free_matrix((void ***)&temp_map, map->height);
 		return (false);
 	}
-	check = check_out_of_reach(temp_map);
+	check = check_out_of_reach(temp_map) && (map->collectable_list != NULL);
 	ft_free_matrix((void ***)&temp_map, map->height);
 	return (check);
 }

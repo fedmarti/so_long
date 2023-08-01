@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 15:48:45 by federico          #+#    #+#             */
-/*   Updated: 2023/07/18 21:34:34 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/08/01 20:49:08 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,26 +36,24 @@ int	main(int argc, char **argv)
 {
 	t_data	*data;
 
+	if (argc != 2)
+	{
+		write(1, "provide valid path as argument\n", 31);
+		return (1);
+	}
 	data = ft_calloc(1, sizeof(*data));
 	data->state = InGame;
 	if (!data)
 		return (1);
-	if (argc != 2)
-	{
-		printf("provide valid path as argument\n");
-		return (1);
-	}
 	data = graphics_init(data);
 	data->map = map_load(argv[1], data);
 	if (!data->map)
 	{
-		printf("%s map is invalid or failed to load\n", argv[1]);
-		free(data);
-		return (1);
+		write(1, argv[1], ft_strlen(argv[1]));
+		write(1, " map is invalid or failed to load\n", 34);
+		ft_quit(data);
 	}
-	for (int i = 0; data->map->map[i]; i++)
- 		printf ("%s\n", data->map->map[i]);
 	setup_hooks(data);
 	mlx_loop(data->mlx);
-	free_data(data);
+	ft_quit(data);
 }

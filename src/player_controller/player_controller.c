@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 02:03:55 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/08/01 04:01:47 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/08/01 20:34:46 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,6 +222,8 @@ struct s_data_pack
 	t_actor		*actor;
 	t_vector	*vel;
 	t_point		last_gba;
+	t_map		*map;
+	t_data		*data;
 };
 
 static inline int _add(int *a, int *b)
@@ -336,14 +338,10 @@ static inline t_list *next_and_delete(t_list *node, void (*del)(void *))
 	return (temp);
 }
 
-void	update_position(t_actor *actor, t_vector velocity)
+t_point	update_position(struct s_data_pack *data, double collision_time)
 {
-	t_point	int_vel;
-
-	int_vel = vector_to_point(velocity);
-	actor->position = point_add(int_vel, actor->position);
-	// actor->sub_pixel_pos = vector_add(actor->sub_pixel_pos, 
-	// vector_subtract(velocity, point_to_vector(int_vel)));
+	return (point_add(data->actor->position, \
+	vector_to_point(vector_multiply(*data->vel, collision_time))));
 }
 
 // t_vector	solve_s_aabbs(struct s_data_pack *data, t_list **collision_list)
@@ -383,16 +381,128 @@ static inline t_vector	corrected_vel(t_vector vel, t_vector normal, double colli
 	return ((t_vector){normal.y * dot_prod, normal.x * dot_prod});
 }
 
+void	free_from_map(t_actor *actor, t_map *map)
+{
+	t_point	tile;
+	t_list	*temp;
+
+	temp = NULL;
+	if (!actor || !map)
+		return ;
+	if (actor->type == Collectable)
+		temp = ft_lstpop_one(actor, &map->collectable_list);
+	else if (actor->type == Enemy)
+		temp = ft_lstpop_one(actor, &map->enemy_list);
+	else if (actor->type == Player)
+		map->player = NULL;
+	else if (actor->type == Exit)
+		map->exit = NULL;
+	if (temp)
+		free(temp);
+	temp = NULL;
+	tile = get_tile(actor->position, map);
+	if (map->tiles && tile.x >= 0 && tile.x < (int) map->width \
+	&& tile.y >= 0 && tile.y < (int) map->height)
+		temp = ft_lstpop_one(actor, &map->tiles[tile.y][tile.x].entity_list);
+	if (temp)
+		free(temp);
+}
+
+void	_actor_free(t_actor *actor, t_map *map, void *mlx)
+{
+	free_from_map(actor, map);
+	if (actor->sprite)
+		img_free(actor->sprite, mlx);
+	free(actor);
+}
+
+t_list	*check_coin_collection(struct s_data_pack *data, t_list *collision_list)
+{
+	t_swept_aabb	*collision;
+
+	collision = collision_list->content;
+	while (collision && collision->target->type == Collectable)
+	{
+		actor_free(collision->target, data->map, data->data->mlx);
+		collision_list = next_and_delete(collision_list, free);
+		collision = collision_list->content;
+	}
+	return (collision_list);
+}
+
+t_list	*player_collisions(struct s_data_pack *data, t_list *collision_list)
+{
+	t_swept_aabb	*collision;
+
+	while (collision_list)
+	{
+		collision = collision_list->content;
+		if ((collision->target->type == Exit && !data->map->collectable_list) \
+		|| collision->target->type == Enemy)
+		{
+			if (collision->target->type == Exit)
+				write(1, WIN_MESSAGE, ft_strlen(WIN_MESSAGE));
+			ft_lstclear(&collision_list, free);
+			actor_free(data->actor, data->map, data->data->mlx);
+			ft_quit(data->data);
+		}
+		else if (collision->target->type == Collectable)
+		{
+			actor_free(collision->target, data->map, data->data->mlx);
+			collision_list = next_and_delete(collision_list, free);
+		}
+		else
+			break ;
+	}
+	return (collision_list);
+}
+
+t_list *check_collision_type(struct s_data_pack *data, t_list *collision_list)
+{
+	t_swept_aabb	*collision;
+	
+	if (data->actor->type != Player)
+	{
+		while (collision_list)
+		{
+			collision = collision_list->content;
+			if (collision->target->type == Player && data->actor->type == Enemy)
+			{
+				ft_lstclear(&collision_list, free);
+				actor_free(data->actor, data->map, data->data->mlx);
+				ft_quit(data->data);
+			}
+			else if (collision->target->type != Collectable)
+				break ;
+			collision_list = next_and_delete(collision_list, free);
+		}
+		return (collision_list);	
+	}
+	return (player_collisions(data, collision_list));
+}
+
+t_vector	get_remaining_velocity(t_vector vel, short normal_mask, double collision_time)
+{
+	short	bit_mask;
+
+	bit_mask = 1;
+	while (bit_mask <= 8)
+	{
+		vel = corrected_vel(vel, get_normal(normal_mask & bit_mask), collision_time);
+		bit_mask <<= 1;
+	}
+	return (vel);
+}
+
 t_vector	solve_s_aabbs(struct s_data_pack *data, t_list **collision_list)
 {
 	t_list		*list;
-	t_vector	vel;
 	short		normal_mask;
-	short		bit_mask;
 	double		col_tim;
 
-	vel = *data->vel;
-	list = sort_collision_list(*collision_list);
+	list = check_collision_type(data, sort_collision_list(*collision_list));
+	if (!list)
+		return (*data->vel);
 	col_tim = ((t_swept_aabb *)list->content)->collision_time;
 	normal_mask = get_mask(((t_swept_aabb *)list->content)->normal);
 	list = next_and_delete(list, free);
@@ -401,15 +511,9 @@ t_vector	solve_s_aabbs(struct s_data_pack *data, t_list **collision_list)
 		normal_mask |= get_mask(((t_swept_aabb *)list->content)->normal);
 		list = next_and_delete(list, free);
 	}
-	bit_mask = 1;
-	data->actor->position = point_add(data->actor->position, vector_to_point((vector_multiply(*data->vel, col_tim))));
-	while (bit_mask <= 8)
-	{
-		vel = corrected_vel(vel, get_normal(normal_mask & bit_mask), col_tim);
-		bit_mask <<= 1;
-	}
+	data->actor->position = update_position(data, col_tim);
 	ft_lstclear(&list, free);
-	return (vel);
+	return (get_remaining_velocity(*data->vel, normal_mask, col_tim));
 }
 
 
@@ -453,28 +557,50 @@ void \
 				return ;
 			update_gba(&gba, &data, i, map);
 			collision_list = check_surrounding_area(i, &data, map);
+			data.last_gba = gba_next(&gba, &i);
+			continue ;
 		}
 		data.last_gba = gba_next(&gba, &i);
 		ft_lstadd_back(&collision_list, check_more_tiles(i, &data, map));
 	}
 }
 
-void	move_and_collide(t_actor *actor, t_vector velocity, t_map *map)
+void	reintroduce_into_map(t_actor *actor, t_map *map, t_point current_tile)
+{
+	t_list *temp;
+
+	temp = ft_lstnew(actor);
+	if (!temp)
+	{
+		actor_free(actor, map, map->data->mlx);
+		ft_quit(map->data);
+	}
+	ft_lstadd_back(&map->tiles[current_tile.y][current_tile.x].entity_list, temp);
+}
+
+void	move_and_collide(t_actor *actor, t_vector velocity, t_map *map, t_data *data)
 {
 	t_point	current_tile;
 	t_point	movemet_target;
 	t_point	target_tile;
 
-	// velocity = vector_add(actor->sub_pixel_pos, velocity);
-	// actor->sub_pixel_pos = (t_vector){0, 0};
+
 	current_tile = get_tile(actor->position, map);
+	if (current_tile.x >= 0 && current_tile.x < (int)map->width && \
+	current_tile.y >= 0 && current_tile.y < (int)map->height)
+		free(ft_lstpop_one(actor, \
+		&map->tiles[current_tile.y][current_tile.x].entity_list));
 	movemet_target = point_add(actor->position, vector_to_point(velocity));
 	target_tile = get_tile(movemet_target, map);
 	check_collisions_gba(line_in_area(current_tile, target_tile, (t_point)\
 	{(int)map->width, (int)map->height}), (struct s_data_pack)\
-	{(t_point){0, 0}, actor, &velocity, (t_point){0, 0}}, map);
+	{(t_point){0, 0}, actor, &velocity, (t_point){0, 0}, map, data}, map);
 	actor->position = point_add(actor->position, vector_to_point(velocity));
 	actor->velocity = velocity;
+	current_tile = get_tile(actor->position, map);
+	if (current_tile.x >= 0 && current_tile.x < (int)map->width && \
+	current_tile.y >= 0 && current_tile.y < (int)map->height)
+		reintroduce_into_map(actor, map, current_tile);
 }
 
 #include "controller.h"
@@ -491,7 +617,7 @@ void	player_controller(t_data *data)
 	if (data->input.space && is_on_ground(data->map->player, data->map))
 		velocity.y = -JUMP;
 	//change system to take entity list, base it on the bres_line_draw
-	move_and_collide(data->map->player, velocity, data->map);
+	move_and_collide(data->map->player, velocity, data->map, data);
 	/*implement update tilemap position*/
 	
 }

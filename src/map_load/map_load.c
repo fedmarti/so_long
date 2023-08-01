@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 18:42:34 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/06/20 15:55:12 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/08/01 20:45:25 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,17 @@ t_map	*map_free(t_map **map)
 {
 	if (!map || !*map)
 		return (NULL);
-	if ((*map)->exit)
-		actor_free(&(*map)->exit);
-	if ((*map)->player)
-		actor_free(&(*map)->player);
+	// if ((*map)->exit)
+		// actor_free((*map)->exit, *map, (*map)->data->mlx);
+	// if ((*map)->player)
+		// actor_free((*map)->player, *map, (*map)->data->mlx);
 	ft_free_matrix((void ***)&(*map)->map, (*map)->height);
 	free_tiles(*map);
-	ft_lstclear(&(*map)->enemy_list, free);
-	ft_lstclear(&(*map)->object_list, free);
-	ft_lstclear(&(*map)->collectable_list, free);
-	ft_lstclear_2(&(*map)->entity_list, enemy_free, (*map)->data);
+	ft_lstclear(&(*map)->enemy_list, NULL);
+	ft_lstclear(&(*map)->object_list, NULL);
+	ft_lstclear(&(*map)->collectable_list, NULL);
+	// ft_lstclear_2(&(*map)->entity_list, NULL, (*map)->data);
+	ft_lstclear(&(*map)->entity_list, NULL);
 	free(*map);
 	*map = NULL;
 	return (NULL);
@@ -44,7 +45,7 @@ t_list	*map_read(char *filepath)
 	t_list	*temp;
 	char	*temp_str;
 
-	fd = open(filepath, 'r');
+	fd = open(filepath, O_RDONLY);
 	if (fd <= 0)
 		return (NULL);
 	head = NULL;

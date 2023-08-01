@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 19:39:51 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/19 20:14:10 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/08/01 20:45:06 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	**ft_read_file(char *path)
 	int		fd;
 	t_list	*list;
 
-	fd = open(path, 'r');
+	fd = open(path, O_RDONLY);
 	if (fd <= 0)
 		return (NULL);
 	list = read_into_list(fd);

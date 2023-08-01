@@ -1,29 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit_init.c                                        :+:      :+:    :+:   */
+/*   ft_lstnext_and_delete.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/22 20:09:24 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/08/01 18:27:56 by fedmarti         ###   ########.fr       */
+/*   Created: 2023/08/01 18:36:33 by fedmarti          #+#    #+#             */
+/*   Updated: 2023/08/01 18:41:00 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "actor_internal.h"
+#include "libft.h"
 
-#include <stdbool.h>
-
-void	*exit_additional(t_point position, char *filepath, \
-						t_actor *main, t_data *data)
+t_list	*ft_lstnext_and_delete(t_list *node, void (*del)(void *))
 {
-	// bool	*open;
+	t_list *temp;
 
-	(void)data;
-	// main->size = point_subtract(main->size, point2(2, 1));
-//	open = ft_calloc(1, sizeof(bool *));
-	(void)position;
-	(void)filepath;
-	(void)main;
-	return (NULL);
+	temp = node->next;
+	if (del)
+		del(node->content);
+	free(node);
+	return (temp);
 }

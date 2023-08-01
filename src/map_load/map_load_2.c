@@ -6,11 +6,29 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 22:04:47 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/28 04:18:18 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/08/01 18:51:17 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../../so_long.h"
 #include "../map/map_struct.h"
+#include "../actor_logic/actor.h"
+#include "../../libft/libft.h"
+
+static inline void	free_tile_list(t_list **entity_list, t_map *map, void *mlx)
+{
+	t_list *node;
+	t_list *next;
+
+	node = *entity_list;
+	while (node)
+	{
+		next = node->next;
+		actor_free(node->content, map, mlx);
+		node = next;
+	}
+	*entity_list = NULL;
+}
 
 void	free_tiles(t_map *map)
 {
@@ -25,7 +43,7 @@ void	free_tiles(t_map *map)
 		j = 0;
 		while (j < (int) map->width)
 		{
-			ft_lstclear(&((matrix)[i][j]).entity_list, ft_do_nothing);
+			free_tile_list(&((matrix)[i][j]).entity_list, map, map->data->mlx);
 			j++;
 		}
 		free((matrix)[i]);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fedmarti <fedmarti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 22:08:09 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/31 01:53:46 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/08/01 18:38:20 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void	*ft_free_matrix(void ***pointer, size_t n_members);
 void	**ft_matrix_init(size_t x_size, size_t y_size, size_t member_size);
 t_list	*ft_lst_swap_next(t_list *node);
 bool	ft_is_in_list(t_list *list, void *content, size_t content_size);
+t_list	*ft_lstpop_one(void *content, t_list **list);
 void	ft_lst_iteri_2(t_list *list, void (*foo)(void *, void *), void *arg);
 void	ft_lstclear_2(t_list **lst, void (*del)(void *, void *), void *arg);
 
@@ -124,6 +125,7 @@ void	ft_lst_insert_when(t_list **list, \
 t_list *new_node, bool (*comparison)(void *, void *));
 size_t	ft_lslen(t_list *lst);
 t_array	ft_lst_to_array(t_list **list, size_t member_size, void (*del)(void *));
+t_list	*ft_lstnext_and_delete(t_list *node, void (*del)(void *));
 void	**ft_lst_to_matrix(t_list *lst);
 char	**ft_read_file(char *path);
 size_t	ft_matrix_size(void **mat);

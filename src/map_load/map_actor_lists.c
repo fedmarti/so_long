@@ -6,13 +6,22 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:49:02 by federico          #+#    #+#             */
-/*   Updated: 2023/05/22 22:53:38 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/08/01 17:13:39 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "map_load_internal.h"
 #include "../../so_long.h" //need to remove after creating actor header
 #include "../actor_logic/actor.h"
+
+static inline void	add_to_global_list(void *content, t_list **list)
+{
+	t_list	*node;
+
+	node = ft_lstnew(content);
+	if (node)
+		ft_lstadd_back(list, node);
+}
 
 int	map_list_append(t_map *map, char tile, t_point position)
 {
@@ -37,7 +46,7 @@ int	map_list_append(t_map *map, char tile, t_point position)
 		return (1);
 	}
 	if (list_head)
-		ft_lstadd_back(list_head, new_node);
+		add_to_global_list(content, list_head);
 	ft_lstadd_back(&map->tiles[position.y][position.x].entity_list, new_node);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 22:22:57 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/10 21:12:03 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/08/01 19:09:30 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ t_data *graphics_init(t_data *data)
 	data->mlx = mlx_init();
 	if (!data->mlx)
 		return (free_data(data));
-	// mlx_do_key_autorepeatoff(data->mlx);
-	data->mlx_window = mlx_new_window(data->mlx, BASE_SCREEN_WIDTH * 4, BASE_SCREEN_HEIGHT * 4, NAME);
+	data->mlx_window = mlx_new_window(data->mlx, BASE_SCREEN_WIDTH * 4, \
+	BASE_SCREEN_HEIGHT * 4, NAME);
 	if (!data->mlx_window)
 		return (free_data(data));
 	data->buffer =

@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 20:03:06 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/19 17:35:27 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/08/01 18:20:05 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@
 #  define EXIT_SPRITES NULL
 # endif
 
-void	actor_free(t_actor	**actor);
+// void	actor_free(t_actor	**actor);
+void	actor_free(t_actor *actor, t_map *map, void *mlx);
 void	*enemy_additional(t_point position, char *filepath, \
 									t_actor *main, t_data *data);
 void	*collectable_additional(t_point	position, char *filepath, \

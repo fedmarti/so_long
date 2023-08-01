@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 23:00:42 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/08/01 06:55:54 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/08/01 17:26:05 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,15 @@
 # endif 
 
 # ifndef JUMP
-#  define JUMP 6
+#  define JUMP 7
 # endif 
 
 # ifndef FRAME_TIME
 #  define FRAME_TIME 16666l
+# endif
+
+# ifndef WIN_MESSAGE
+#  define WIN_MESSAGE "gg well played\n"
 # endif
 
 #endif
