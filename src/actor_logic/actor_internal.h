@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   actor_internal.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fedmarti <fedmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 20:03:06 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/08/01 18:20:05 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/08/01 22:54:48 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,21 +26,21 @@
 // ./media/player/idle_left.xpm 
 // ./media/player/idle_right.xpm"
 
-# ifndef WALL_SPRITES
-#  define WALL_SPRITES NULL
-# endif
+// # ifndef WALL_SPRITES
+// #  define WALL_SPRITES NULL
+// # endif
 
-# ifndef ENEMY_SPRITES
-#  define ENEMY_SPRITES NULL
-# endif
+// # ifndef ENEMY_SPRITES
+// #  define ENEMY_SPRITES NULL
+// # endif
 
-# ifndef COLLECTABLE_SPRITES
-#  define COLLECTABLE_SPRITES NULL
-# endif
+// # ifndef COLLECTABLE_SPRITES
+// #  define COLLECTABLE_SPRITES NULL
+// # endif
 
-# ifndef EXIT_SPRITES
-#  define EXIT_SPRITES NULL
-# endif
+// # ifndef EXIT_SPRITES
+// #  define EXIT_SPRITES NULL
+// # endif
 
 // void	actor_free(t_actor	**actor);
 void	actor_free(t_actor *actor, t_map *map, void *mlx);
@@ -54,6 +54,5 @@ void	*player_additional(t_point position, char *filepath, \
 									t_actor *main, t_data *data);
 void	*exit_additional(t_point position, char *filepath, \
 									t_actor *main, t_data *data);
-
 
 #endif

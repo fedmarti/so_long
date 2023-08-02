@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fedmarti <fedmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 01:00:34 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/05/10 01:12:29 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/08/01 23:01:49 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,6 @@
 # include "input_struct.h"
 
 int	on_key_press(int key_code, void *data);
-int	on_key_release(int	key_code, void *data);
+int	on_key_release(int key_code, void *data);
 
 #endif

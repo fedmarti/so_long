@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_load.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fedmarti <fedmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 18:42:34 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/08/01 20:45:25 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/08/01 23:18:25 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,11 @@ t_map	*map_free(t_map **map)
 {
 	if (!map || !*map)
 		return (NULL);
-	// if ((*map)->exit)
-		// actor_free((*map)->exit, *map, (*map)->data->mlx);
-	// if ((*map)->player)
-		// actor_free((*map)->player, *map, (*map)->data->mlx);
 	ft_free_matrix((void ***)&(*map)->map, (*map)->height);
 	free_tiles(*map);
 	ft_lstclear(&(*map)->enemy_list, NULL);
 	ft_lstclear(&(*map)->object_list, NULL);
 	ft_lstclear(&(*map)->collectable_list, NULL);
-	// ft_lstclear_2(&(*map)->entity_list, NULL, (*map)->data);
 	ft_lstclear(&(*map)->entity_list, NULL);
 	free(*map);
 	*map = NULL;
@@ -104,7 +99,8 @@ t_map	*map_init(t_list *row_list, char *filepath, t_data *data)
 	map->map = ft_calloc(map->height + 1, sizeof(char *));
 	if (!map->map)
 		return (map_free(&map));
-	map->tiles = (t_tile **)ft_matrix_init(map->width, map->height, sizeof(t_tile));
+	map->tiles = (t_tile **)ft_matrix_init(map->width, \
+	map->height, sizeof(t_tile));
 	if (!map->tiles)
 		return (map_free(&map));
 	map = map_fill(map, row_list);

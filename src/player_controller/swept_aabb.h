@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   swept_aabb.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fedmarti <fedmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 19:07:32 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/28 00:53:16 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/08/02 00:48:14 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "../t_point/t_point_structs.h"
 # include "../actor_logic/actor_structs.h"
+# include <stdbool.h>
 
 typedef struct s_swept_aabb
 {

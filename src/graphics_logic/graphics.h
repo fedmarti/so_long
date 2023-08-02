@@ -6,21 +6,20 @@
 /*   By: fedmarti <fedmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 21:52:19 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/25 18:06:56 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/08/01 23:00:53 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GRAPHICS_H
 # define GRAPHICS_H
 
-
 # include "../../minilibx-linux/mlx.h"
 # include "graphics_structs.h"
 # include "../../so_long.h"
 
 void	put_pixel_to_img(t_image *img, int x, int y, int color);
-void \
-	draw_line_gba(t_image *img, t_point start, t_point end, unsigned int color);
+void	draw_line_gba(t_image *img, t_point start, \
+	t_point end, unsigned int color);
 void	render_game(t_data *data);
 t_data	*graphics_init(t_data *data);
 void	img_free(t_image *img, void *mlx);

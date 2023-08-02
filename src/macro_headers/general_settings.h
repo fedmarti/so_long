@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   general_settings.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fedmarti <fedmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 23:00:42 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/08/01 17:26:05 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/08/01 23:02:13 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 # endif
 
 # ifndef DASH_BOOST
-#  define DASH_BOOST PLAYER_SPEED * 1
+#  define DASH_BOOST 140
 # endif
 
 # ifndef GRAVITY
@@ -56,4 +56,3 @@
 # endif
 
 #endif
-

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   actor_init.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fedmarti <fedmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 19:29:58 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/19 17:25:03 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/08/01 22:50:38 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 void	*collectable_additional(t_point	position, char *filepath, \
 								t_actor *main, t_data *data)
 {
-
 	(void)position;
 	(void)filepath;
 	(void)main;

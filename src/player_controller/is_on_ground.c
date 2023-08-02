@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_on_ground.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fedmarti <fedmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/28 00:31:34 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/28 00:38:09 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/08/01 23:32:40 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ bool	is_list_aabb(t_actor *actor, t_rectangle hitbox, t_list *list)
 	while (list)
 	{
 		temp_actor = list->content;
-		if (temp_actor != actor && AABB_rectangles(hitbox, \
+		if (temp_actor != actor && aabb_rectangles(hitbox, \
 		(t_rectangle){temp_actor->position, temp_actor->size}))
 			return (true);
 		list = list->next;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstnext_and_delete.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fedmarti <fedmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 18:36:33 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/08/01 18:41:00 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/08/02 00:30:33 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_list	*ft_lstnext_and_delete(t_list *node, void (*del)(void *))
 {
-	t_list *temp;
+	t_list	*temp;
 
 	temp = node->next;
 	if (del)

@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   point.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fedmarti <fedmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 21:01:38 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/14 23:07:40 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/08/01 23:16:25 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef POINT_H
 # define POINT_H
 # include "t_point_structs.h"
-
 
 //returns 0 if the two points equal each other, 1 if a is greater, else -1
 int			point_cmpr(t_point a, t_point b);
@@ -26,14 +25,14 @@ t_point		*point2_pointer(t_point point2);
 //vector addition but the x and y are only integers
 t_point		point_add(t_point v1, t_point v2);
 //vector subtraction but the x and y are only integers
-t_point	point_subtract(t_point p1, t_point p2);
+t_point		point_subtract(t_point p1, t_point p2);
 // it does what it says it does
 // point.x *= factor
 // point.y *= factor
 t_point		point_multiply(t_point point, double factor);
 // point.x /= divisor
 // point.y /= divisor
-t_point		point_divide(t_point point, int	divisor);
+t_point		point_divide(t_point point, int divisor);
 //returns t_vector with x and y components
 t_vector	vector2(double x, double y);
 //pyhagora's theorem
@@ -59,7 +58,6 @@ t_point		vector_to_point(t_vector v);
 //turns a t_point into a t_vector
 t_vector	point_to_vector(t_point p);
 
-
-void	ft_get_directions(t_point *directions);
+void		ft_get_directions(t_point *directions);
 
 #endif

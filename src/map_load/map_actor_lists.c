@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_actor_lists.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fedmarti <fedmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:49:02 by federico          #+#    #+#             */
-/*   Updated: 2023/08/01 17:13:39 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/08/01 23:18:06 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ int	map_list_append(t_map *map, char tile, t_point position)
 	t_list	**list_head;
 	void	*content;
 
-	//i may need to add support for more types of object/actor
-	//for example interactable blocks/switches
 	list_head = NULL;
 	content = actor_init(position, map->map_path, tile, map->data);
 	if (tile == Enemy)

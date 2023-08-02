@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   time_update.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fedmarti <fedmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 21:03:25 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/18 22:16:42 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/08/01 23:27:21 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 void	time_update(struct s_time *time)
 {
-	
 	if ((!time->last_frame.tv_usec && !time->last_frame.tv_sec) \
 	&& (!time->this_frame.tv_usec && !time->this_frame.tv_sec))
 	{

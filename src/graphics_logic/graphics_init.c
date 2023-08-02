@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   graphics_init.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fedmarti <fedmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 22:22:57 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/08/01 19:09:30 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/08/01 22:58:37 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 #include "../../so_long.h"
 #include "graphics_structs.h"
 
-void *free_data(t_data *data);
-void img_free(t_image *img, void *mlx);
+void	*free_data(t_data *data);
+void	img_free(t_image *img, void *mlx);
 
-static t_image *buffer_init(unsigned int width, unsigned int height, void *mlx)
+static t_image	*buffer_init(unsigned int width, unsigned int height, void *mlx)
 {
-	t_image *buffer;
+	t_image	*buffer;
 
 	buffer = ft_calloc(1, sizeof(*buffer));
 	if (!buffer)
@@ -30,8 +30,8 @@ static t_image *buffer_init(unsigned int width, unsigned int height, void *mlx)
 		free(buffer);
 		return (NULL);
 	}
-	buffer->addr = mlx_get_data_addr(buffer->img, &buffer->bits_per_pixel,
-									 &buffer->line_length, &buffer->endian);
+	buffer->addr = mlx_get_data_addr(buffer->img, &buffer->bits_per_pixel, \
+	&buffer->line_length, &buffer->endian);
 	if (!buffer->addr)
 	{
 		img_free(buffer, mlx);
@@ -41,7 +41,7 @@ static t_image *buffer_init(unsigned int width, unsigned int height, void *mlx)
 	return (buffer);
 }
 
-t_data *graphics_init(t_data *data)
+t_data	*graphics_init(t_data *data)
 {
 	if (!data)
 		return (NULL);
@@ -52,11 +52,11 @@ t_data *graphics_init(t_data *data)
 	BASE_SCREEN_HEIGHT * 4, NAME);
 	if (!data->mlx_window)
 		return (free_data(data));
-	data->buffer =
+	data->buffer = \
 		buffer_init(BASE_SCREEN_WIDTH * 4, BASE_SCREEN_HEIGHT * 4, data->mlx);
 	if (!data->buffer)
 		return (free_data(data));
-	data->pre_buffer =
+	data->pre_buffer = \
 		buffer_init(BASE_SCREEN_WIDTH, BASE_SCREEN_HEIGHT, data->mlx);
 	if (!data->pre_buffer)
 		return (free_data(data));

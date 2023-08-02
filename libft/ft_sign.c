@@ -6,16 +6,16 @@
 /*   By: fedmarti <fedmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 23:38:35 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/31 01:10:27 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/08/02 00:30:45 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_sign(int	n)
+int	ft_sign(int n)
 {
 	return ((n > 0) - (n < 0));
 }
 
-double ft_sign_d(double n)
+double	ft_sign_d(double n)
 {
 	return ((n > 0.0) - (n < 0.0));
 }

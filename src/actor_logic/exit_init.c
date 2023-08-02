@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_init.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fedmarti <fedmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 20:09:24 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/08/01 18:27:56 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/08/01 22:52:24 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,7 @@
 void	*exit_additional(t_point position, char *filepath, \
 						t_actor *main, t_data *data)
 {
-	// bool	*open;
-
 	(void)data;
-	// main->size = point_subtract(main->size, point2(2, 1));
-//	open = ft_calloc(1, sizeof(bool *));
 	(void)position;
 	(void)filepath;
 	(void)main;

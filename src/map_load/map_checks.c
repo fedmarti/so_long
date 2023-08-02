@@ -3,52 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   map_checks.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fedmarti <fedmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 22:25:49 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/08/01 19:14:45 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/08/01 23:21:09 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "map_load_internal.h"
 #include "../t_point/point.h"
 #include "../../so_long.h" //also gotta remove
-
-//for the type of objects that need to be unique (player, exit...)
-//returns 1 if they have already been found
-//returns 0 and adds their address to the map struct if not
-int	check_uniqueness(t_map *map, char tile, t_point point)
-{
-	t_actor	**actor;
-
-	if (tile == Player)
-		actor = &map->player;
-	else
-		actor = &map->exit;
-	if (*actor)
-		return (1);
-	*actor = map->tiles[point.y][point.x].entity_list->content;
-	return (0);
-}
-
-bool	is_in_map(t_point tile, t_point map_size);
-
-int	check_tile(t_map *map, char tile, t_point point)
-{
-	if (is_in_map(point, point2(map->width, map->height)))
-		map->tiles[point.y][point.x].coordinates = point;
-	if (tile != Empty && tile != Void)
-	{
-		if (map_list_append(map, tile, point))
-			return (1);
-	}
-	if (tile == Player || tile == Exit)
-	{
-		if (check_uniqueness(map, tile, point))
-			return (1);
-	}
-	return (0);
-}
 
 static bool	flood_fill(char **map, t_point	position)
 {
@@ -133,7 +97,8 @@ bool	valid_map_check(t_map *map)
 	temp_map = map_dup(map->map, map->height);
 	if (!temp_map)
 		return (false);
-	check = flood_fill(temp_map, point_divide(map->player->position, TILE_SIZE));
+	check = flood_fill(temp_map, point_divide(map->player->position, \
+	TILE_SIZE));
 	if (!check)
 	{
 		ft_free_matrix((void ***)&temp_map, map->height);

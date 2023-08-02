@@ -1,23 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lock_framerate.c                                   :+:      :+:    :+:   */
+/*   blend_img_util.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fedmarti <fedmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/18 21:39:54 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/08/01 23:27:32 by fedmarti         ###   ########.fr       */
+/*   Created: 2023/08/02 00:37:11 by fedmarti          #+#    #+#             */
+/*   Updated: 2023/08/02 00:43:40 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_time.h"
-#include "../macro_headers/general_settings.h"
+#ifndef BLEND_IMG_UTIL_H
+# define BLEND_IMG_UTIL_H
 
-void	lock_framerate(struct timeval last_frame)
+# include "graphics_structs.h"
+# include "../t_point/point.h"
+
+typedef struct s_pack
 {
-	struct timeval	time;
+	t_point	*i;
+	t_point	*offset;
+	t_image	*src;
+	t_image	*dst;
+	t_point	*position; 
+	char	**dst_pixl;
+}	t_p;
 
-	gettimeofday(&time, (void *)0);
-	while (timeval_to_usec(time_subtract(time, last_frame)) < FRAME_TIME)
-		gettimeofday(&time, (void *)0);
-}
+char	*vars_init(t_p data);
+
+#endif

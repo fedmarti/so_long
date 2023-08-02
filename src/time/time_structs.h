@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   time_structs.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fedmarti <fedmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 20:50:26 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/23 19:36:17 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/08/01 23:27:54 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,5 @@ struct s_time{
 	struct timeval	last_frame;
 	struct timeval	this_frame;
 };
-
 
 #endif

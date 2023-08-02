@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_load_2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fedmarti <fedmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 22:04:47 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/08/01 18:51:17 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/08/01 23:17:58 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 
 static inline void	free_tile_list(t_list **entity_list, t_map *map, void *mlx)
 {
-	t_list *node;
-	t_list *next;
+	t_list	*node;
+	t_list	*next;
 
 	node = *entity_list;
 	while (node)

@@ -3,17 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_quit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fedmarti <fedmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 00:51:36 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/10 21:07:20 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/08/01 23:17:09 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../so_long.h"
 #include "../graphics_logic/graphics.h"
-
-
 
 void	free_all(t_data *data)
 {

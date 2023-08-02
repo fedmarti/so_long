@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_time.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fedmarti <fedmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 21:01:13 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/18 22:19:35 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/08/01 23:28:24 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_TIME_H
 # define FT_TIME_H
 
-#include "time_structs.h"
+# include "time_structs.h"
 
 void			time_update(struct s_time *time);
 struct timeval	time_recalibrate(struct timeval tv);

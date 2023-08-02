@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   actor_logic.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fedmarti <fedmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 04:23:38 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/08/01 18:24:54 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/08/01 22:51:02 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "actor_structs.h"
 #include "../graphics_logic/graphics.h"

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   t_vector.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fedmarti <fedmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 02:20:24 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/05/25 23:55:07 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/08/01 23:15:35 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_vector	vector_add(t_vector v1, t_vector v2)
 }
 
 t_vector	vector_multiply(t_vector vector, double factor)
-{	
+{
 	vector.x *= factor;
 	vector.y *= factor;
 	return (vector);
@@ -48,7 +48,7 @@ t_point	vector_to_point(t_vector v)
 
 t_vector	point_to_vector(t_point p)
 {
-	t_vector vector;
+	t_vector	vector;
 
 	vector.x = (double)p.x;
 	vector.y = (double)p.y;

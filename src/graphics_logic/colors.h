@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   colors.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fedmarti <fedmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 19:19:39 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/05/19 01:53:46 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/08/01 22:58:00 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,7 @@ unsigned int	get_transparency(unsigned int color);
 unsigned int	get_red(unsigned int color);
 unsigned int	get_green(unsigned int color);
 unsigned int	get_blue(unsigned int color);
-
-
 unsigned int	multiply_colors(unsigned int c1, unsigned int c2, \
 unsigned int (*get_color)(unsigned int));
-
-
 
 #endif

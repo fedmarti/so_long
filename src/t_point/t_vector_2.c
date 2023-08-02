@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   t_vector_2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fedmarti <fedmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 02:36:28 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/05/25 23:49:32 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/08/01 23:16:08 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ double	vector_len(t_vector vector)
 }
 
 t_vector	vector_divide(t_vector vector, double divisor)
-{	
+{
 	vector.x /= divisor;
 	vector.y /= divisor;
 	return (vector);

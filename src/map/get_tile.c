@@ -6,13 +6,12 @@
 /*   By: fedmarti <fedmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/28 00:34:05 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/30 04:53:06 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/08/01 23:14:55 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "map_struct.h"
 #include "../macro_headers/general_settings.h"
-
 
 //returns map coordinates from global coordinates
 t_point	get_tile(t_point global_position)

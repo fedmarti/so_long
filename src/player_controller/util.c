@@ -1,23 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lock_framerate.c                                   :+:      :+:    :+:   */
+/*   util.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fedmarti <fedmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/18 21:39:54 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/08/01 23:27:32 by fedmarti         ###   ########.fr       */
+/*   Created: 2023/08/02 00:21:23 by fedmarti          #+#    #+#             */
+/*   Updated: 2023/08/02 00:22:19 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_time.h"
-#include "../macro_headers/general_settings.h"
+#include "swept_aabb.h"
+#include "../../libft/libft.h"
 
-void	lock_framerate(struct timeval last_frame)
+bool	is_closer(t_list *node)
 {
-	struct timeval	time;
-
-	gettimeofday(&time, (void *)0);
-	while (timeval_to_usec(time_subtract(time, last_frame)) < FRAME_TIME)
-		gettimeofday(&time, (void *)0);
+	return (((t_swept_aabb *)node->content)->collision_time \
+	> (((t_swept_aabb *)node->next->content)->collision_time));
 }

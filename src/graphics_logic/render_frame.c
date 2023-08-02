@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_frame.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fedmarti <fedmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 01:34:53 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/06/14 17:05:38 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/08/01 23:01:29 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 static t_image	*render_ui(t_data *data)
 {
-	//work_in_progess
 	return (data->pre_buffer);
 }
 

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   swept_aabb.c                                       :+:      :+:    :+:   */
+/*   swept_aabb_.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fedmarti <fedmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 17:49:59 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/08/01 06:39:10 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/08/02 01:08:25 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,30 +39,36 @@ t_vector vel, t_actor *target)
 	return ((t_entry_exit){inv_entry, inv_exit});
 }
 
+static inline void	get_x_vals(double *entryx, double *exitx, \
+t_vector entry_ex, double velx)
+{
+	if (!velx)
+	{
+		if (entry_ex.x < entry_ex.y)
+		{
+			*entryx = -DBL_MAX;
+			*exitx = DBL_MAX;
+		}
+		else
+		{
+			*entryx = DBL_MAX;
+			*exitx = -DBL_MAX;
+		}
+	}
+	else
+	{
+		*entryx = entry_ex.x / velx;
+		*exitx = entry_ex.y / velx;
+	}
+}
+
 static t_entry_exit	get_entry_exit(t_vector inv_entry, \
 t_vector inv_exit, t_vector vel)
 {
 	t_vector	entry;
 	t_vector	exit;
 
-	if (!vel.x)
-	{
-		if (inv_entry.x < inv_exit.x)
-		{
-			entry.x = -DBL_MAX;
-			exit.x = DBL_MAX;
-		}
-		else
-		{
-			entry.x = DBL_MAX;
-			exit.x = -DBL_MAX;
-		}
-	}
-	else
-	{
-		entry.x = inv_entry.x / vel.x;
-		exit.x = inv_exit.x / vel.x;
-	}
+	get_x_vals(&entry.x, &exit.x, (t_vector){inv_entry.x, inv_exit.x}, vel.x);
 	if (!vel.y)
 	{
 		if (inv_entry.y < inv_exit.y)
@@ -102,7 +108,6 @@ t_swept_aabb	swept_aabb(t_actor *actor, t_vector vel, t_actor *target)
 	regular = get_entry_exit(inv.entry, inv.exit, vel);
 	entry_time = ft_max_d(regular.entry.x, regular.entry.y);
 	exit_time = ft_min_d(regular.exit.x, regular.exit.y);
-	// if (entry_time > exit_time || ((regular.entry.x < 0.0 || regular.entry.x > 1.0) || (regular.entry.y  < 0.0 || regular.entry.y > 1.0)))
 	if (entry_time > exit_time || (regular.entry.x < 0 && regular.entry.y < 0) \
 	|| regular.entry.x > 1 || regular.entry.y > 1)
 		return (s_aabb);

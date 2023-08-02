@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_actors.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fedmarti <fedmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 00:16:24 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/19 17:25:03 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/08/01 23:22:30 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,11 @@ t_list	*get_actor_list(t_map *map, t_point pos, t_point area_size)
 	return (actor_list);
 }
 
-void	render_enemy(t_actor *enemy, t_data *data)
-{
-	(void)enemy;
-	(void)data;
-}
+// void	render_enemy(t_actor *enemy, t_data *data)
+// {
+// 	(void)enemy;
+// 	(void)data;
+// }
 
 void	render_void(t_actor *enemy, t_data *data)
 {
@@ -58,10 +58,9 @@ void	(*get_rendering_function(char type))
 (t_actor *, t_data *)
 {
 	if (type == Enemy)
-		return (&render_enemy);
+		return (NULL);
 	else
 		return (&render_void);
-	//inCumplete
 }
 
 void	render_actor(void *a, void *d)
@@ -73,7 +72,6 @@ void	render_actor(void *a, void *d)
 	data = (t_data *)d;
 	blend_images(actor->sprite, data->pre_buffer, actor->position, overlay);
 }
-
 
 t_image	*render_actors(t_data *data)
 {

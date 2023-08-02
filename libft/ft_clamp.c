@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_clamp.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fedmarti <fedmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 21:08:51 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/06/20 15:27:05 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/08/02 00:30:55 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@
 //does not perform checks on the input and will break with min > max
 int	ft_clamp(int num, int min, int max)
 {
-	return (num * (num >= min && num <= max) + min * (num < min) + max * (num > max));
+	return (num * (num >= min && num <= max) + min \
+	* (num < min) + max * (num > max));
 }
 
 //clamps the number regardless of sign
