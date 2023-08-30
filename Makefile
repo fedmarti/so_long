@@ -15,9 +15,16 @@ SRC = src/t_point/t_point.c \
 	src/map_load/map_load_2.c \
 	src/map_load/map_checks.c \
 	src/map_load/map_checks_2.c \
+	src/map_load/map_checks_3.c \
 	src/map_load/map_actor_lists.c \
 	src/player_controller/player_controller.c \
+	src/player_controller/check_collisions_gba.c \
+	src/player_controller/collision_types.c \
+	src/player_controller/check_surrounding_area.c \
+	src/player_controller/get_s_aabbs.c \
+	src/player_controller/solve_s_aabbs.c \
 	src/player_controller/swept_aabb.c \
+	src/player_controller/util.c \
 	src/player_controller/is_on_ground.c \
 	src/main/so_long.c \
 	src/main/ft_quit.c \
@@ -32,6 +39,7 @@ SRC = src/t_point/t_point.c \
 	src/graphics_logic/get_color_channel.c \
 	src/graphics_logic/blending_options.c \
 	src/graphics_logic/blend_images.c \
+	src/graphics_logic/blend_img_util.c \
 	src/graphics_logic/upscale.c \
 	src/graphics_logic/image_init.c \
 	src/graphics_logic/render_actors.c \

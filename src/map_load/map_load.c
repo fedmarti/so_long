@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_load.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fedmarti <fedmarti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 18:42:34 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/08/01 23:18:25 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/08/30 17:36:27 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,10 @@ t_map	*map_fill(t_map *map, t_list *row_list)
 		while (x < map->width)
 		{
 			if (check_tile(map, map->map[y][x], point2(x, y)))
-				return (NULL);
+			{
+				ft_lstclear(&row_list->next, free);
+				return (map_free(&map));
+			}
 			x++;
 		}
 		if (x > 0 && map->map[y][x] == '\n')
