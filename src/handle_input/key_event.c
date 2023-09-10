@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_event.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fedmarti <fedmarti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 01:40:17 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/08/01 23:01:54 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/09/10 19:23:13 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ static void	key_event(int key_code, t_input *input, bool press)
 
 int	on_key_press(int key_code, void *data)
 {
+	if (key_code == ESC_KEY || key_code == Q_KEY)
+		ft_quit(data);
 	key_event(key_code, &(((t_data *)data)->input), true);
 	return (1);
 }
