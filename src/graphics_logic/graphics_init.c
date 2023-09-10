@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   graphics_init.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fedmarti <fedmarti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 22:22:57 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/08/01 22:58:37 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/09/08 21:15:45 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 
 void	*free_data(t_data *data);
 void	img_free(t_image *img, void *mlx);
+void	*counter_init(void *mlx);
 
 static t_image	*buffer_init(unsigned int width, unsigned int height, void *mlx)
 {
@@ -59,6 +60,9 @@ t_data	*graphics_init(t_data *data)
 	data->pre_buffer = \
 		buffer_init(BASE_SCREEN_WIDTH, BASE_SCREEN_HEIGHT, data->mlx);
 	if (!data->pre_buffer)
+		return (free_data(data));
+	data->counter = counter_init(data->mlx);
+	if (!data->counter)
 		return (free_data(data));
 	return (data);
 }

@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 17:14:56 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/18 20:59:56 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/09/08 20:48:58 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct s_data
 	t_input				input;
 	enum e_game_state	state;
 	struct s_time		time;
+	void				*counter;
 	//possibly more data
 }	t_data;
 

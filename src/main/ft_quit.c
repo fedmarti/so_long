@@ -3,15 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_quit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fedmarti <fedmarti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 00:51:36 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/08/01 23:17:09 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/09/10 15:31:27 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../so_long.h"
 #include "../graphics_logic/graphics.h"
+
+void	*counter_free(void **counter, void *mlx);
 
 void	free_all(t_data *data)
 {
@@ -27,6 +29,8 @@ void	free_all(t_data *data)
 		mlx_destroy_window(data->mlx, data->mlx_window);
 	if (data->mlx)
 	{
+		if (data->counter)
+			counter_free(&data->counter, data->mlx);
 		mlx_destroy_display(data->mlx);
 		free(data->mlx);
 	}

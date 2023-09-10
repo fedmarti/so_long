@@ -6,7 +6,7 @@
 /*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 15:48:45 by federico          #+#    #+#             */
-/*   Updated: 2023/08/01 20:49:08 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/09/08 21:08:13 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include "../graphics_logic/graphics.h"
 
 void	setup_hooks(t_data *data);
+void	*counter_free(void **counter, void *mlx);
 
 void	*free_data(t_data *data)
 {
@@ -23,6 +24,8 @@ void	*free_data(t_data *data)
 		map_free(&data->map);
 	if (data->mlx)
 	{
+		if (data->counter)
+			counter_free(&data->counter, data->mlx);
 		if (data->mlx_window)
 			mlx_destroy_window(data->mlx, data->mlx_window);
 		mlx_destroy_display(data->mlx);

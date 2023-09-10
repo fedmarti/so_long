@@ -3,15 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   ft_process.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fedmarti <fedmarti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 01:13:50 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/08/01 23:17:35 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/09/10 18:09:01 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#define _XOPEN_SOURCE 500
-#define _DEFAULT_SOURCE
 #include "../../so_long.h"
 #include "../graphics_logic/graphics.h"
 #include "../player_controller/controller.h"

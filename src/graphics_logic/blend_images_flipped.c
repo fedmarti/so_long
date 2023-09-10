@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   blend_images_flipped.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fedmarti <fedmarti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 21:39:31 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/08/01 23:25:46 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/09/10 18:16:36 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_image *src, t_image *dest)
 	*data.src_pixel = src->addr + (data.overflow_offset->y + 1) * \
 	src->line_length - sizeof(unsigned int);
 	*data.dest_pixel = dest->addr + (data.position->y * dest->line_length \
-	+ data.position->x * (dest->bits_per_pixel >> 3)); 
+	+ data.position->x * (dest->bits_per_pixel >> 3));
 }
 
 void	blend_images_flipped_x(t_image *src, t_image *dest, t_point position, \

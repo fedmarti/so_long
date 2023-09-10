@@ -46,6 +46,8 @@ SRC = src/t_point/t_point.c \
 	src/graphics_logic/blend_img_fraction.c \
 	src/graphics_logic/blend_images_flipped.c \
 	src/graphics_logic/sprite_array_free.c \
+	src/graphics_logic/img_fraction_utils.c \
+	src/graphics_logic/blend_img_fraction_util.c \
 	src/actor_logic/actor_init.c \
 	src/actor_logic/actor_logic.c  \
 	src/actor_logic/enemy_init.c \
@@ -68,7 +70,8 @@ SRC = src/t_point/t_point.c \
 	src/animation_logic/render_animation.c \
 	src/animation_logic/animation_play.c \
 	src/animation_logic/animation_free.c \
-	src/map/get_tile.c
+	src/map/get_tile.c \
+	src/counter/counter.c
 
 
 OBJS = $(SRC:.c=.o)

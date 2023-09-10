@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   load_spritesheet.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fedmarti <fedmarti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 16:14:11 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/07/25 19:44:36 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/09/08 23:23:46 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,21 +159,6 @@ void	sprite_array_init(t_array *sprites, t_list *sprite_list)
 	}
 }
 
-t_img_fraction	get_img_fraction(t_image *big, t_image *small, t_point position)
-{
-	t_img_fraction	fraction;
-
-	fraction.addr = big->addr + \
-	(position.y * big->line_length + position.x * (big->bits_per_pixel >> 3));
-	fraction.bits_per_pixel = big->bits_per_pixel;
-	fraction.endian = big->endian;
-	fraction.line_length = big->line_length;
-	fraction.offset = small->offset;
-	fraction.size = small->size;
-	fraction.whole_image_size = big->size;
-	return (fraction);
-}
-
 void	print_now(t_image	*img, t_point	pos);
 
 void	copy_into_spritesheet(t_image *spritesheet, t_image *sprite, t_point position)
@@ -188,6 +173,7 @@ t_image \
 	t_image	*spritesheet;
 	t_point	size;
 	t_point	position;
+	t_image	*temp;
 	size_t	i;
 
 	size = get_spritesheet_size(sprite_list);
@@ -201,10 +187,10 @@ t_image \
 	i = 0;
 	while (sprite_list)
 	{
-		// print_now(sprite_list->content, position);
 		copy_into_spritesheet(spritesheet, sprite_list->content, position);
+		temp = sprite_list->content;
 		((t_img_fraction *)sprites->arr)[i] = \
-		get_img_fraction(spritesheet, sprite_list->content, position);
+		get_img_fraction(spritesheet, temp->size, temp->offset, position);
 		position.y += ((t_image *)sprite_list->content)->size.y;
 		sprite_list = sprite_list->next;
 		i++;

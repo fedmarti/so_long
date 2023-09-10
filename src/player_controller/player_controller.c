@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_controller.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fedmarti <fedmarti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 02:03:55 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/08/02 00:29:54 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/09/10 19:06:00 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ t_list *collision_list);
 t_vector	solve_s_aabbs(struct s_data_pack *data, t_list **collision_list);
 void		check_collisions_gba(t_line mov, struct s_data_pack \
 data, t_map *map);
+void		counter_add(double distance, void *counter);
 
 t_vector	get_player_direction(t_input input)
 {
@@ -82,7 +83,9 @@ void	player_controller(t_data *data)
 {
 	t_vector	direction;
 	t_vector	velocity;
+	t_point		previous_pos;
 
+	previous_pos = data->map->player->position;
 	direction = get_player_direction(data->input);
 	velocity = vector_multiply(direction, (PLAYER_SPEED + (DASH_BOOST \
 	* data->input.shift_left)));
@@ -91,4 +94,7 @@ void	player_controller(t_data *data)
 	if (data->input.space && is_on_ground(data->map->player, data->map))
 		velocity.y = -JUMP;
 	move_and_collide(data->map->player, velocity, data->map, data);
+	if (point_cmpr(data->map->player->position, previous_pos))
+		counter_add(point_len(point_subtract(data->map->player->position, \
+		previous_pos)), data->counter);
 }

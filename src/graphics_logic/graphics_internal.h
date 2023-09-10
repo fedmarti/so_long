@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   graphics_internal.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fedmarti <fedmarti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fedmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 01:08:09 by fedmarti          #+#    #+#             */
-/*   Updated: 2023/08/01 22:59:31 by fedmarti         ###   ########.fr       */
+/*   Updated: 2023/09/08 23:46:09 by fedmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,10 @@
 
 # include "graphics_structs.h"
 
+unsigned int	t_multiply(unsigned int dest_color, unsigned int src_color);
 unsigned int	multiply(unsigned int dest_color, unsigned int src_color);
 unsigned int	overlay(unsigned int dest_color, unsigned int src_color);
+unsigned int	t_overlay(unsigned int dest_color, unsigned int src_color);
 unsigned int	inverse(unsigned int dest_color, unsigned int src_color);
 void			blend_images(t_image *src, t_image *dst, t_point position, \
 				unsigned int (*blend_mode)(unsigned int, unsigned int));
